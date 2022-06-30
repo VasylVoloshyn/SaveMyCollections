@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCollection.Data;
 
@@ -10,9 +11,10 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    partial class MyCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20220630064501_Grade_Note")]
+    partial class Grade_Note
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

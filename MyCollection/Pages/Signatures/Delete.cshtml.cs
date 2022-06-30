@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using MyCollection.Data;
+using MyCollection.Models;
+
+namespace MyCollection.Pages.Signatures
+{
+    public class DeleteModel : PageModel
+    {
+        private readonly MyCollection.Data.MyCollectionContext _context;
+
+        public DeleteModel(MyCollection.Data.MyCollectionContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+      public Signature Signature { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null || _context.Signatures == null)
+            {
+                return NotFound();
+            }
+
+            var signature = await _context.Signatures.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (signature == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                Signature = signature;
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null || _context.Signatures == null)
+            {
+                return NotFound();
+            }
+            var signature = await _context.Signatures.FindAsync(id);
+
+            if (signature != null)
+            {
+                Signature = signature;
+                _context.Signatures.Remove(Signature);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
+        }
+    }
+}
