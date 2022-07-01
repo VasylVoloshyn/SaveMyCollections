@@ -1,19 +1,28 @@
-﻿namespace MyCollection.Models
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace MyCollection.Models
 {
     public class Bone
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; } = null;
-        public int Value { get; set; }
-        public int Year { get; set; }
-        public int SignatureId { get; set; }
-        public Signature Signature { get; set; } = null;
-        public int CountryId { get; set; }
-        public Country Country { get; set; } = null;
-        public int ImageId { get; set; }
-        public Image Image { get; set; } = null;
-        public int GradeId { get; set; }
-        public Grade Grade { get; set; } = null;
-        public double Price { get; set; }
+        [Required]
+        public int CurrencyId { get; set; }
+        [ValidateNever]
+        public Currency Currency { get; set; } = null!;
+        [Required]
+        public int Nominal { get; set; }
+        public int? Year { get; set; }
+        public int? SignatureId { get; set; }
+        [ValidateNever]
+        public virtual Signature Signature { get; set; } = null!;
+        public int GradeID { get; set; }
+        [ValidateNever]
+        public virtual Grade Grade { get; set; } = null!;
+        public double? Price { get; set; } = null!;
+        public string? Note { get; set; } = null!;
+        public ICollection<BoneImage> BoneImages { get; set; } = null!;
     }
 }

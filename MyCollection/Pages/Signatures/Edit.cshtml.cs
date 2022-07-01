@@ -36,6 +36,7 @@ namespace MyCollection.Pages.Signatures
                 return NotFound();
             }
             Signature = signature;
+           ViewData["PersonId"] = new SelectList(_context.Person, "Id", "FamilyName");
             return Page();
         }
 

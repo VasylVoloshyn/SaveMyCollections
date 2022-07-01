@@ -1,8 +1,16 @@
-﻿namespace MyCollection.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace MyCollection.Models
 {
     public class Signature
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; } = null;
+        [Required]
+        public int PersonId { get; set; }
+        [ValidateNever]
+        public Person Person { get; set; } = null!;
+        public string? Note { get; set; } = null!;
     }
 }

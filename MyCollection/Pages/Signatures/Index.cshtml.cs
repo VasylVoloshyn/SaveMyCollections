@@ -25,7 +25,8 @@ namespace MyCollection.Pages.Signatures
         {
             if (_context.Signatures != null)
             {
-                Signature = await _context.Signatures.ToListAsync();
+                Signature = await _context.Signatures
+                .Include(s => s.Person).ToListAsync();
             }
         }
     }

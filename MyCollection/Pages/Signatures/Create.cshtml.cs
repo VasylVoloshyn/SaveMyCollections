@@ -21,6 +21,7 @@ namespace MyCollection.Pages.Signatures
 
         public IActionResult OnGet()
         {
+        ViewData["PersonId"] = new SelectList(_context.Person, "Id", "FamilyName");
             return Page();
         }
 
