@@ -2,7 +2,7 @@
 
 namespace MyCollection.Models
 {
-    public class BoneImage
+    public class BonePhoto
     {
         [Key]
         public int Id { get; set; }
@@ -10,7 +10,7 @@ namespace MyCollection.Models
         public int BoneId { get; set; }
         public Bone Bone { get; set; } = null!;
         [Required]
-        public int ImageId { get; set; }
-        public Image Image { get; set; } = null!;
+        public int PhotoId { get; set; }
+        public Photo Photo { get; set; } = null!;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCollection.Data;
 
@@ -11,9 +12,10 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    partial class MyCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20220702123046_RenameImage")]
+    partial class RenameImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,10 +61,10 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("SignatureId");
 
-                    b.ToTable("Bones", (string)null);
+                    b.ToTable("Bones");
                 });
 
-            modelBuilder.Entity("MyCollection.Models.BonePhoto", b =>
+            modelBuilder.Entity("MyCollection.Models.BoneImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,16 +75,16 @@ namespace MyCollection.Migrations
                     b.Property<int>("BoneId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PhotoId")
+                    b.Property<int>("ImageId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BoneId");
 
-                    b.HasIndex("PhotoId");
+                    b.HasIndex("ImageId");
 
-                    b.ToTable("BonePhoto", (string)null);
+                    b.ToTable("BoneImage");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Country", b =>
@@ -103,7 +105,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Currency", b =>
@@ -129,7 +131,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Currency", (string)null);
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Grade", b =>
@@ -153,7 +155,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Person", b =>
@@ -177,7 +179,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Person", (string)null);
+                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Photo", b =>
@@ -209,7 +211,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Signature", b =>
@@ -230,7 +232,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Signatures", (string)null);
+                    b.ToTable("Signatures");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Bone", b =>
@@ -258,23 +260,23 @@ namespace MyCollection.Migrations
                     b.Navigation("Signature");
                 });
 
-            modelBuilder.Entity("MyCollection.Models.BonePhoto", b =>
+            modelBuilder.Entity("MyCollection.Models.BoneImage", b =>
                 {
                     b.HasOne("MyCollection.Models.Bone", "Bone")
-                        .WithMany("BonePhotos")
+                        .WithMany("BoneImages")
                         .HasForeignKey("BoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCollection.Models.Photo", "Photo")
+                    b.HasOne("MyCollection.Models.Photo", "Image")
                         .WithMany()
-                        .HasForeignKey("PhotoId")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Bone");
 
-                    b.Navigation("Photo");
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Currency", b =>
@@ -301,7 +303,7 @@ namespace MyCollection.Migrations
 
             modelBuilder.Entity("MyCollection.Models.Bone", b =>
                 {
-                    b.Navigation("BonePhotos");
+                    b.Navigation("BoneImages");
                 });
 #pragma warning restore 612, 618
         }

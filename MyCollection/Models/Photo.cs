@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
-    public class Image
+    public class Photo
     {
         [Key]
         public int Id { get; set; }

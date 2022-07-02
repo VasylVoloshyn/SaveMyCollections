@@ -1,0 +1,130 @@
+﻿@page
+@model MyCollection.Pages.Bones.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bones Collection</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by currency:
+            <select name="SearchString" class ="form-control" asp-items="ViewBag.CurrencyId">
+                <option value="">-- Select Currency --</option>
+            </select>
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+           
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CurrencySort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Bone[0].Currency)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NominalSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Bone[0].Nominal)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.YearSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Bone[0].Year)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bone[0].Signature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bone[0].Grade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bone[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bone[0].Note)
+            </th>
+            <th>
+                @Html.DisplayName("Avers")
+            </th>
+            <th>
+                @Html.DisplayName("Revers")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Bone)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nominal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Signature.Person.FamilyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <img src=@item.BonePhotos.FirstOrDefault()?.Photo.PreviewImageUrl>
+                </td>
+                <td>
+                    <img src=@item.BonePhotos.LastOrDefault()?.Photo.PreviewImageUrl>
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.Bone.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Bone.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Bone.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Bone.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

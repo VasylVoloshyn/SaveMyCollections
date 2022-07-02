@@ -23,6 +23,7 @@ namespace MyCollection.Models
         public virtual Grade Grade { get; set; } = null!;
         public double? Price { get; set; } = null!;
         public string? Note { get; set; } = null!;
-        public ICollection<BoneImage> BoneImages { get; set; } = null!;
+        [ValidateNever]
+        public ICollection<BonePhoto> BonePhotos { get; set; } = null!;
     }
 }

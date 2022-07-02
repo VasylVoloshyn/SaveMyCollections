@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCollection.Data;
 
@@ -11,9 +12,10 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    partial class MyCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20220702123443_RenameBoneImage")]
+    partial class RenameBoneImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("SignatureId");
 
-                    b.ToTable("Bones", (string)null);
+                    b.ToTable("Bones");
                 });
 
             modelBuilder.Entity("MyCollection.Models.BonePhoto", b =>
@@ -82,7 +84,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("PhotoId");
 
-                    b.ToTable("BonePhoto", (string)null);
+                    b.ToTable("BonePhoto");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Country", b =>
@@ -103,7 +105,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Currency", b =>
@@ -129,7 +131,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Currency", (string)null);
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Grade", b =>
@@ -153,7 +155,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Person", b =>
@@ -177,7 +179,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Person", (string)null);
+                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Photo", b =>
@@ -209,7 +211,7 @@ namespace MyCollection.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Signature", b =>
@@ -230,7 +232,7 @@ namespace MyCollection.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Signatures", (string)null);
+                    b.ToTable("Signatures");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Bone", b =>

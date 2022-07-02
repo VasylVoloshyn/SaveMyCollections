@@ -7,7 +7,7 @@ namespace MyCollection.Data
     public class MyCollectionContext : DbContext
     {
         public DbSet<Signature> Signatures { get; set; } = null!;
-        public DbSet<Image> Images { get; set; } = null!;
+        public DbSet<Photo> Images { get; set; } = null!;
         public DbSet<Grade> Grades { get; set; } = null!;
         public DbSet<Country> Countries { get; set; } = null!;
         public DbSet<Bone> Bones { get; set; } = null!;
@@ -15,6 +15,8 @@ namespace MyCollection.Data
         public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }
 
         public DbSet<MyCollection.Models.Person>? Person { get; set; }
+
+        public DbSet<MyCollection.Models.Currency>? Currency { get; set; }
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
@@ -12,5 +13,9 @@ namespace MyCollection.Models
         [ValidateNever]
         public Person Person { get; set; } = null!;
         public string? Note { get; set; } = null!;
+
+        [NotMapped]
+        public string PersonName { get; set; }= null!;
+
     }
 }
