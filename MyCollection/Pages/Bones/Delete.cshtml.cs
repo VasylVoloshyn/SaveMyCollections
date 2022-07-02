@@ -48,12 +48,21 @@ namespace MyCollection.Pages.Bones
             {
                 return NotFound();
             }
-            var bone = await _context.Bones.FindAsync(id);
+            var bone =  await _context.Bones
+                .Include(m => m.BonePhotos)
+                .ThenInclude(m => m.Photo).FirstOrDefaultAsync(i=>i.Id==id);
+
 
             if (bone != null)
             {
                 Bone = bone;
                 _context.Bones.Remove(Bone);
+                var photos = Bone.BonePhotos.Select(o => o.Photo);
+                foreach (var photo in photos)
+                {
+                    _context.Photos.Remove(photo);
+                }
+
                 await _context.SaveChangesAsync();
             }
 

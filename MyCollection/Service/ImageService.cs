@@ -22,7 +22,7 @@ namespace MyCollection.Service
 
                         var image = Image.FromStream(memoryStream);
                         var fullImage = FixedSize(image, 4032, 3024);
-                        var previewImage = ScaleByPercent(image, 10);
+                        var previewImage = ScaleByPercent(image, 8);
 
                         photo = new Photo();
                         //based on the upload file to create Photo instance.
