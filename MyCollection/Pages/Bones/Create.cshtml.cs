@@ -41,7 +41,7 @@ namespace MyCollection.Pages.Bones
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync(IFormFile aversImage , IFormFile reversImage)
+        public async Task<IActionResult> OnPostAsync(IFormFile? aversImage , IFormFile? reversImage)
         {
           if (!ModelState.IsValid || _context.Bones == null || Bone == null)
             {
@@ -50,17 +50,22 @@ namespace MyCollection.Pages.Bones
 
             
             var bonePhotos = new List<BonePhoto>();
-            var avers = new BonePhoto();
-            avers.BoneId = Bone.Id;
-            avers.Photo = await ImageService.CreateImageAsync(aversImage);
+            if (aversImage != null)
+            {
+                var avers = new BonePhoto();
+                avers.BoneId = Bone.Id;
+                avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                bonePhotos.Add(avers);
+            }
 
-
-            var revers = new BonePhoto();
-            revers.BoneId = Bone.Id;
-            revers.Photo = await ImageService.CreateImageAsync(reversImage);
-
-            bonePhotos.Add(avers);
-            bonePhotos.Add(revers);
+            if (reversImage != null)
+            {
+                var revers = new BonePhoto();
+                revers.BoneId = Bone.Id;
+                revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                bonePhotos.Add(revers);
+            }
+            
             Bone.BonePhotos = bonePhotos;
 
             _context.Bones.Add(Bone);
