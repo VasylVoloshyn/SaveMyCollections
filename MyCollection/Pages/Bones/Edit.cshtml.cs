@@ -66,12 +66,8 @@ namespace MyCollection.Pages.Bones
                 return NotFound();
             }
 
-
             Bone.BonePhotos = boneToUpdate.BonePhotos;
             List<Photo> photoToRemove = new List<Photo>();
-
-
-
             if (aversImage != null)
             {
                 photoToRemove.Add(Bone.BonePhotos.First().Photo);
@@ -85,9 +81,6 @@ namespace MyCollection.Pages.Bones
             }
 
             _context.Photos.RemoveRange(photoToRemove);
-
-
-
             _context.Attach(Bone).State = EntityState.Modified;
 
             try
