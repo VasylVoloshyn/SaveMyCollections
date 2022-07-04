@@ -1,0 +1,123 @@
+﻿@page
+@model MyCollection.Pages.Coins.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by dime:
+            <select name="SearchString" class ="form-control" asp-items="ViewBag.DimeId">
+                <option value="">-- Select Dime --</option>
+            </select>
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+           
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DimeSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">               
+                @Html.DisplayNameFor(model => model.Coin[0].Dime)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NominalSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">                               
+                @Html.DisplayNameFor(model => model.Coin[0].Nominal)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.YearSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">                               
+                @Html.DisplayNameFor(model => model.Coin[0].Year)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coin[0].CoinGrade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coin[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coin[0].Note)
+            </th>
+            <th>
+                @Html.DisplayName("Avers")
+            </th>
+            <th>
+                @Html.DisplayName("Revers")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Coin) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dime.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nominal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoinGrade.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                    <img src=@item.CoinPhotos.FirstOrDefault()?.Photo.PreviewImageUrl>
+                </td>
+                <td>
+                    <img src=@item.CoinPhotos.LastOrDefault()?.Photo.PreviewImageUrl>
+                </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@{
+    var prevDisabled = !Model.Coin.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Coin.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Coin.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Coin.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

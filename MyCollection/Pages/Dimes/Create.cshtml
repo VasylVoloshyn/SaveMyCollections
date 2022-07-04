@@ -1,0 +1,43 @@
+﻿@page
+@model MyCollection.Pages.Dimes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Dime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Dime.Code" class="control-label"></label>
+                <input asp-for="Dime.Code" class="form-control" />
+                <span asp-validation-for="Dime.Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dime.Name" class="control-label"></label>
+                <input asp-for="Dime.Name" class="form-control" />
+                <span asp-validation-for="Dime.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dime.CountryId" class="control-label"></label>
+                <select asp-for="Dime.CountryId" class ="form-control" asp-items="ViewBag.CountryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

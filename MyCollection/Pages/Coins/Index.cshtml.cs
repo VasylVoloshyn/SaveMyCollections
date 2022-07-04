@@ -10,7 +10,7 @@ using MyCollection.Data;
 using MyCollection.Models;
 using MyCollection.Service;
 
-namespace MyCollection.Pages.Bones
+namespace MyCollection.Pages.Coins
 {
     public class IndexModel : PageModel
     {
@@ -23,19 +23,19 @@ namespace MyCollection.Pages.Bones
             Configuration = configuration;
         }
 
-        public string CurrencySort { get; set; }
+        public string DimeSort { get; set; }
         public string YearSort { get; set; }
         public string NominalSort { get; set; }
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public PaginatedList<Bone> Bone { get;set; } = default!;
+        public PaginatedList<Coin> Coin { get;set; } = default!;
 
         public async Task OnGetAsync(string sortOrder,
             string currentFilter, string searchString, int? pageIndex)
         {
             CurrentSort = sortOrder;
-            CurrencySort = String.IsNullOrEmpty(sortOrder) ? "currency_desc" : "";
+            DimeSort = string.IsNullOrEmpty(sortOrder) ? "dime_desc" : "";
             NominalSort = sortOrder == "Nominal" ? "nominal_desc" : "Nominal";
             YearSort = sortOrder == "Year" ? "year_desc" : "Year";
             if (searchString != null)
@@ -48,48 +48,45 @@ namespace MyCollection.Pages.Bones
             }
 
             CurrentFilter = searchString;
-            ViewData["CurrencyId"] = new SelectList(_context.Currency, "Id", "Code", CurrentFilter);
+            ViewData["CurrencyId"] = new SelectList(_context.Dimes, "Id", "Code", CurrentFilter);
 
-            IQueryable<Bone> bones = _context.Bones
-                .Include(c=>c.Currency)
-                .Include(c=>c.Signature)
-                .ThenInclude(c=>c.Person)
-                .Include(c=>c.Grade)
-                .Include(c=>c.BonePhotos)
-                .ThenInclude(b=>b.Photo)
+            IQueryable<Coin> coins = _context.Coins
+                .Include(c => c.Dime)
+                .Include(c => c.CoinGrade)
+                .Include(c => c.CoinPhotos)
+                .ThenInclude(b => b.Photo)
                 .Select(b => b);
 
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                bones = bones.Where(s => s.CurrencyId.ToString() == searchString);
+                coins = coins.Where(s => s.DimeId.ToString() == searchString);
             }
             switch (sortOrder)
             {
-                case "currency_desc":
-                    bones = bones.OrderByDescending(s => s.CurrencyId);
+                case "dime_desc":
+                    coins = coins.OrderByDescending(s => s.DimeId);
                     break;
                 case "Nominal":
-                    bones= bones.OrderBy(s => s.Nominal);
+                    coins = coins.OrderBy(s => s.Nominal);
                     break;
                 case "nominal_desc":
-                    bones = bones.OrderByDescending(s => s.Nominal);
+                    coins = coins.OrderByDescending(s => s.Nominal);
                     break;
                 case "Year":
-                    bones = bones.OrderBy(s => s.Year);
+                    coins = coins.OrderBy(s => s.Year);
                     break;
                 case "year_desc":
-                    bones = bones.OrderByDescending(s => s.Year);
+                    coins = coins.OrderByDescending(s => s.Year);
                     break;
                 default:
-                    bones = bones.OrderBy(s => s.CurrencyId);
+                    coins = coins.OrderBy(s => s.DimeId);
                     break;
             }
-           
-            var pageSize = Configuration.GetValue("PageSize", 4);
-            Bone = await PaginatedList<Bone>.CreateAsync(bones.AsNoTracking(), pageIndex ?? 1, pageSize);
 
-            foreach (var img in Bone.Select(b => b.BonePhotos))
+            var pageSize = Configuration.GetValue("PageSize", 4);
+            Coin = await PaginatedList<Coin>.CreateAsync(coins.AsNoTracking(), pageIndex ?? 1, pageSize);
+
+            foreach (var img in Coin.Select(b => b.CoinPhotos))
             {
                 foreach (var photo in img)
                 {
@@ -97,5 +94,5 @@ namespace MyCollection.Pages.Bones
                 }
             }
         }
-    }    
+    }
 }
