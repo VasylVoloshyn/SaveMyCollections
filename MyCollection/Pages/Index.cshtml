@@ -1,10 +1,31 @@
 ﻿@page
+@using MyCollection.Service
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+<div class="card-columns">
+    @foreach (var item in MyCollectionService.GetCollectionItems())
+    {
+        <div class="card">
+            <div class="card-img" style="background-image:url('@item.ImageUrl')"> </div>
+            <div class="card-body">
+                <h5 class="card-title">@item.MyColectionType.ToString()</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <a class="btn btn-primary" asp-area="" asp-page="@item.CollectionUrl">
+                        @item.MyColectionType.ToString()
+                    </a>                    
+                </small>
+            </div>
+        </div>
+    }
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
