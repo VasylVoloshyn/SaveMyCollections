@@ -48,15 +48,24 @@ namespace MyCollection.Pages.Coins
             {
                 return NotFound();
             }
-            var coin = await _context.Coins.FindAsync(id);
+
+            var coin = await _context.Coins
+                .Include(m => m.CoinPhotos)
+                .ThenInclude(m => m.Photo).FirstOrDefaultAsync(i => i.Id == id);
 
             if (coin != null)
             {
                 Coin = coin;
                 _context.Coins.Remove(Coin);
-                await _context.SaveChangesAsync();
-            }
+                var photos = Coin.CoinPhotos.Select(o => o.Photo);
+                foreach (var photo in photos)
+                {
+                    _context.Photos.Remove(photo);
+                }
 
+                await _context.SaveChangesAsync();               
+            }
+            
             return RedirectToPage("./Index");
         }
     }

@@ -20,7 +20,7 @@ namespace MyCollection.Pages.Bones
         }
 
         [BindProperty]
-      public Bone Bone { get; set; } = default!;
+        public Bone Bone { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -35,7 +35,7 @@ namespace MyCollection.Pages.Bones
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Bone = bone;
             }
@@ -48,10 +48,9 @@ namespace MyCollection.Pages.Bones
             {
                 return NotFound();
             }
-            var bone =  await _context.Bones
+            var bone = await _context.Bones
                 .Include(m => m.BonePhotos)
-                .ThenInclude(m => m.Photo).FirstOrDefaultAsync(i=>i.Id==id);
-
+                .ThenInclude(m => m.Photo).FirstOrDefaultAsync(i => i.Id == id);
 
             if (bone != null)
             {
