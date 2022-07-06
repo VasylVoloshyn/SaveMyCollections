@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Coins
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context)
         {
             _context = context;
         }
 
-      public Coin Coin { get; set; } = default!; 
+        public Coin Coin { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,15 +25,26 @@ namespace MyCollection.Pages.Coins
                 return NotFound();
             }
 
-            var coin = await _context.Coins.FirstOrDefaultAsync(m => m.Id == id);
+            var coin = await _context.Coins
+                .Include(c => c.CoinPhotos)
+                .ThenInclude(c => c.Photo)
+                .Include(c => c.CoinGrade)
+                .Include(c => c.Dime)
+                .ThenInclude(b => b.Country)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (coin == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Coin = coin;
+                foreach (var photo in Coin.CoinPhotos.Select(c => c.Photo))
+                {
+                    photo.ImageUrl = ImageService.GetImageUrl(photo.ImageData);
+                }
             }
+
             return Page();
         }
     }

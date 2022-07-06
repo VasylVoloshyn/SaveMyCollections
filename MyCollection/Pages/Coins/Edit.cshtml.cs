@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +10,9 @@ namespace MyCollection.Pages.Coins
 {
     public class EditModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public EditModel(MyCollection.Data.MyCollectionContext context)
+        public EditModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -30,7 +26,10 @@ namespace MyCollection.Pages.Coins
             {
                 return NotFound();
             }
-            var coin = await _context.Coins.Include(b => b.CoinPhotos).ThenInclude(b => b.Photo).FirstOrDefaultAsync(m => m.Id == id);
+            var coin = await _context.Coins
+                .Include(b => b.CoinPhotos)
+                .ThenInclude(b => b.Photo)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (coin == null)
             {
                 return NotFound();
@@ -42,7 +41,7 @@ namespace MyCollection.Pages.Coins
             }
 
             ViewData["CoinGradeId"] = new SelectList(_context.CoinGrades, "Id", "Code");
-           ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
+            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
             return Page();
         }
 
@@ -57,8 +56,10 @@ namespace MyCollection.Pages.Coins
 
             _context.Attach(Coin).State = EntityState.Modified;
 
-            var coinToUpdate = await _context.Coins.Include(b => b.CoinPhotos)
-                .ThenInclude(b => b.Photo).FirstOrDefaultAsync(b => b.Id == id);
+            var coinToUpdate = await _context.Coins
+                .Include(b => b.CoinPhotos)
+                .ThenInclude(b => b.Photo)
+                .FirstOrDefaultAsync(b => b.Id == id);
 
             if (coinToUpdate == null)
             {
@@ -104,10 +105,7 @@ namespace MyCollection.Pages.Coins
                 }
             }
 
-            _context.Photos.RemoveRange(photoToRemove);
-            //_context.Attach(Bone).State = EntityState.Modified;
-
-            _context.Attach(Coin).State = EntityState.Modified;
+            _context.Photos.RemoveRange(photoToRemove);            
 
             try
             {

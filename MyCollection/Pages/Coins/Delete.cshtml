@@ -48,6 +48,22 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Coin.Note)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Avers")
+        </dt>
+        <dd class="col-sm-10">
+            <div>
+                <img src=@Model.Coin.CoinPhotos.Where(c=>c.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl />
+            </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Revers")
+        </dt>
+        <dd class="col-sm-10">
+            <div>
+                <img src=@Model.Coin.CoinPhotos.Where(c=>c.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl />
+            </div>
+        </dd>
     </dl>
     
     <form method="post">

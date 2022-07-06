@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyCollection.Data;
@@ -13,9 +9,9 @@ namespace MyCollection.Pages.Coins
 {
     public class CreateModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public CreateModel(MyCollection.Data.MyCollectionContext context)
+        public CreateModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -44,6 +40,7 @@ namespace MyCollection.Pages.Coins
                 var avers = new CoinPhoto();
                 avers.CoinId = Coin.Id;
                 avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                avers.IsAvers = true;
                 coinPhotos.Add(avers);
             }
 
@@ -52,11 +49,11 @@ namespace MyCollection.Pages.Coins
                 var revers = new CoinPhoto();
                 revers.CoinId = Coin.Id;
                 revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                revers.IsRevers = true;
                 coinPhotos.Add(revers);
             }
 
             Coin.CoinPhotos = coinPhotos;
-
 
             _context.Coins.Add(Coin);
             await _context.SaveChangesAsync();
