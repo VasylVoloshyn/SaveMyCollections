@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +10,9 @@ namespace MyCollection.Pages.Bones
 {
     public class EditModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public EditModel(MyCollection.Data.MyCollectionContext context)
+        public EditModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -31,7 +27,9 @@ namespace MyCollection.Pages.Bones
                 return NotFound();
             }
 
-            var bone = await _context.Bones.Include(b => b.BonePhotos).ThenInclude(b => b.Photo).FirstOrDefaultAsync(m => m.Id == id);
+            var bone = await _context.Bones
+                .Include(b => b.BonePhotos)
+                .ThenInclude(b => b.Photo).FirstOrDefaultAsync(m => m.Id == id);
             if (bone == null)
             {
                 return NotFound();
@@ -66,22 +64,45 @@ namespace MyCollection.Pages.Bones
                 return NotFound();
             }
 
-            Bone.BonePhotos = boneToUpdate.BonePhotos;
+            bool isAversExist = Bone.BonePhotos.Any(c => c.IsAvers);
+            bool isReversExist = Bone.BonePhotos.Any(c => c.IsRevers);
+            
             List<Photo> photoToRemove = new List<Photo>();
             if (aversImage != null)
             {
-                photoToRemove.Add(Bone.BonePhotos.First().Photo);
-                Bone.BonePhotos.First().Photo = await ImageService.CreateImageAsync(aversImage);
+                if (isAversExist)
+                {
+                    photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsAvers).First().Photo);
+                    Bone.BonePhotos.Where(c => c.IsAvers).First().Photo = await ImageService.CreateImageAsync(aversImage);
+                }
+                else
+                {
+                    var avers = new BonePhoto();
+                    avers.BoneId = Bone.Id;
+                    avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                    avers.IsAvers = true;
+                    Bone.BonePhotos.Add(avers);
+                }
             }
 
             if (reversImage != null)
             {
-                photoToRemove.Add(Bone.BonePhotos.Last().Photo);
-                Bone.BonePhotos.Last().Photo = await ImageService.CreateImageAsync(reversImage);
+                if (isReversExist)
+                {
+                    photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsRevers).First().Photo);
+                    Bone.BonePhotos.Where(c => c.IsRevers).First().Photo = await ImageService.CreateImageAsync(reversImage);
+                }
+                else
+                {
+                    var revers = new BonePhoto();
+                    revers.BoneId = Bone.Id;
+                    revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                    revers.IsRevers = true;
+                    Bone.BonePhotos.Add(revers);
+                }
             }
 
             _context.Photos.RemoveRange(photoToRemove);
-            _context.Attach(Bone).State = EntityState.Modified;
 
             try
             {

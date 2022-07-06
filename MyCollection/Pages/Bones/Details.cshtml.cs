@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +12,9 @@ namespace MyCollection.Pages.Bones
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context)
         {
             _context = context;
         }

@@ -34,7 +34,9 @@
             @Html.DisplayNameFor(model => model.Bone.Signature)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Bone.Signature.Id)
+            @Html.DisplayFor(model => model.Bone.Signature.Person.Name)
+            @Html.DisplayFor(model => model.Bone.Signature.Person.FamilyName)
+            @Html.DisplayFor(model => model.Bone.Signature.Note)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Bone.Grade)
@@ -53,6 +55,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Bone.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Avers")
+        </dt>
+        <dd class="col-sm-10">
+            <img src=@Model.Bone.BonePhotos.Where(c=>c.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl class="img-fluid"/>        
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Revers")
+        </dt>
+        <dd class="col-sm-10">
+            <img src=@Model.Bone.BonePhotos.Where(c=>c.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl class="img-fluid" />        
         </dd>
     </dl>
     

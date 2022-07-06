@@ -50,14 +50,14 @@
                 <span asp-validation-for="Bone.Note" class="text-danger"></span>
             </div>
             <div>
-                <img src=@Model.Bone.BonePhotos.FirstOrDefault()?.Photo.PreviewImageUrl />
+                <img src=@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl />
             </div>
             <div class="form-group">
                 <label class="control-label"> Change Avers</label>
                 <input type="file" name="aversImage" class="form-control" />
             </div>
             <div>
-                <img src=@Model.Bone.BonePhotos.LastOrDefault()?.Photo.PreviewImageUrl />
+                <img src=@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl />
             </div>
              <div class="form-group">
                 <label class="control-label">Change Revers</label>

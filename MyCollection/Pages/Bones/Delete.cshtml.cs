@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Bones
 {
     public class DeleteModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public DeleteModel(MyCollection.Data.MyCollectionContext context)
+        public DeleteModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -29,7 +27,15 @@ namespace MyCollection.Pages.Bones
                 return NotFound();
             }
 
-            var bone = await _context.Bones.FirstOrDefaultAsync(m => m.Id == id);
+            var bone = await _context.Bones
+                .Include(b => b.BonePhotos)
+                .ThenInclude(b => b.Photo)
+                .Include(b => b.Signature)
+                .ThenInclude(b => b.Person)
+                .Include(b => b.Grade)
+                .Include(b => b.Currency)
+                .ThenInclude(b => b.Country)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (bone == null)
             {
@@ -38,6 +44,10 @@ namespace MyCollection.Pages.Bones
             else
             {
                 Bone = bone;
+                foreach (var photo in Bone.BonePhotos.Select(b => b.Photo))
+                {
+                    photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+                }
             }
             return Page();
         }
@@ -50,7 +60,8 @@ namespace MyCollection.Pages.Bones
             }
             var bone = await _context.Bones
                 .Include(m => m.BonePhotos)
-                .ThenInclude(m => m.Photo).FirstOrDefaultAsync(i => i.Id == id);
+                .ThenInclude(m => m.Photo)
+                .FirstOrDefaultAsync(i => i.Id == id);
 
             if (bone != null)
             {

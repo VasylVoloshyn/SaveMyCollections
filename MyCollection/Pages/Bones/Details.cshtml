@@ -62,13 +62,13 @@
             @Html.DisplayName("Avers")
         </dt>
         <dd class="col-sm-10">
-            <img src=@Model.Bone.BonePhotos.FirstOrDefault()?.Photo.ImageUrl class="img-fluid"/>        
+            <img src=@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo.ImageUrl class="img-fluid"/>        
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayName("Revers")
         </dt>
         <dd class="col-sm-10">
-            <img src=@Model.Bone.BonePhotos.LastOrDefault()?.Photo.ImageUrl class="img-fluid" />        
+            <img src=@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo.ImageUrl class="img-fluid" />        
         </dd>
     </dl>
 </div>

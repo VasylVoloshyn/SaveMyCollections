@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +10,9 @@ namespace MyCollection.Pages.Bones
 {
     public class CreateModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
         
-        public CreateModel(MyCollection.Data.MyCollectionContext context)
+        public CreateModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -55,6 +51,7 @@ namespace MyCollection.Pages.Bones
                 var avers = new BonePhoto();
                 avers.BoneId = Bone.Id;
                 avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                avers.IsAvers = true;
                 bonePhotos.Add(avers);
             }
 
@@ -63,9 +60,10 @@ namespace MyCollection.Pages.Bones
                 var revers = new BonePhoto();
                 revers.BoneId = Bone.Id;
                 revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                revers.IsRevers = true;
                 bonePhotos.Add(revers);
             }
-            
+          
             Bone.BonePhotos = bonePhotos;
 
             _context.Bones.Add(Bone);

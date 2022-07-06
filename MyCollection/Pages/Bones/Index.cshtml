@@ -94,10 +94,10 @@
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
                 <td>
-                    <img src=@item.BonePhotos.FirstOrDefault()?.Photo.PreviewImageUrl>
+                    <img src=@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl>
                 </td>
                 <td>
-                    <img src=@item.BonePhotos.LastOrDefault()?.Photo.PreviewImageUrl>
+                    <img src=@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl>
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
