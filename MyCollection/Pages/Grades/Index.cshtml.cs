@@ -23,9 +23,9 @@ namespace MyCollection.Pages.Grades
 
         public async Task OnGetAsync()
         {
-            if (_context.Grades != null)
+            if (_context.BoneGrades != null)
             {
-                Grade = await _context.Grades.ToListAsync();
+                Grade = await _context.BoneGrades.ToListAsync();
             }
         }
     }

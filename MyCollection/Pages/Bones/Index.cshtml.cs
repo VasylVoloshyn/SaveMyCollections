@@ -48,7 +48,7 @@ namespace MyCollection.Pages.Bones
             }
 
             CurrentFilter = searchString;
-            ViewData["CurrencyId"] = new SelectList(_context.Currency, "Id", "Code", CurrentFilter);
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code", CurrentFilter);
 
             IQueryable<Bone> bones = _context.Bones
                 .Include(c=>c.Currency)

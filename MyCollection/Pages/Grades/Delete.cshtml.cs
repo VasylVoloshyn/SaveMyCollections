@@ -24,12 +24,12 @@ namespace MyCollection.Pages.Grades
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Grades == null)
+            if (id == null || _context.BoneGrades == null)
             {
                 return NotFound();
             }
 
-            var grade = await _context.Grades.FirstOrDefaultAsync(m => m.Id == id);
+            var grade = await _context.BoneGrades.FirstOrDefaultAsync(m => m.Id == id);
 
             if (grade == null)
             {
@@ -44,16 +44,16 @@ namespace MyCollection.Pages.Grades
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Grades == null)
+            if (id == null || _context.BoneGrades == null)
             {
                 return NotFound();
             }
-            var grade = await _context.Grades.FindAsync(id);
+            var grade = await _context.BoneGrades.FindAsync(id);
 
             if (grade != null)
             {
                 Grade = grade;
-                _context.Grades.Remove(Grade);
+                _context.BoneGrades.Remove(Grade);
                 await _context.SaveChangesAsync();
             }
 

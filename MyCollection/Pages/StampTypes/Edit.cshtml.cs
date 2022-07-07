@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Signatures
+namespace MyCollection.Pages.StampTypes
 {
     public class EditModel : PageModel
     {
@@ -21,22 +21,21 @@ namespace MyCollection.Pages.Signatures
         }
 
         [BindProperty]
-        public Signature Signature { get; set; } = default!;
+        public StampType StampType { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Signatures == null)
+            if (id == null || _context.StampTypes == null)
             {
                 return NotFound();
             }
 
-            var signature =  await _context.Signatures.FirstOrDefaultAsync(m => m.Id == id);
-            if (signature == null)
+            var stamptype =  await _context.StampTypes.FirstOrDefaultAsync(m => m.Id == id);
+            if (stamptype == null)
             {
                 return NotFound();
             }
-            Signature = signature;
-           ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "FamilyName");
+            StampType = stamptype;
             return Page();
         }
 
@@ -49,7 +48,7 @@ namespace MyCollection.Pages.Signatures
                 return Page();
             }
 
-            _context.Attach(Signature).State = EntityState.Modified;
+            _context.Attach(StampType).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +56,7 @@ namespace MyCollection.Pages.Signatures
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SignatureExists(Signature.Id))
+                if (!StampTypeExists(StampType.Id))
                 {
                     return NotFound();
                 }
@@ -70,9 +69,9 @@ namespace MyCollection.Pages.Signatures
             return RedirectToPage("./Index");
         }
 
-        private bool SignatureExists(int id)
+        private bool StampTypeExists(int id)
         {
-          return (_context.Signatures?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.StampTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -23,12 +23,12 @@ namespace MyCollection.Pages.Persons
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Person == null)
+            if (id == null || _context.Persons == null)
             {
                 return NotFound();
             }
 
-            var person = await _context.Person.FirstOrDefaultAsync(m => m.Id == id);
+            var person = await _context.Persons.FirstOrDefaultAsync(m => m.Id == id);
             if (person == null)
             {
                 return NotFound();

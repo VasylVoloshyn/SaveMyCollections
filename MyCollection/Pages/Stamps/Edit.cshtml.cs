@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Signatures
+namespace MyCollection.Pages.Stamps
 {
     public class EditModel : PageModel
     {
@@ -21,22 +21,24 @@ namespace MyCollection.Pages.Signatures
         }
 
         [BindProperty]
-        public Signature Signature { get; set; } = default!;
+        public Stamp Stamp { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Signatures == null)
+            if (id == null || _context.Stamps == null)
             {
                 return NotFound();
             }
 
-            var signature =  await _context.Signatures.FirstOrDefaultAsync(m => m.Id == id);
-            if (signature == null)
+            var stamp =  await _context.Stamps.FirstOrDefaultAsync(m => m.Id == id);
+            if (stamp == null)
             {
                 return NotFound();
             }
-            Signature = signature;
-           ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "FamilyName");
+            Stamp = stamp;
+           ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
+           ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
+           ViewData["StampGradeId"] = new SelectList(_context.StampGrades, "Id", "Code");
             return Page();
         }
 
@@ -49,7 +51,7 @@ namespace MyCollection.Pages.Signatures
                 return Page();
             }
 
-            _context.Attach(Signature).State = EntityState.Modified;
+            _context.Attach(Stamp).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +59,7 @@ namespace MyCollection.Pages.Signatures
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SignatureExists(Signature.Id))
+                if (!StampExists(Stamp.Id))
                 {
                     return NotFound();
                 }
@@ -70,9 +72,9 @@ namespace MyCollection.Pages.Signatures
             return RedirectToPage("./Index");
         }
 
-        private bool SignatureExists(int id)
+        private bool StampExists(int id)
         {
-          return (_context.Signatures?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Stamps?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

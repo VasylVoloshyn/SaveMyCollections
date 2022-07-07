@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Persons
+namespace MyCollection.Pages.Stamps
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,16 @@ namespace MyCollection.Pages.Persons
             _context = context;
         }
 
-        public IList<Person> Person { get;set; } = default!;
+        public IList<Stamp> Stamp { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Persons != null)
+            if (_context.Stamps != null)
             {
-                Person = await _context.Persons.ToListAsync();
+                Stamp = await _context.Stamps
+                .Include(s => s.Currency)
+                .Include(s => s.Dime)
+                .Include(s => s.StampGrade).ToListAsync();
             }
         }
     }

@@ -23,12 +23,12 @@ namespace MyCollection.Pages.Currencies
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Currency == null)
+            if (id == null || _context.Currencies == null)
             {
                 return NotFound();
             }
 
-            var currency = await _context.Currency.FirstOrDefaultAsync(m => m.Id == id);
+            var currency = await _context.Currencies.FirstOrDefaultAsync(m => m.Id == id);
             if (currency == null)
             {
                 return NotFound();

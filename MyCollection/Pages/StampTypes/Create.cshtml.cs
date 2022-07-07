@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Currencies
+namespace MyCollection.Pages.StampTypes
 {
     public class CreateModel : PageModel
     {
@@ -21,23 +21,22 @@ namespace MyCollection.Pages.Currencies
 
         public IActionResult OnGet()
         {
-        ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Code");
             return Page();
         }
 
         [BindProperty]
-        public Currency Currency { get; set; } = default!;
+        public StampType StampType { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Currencies == null || Currency == null)
+          if (!ModelState.IsValid || _context.StampTypes == null || StampType == null)
             {
                 return Page();
             }
 
-            _context.Currencies.Add(Currency);
+            _context.StampTypes.Add(StampType);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

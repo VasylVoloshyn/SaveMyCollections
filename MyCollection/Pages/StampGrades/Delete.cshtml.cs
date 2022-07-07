@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Currencies
+namespace MyCollection.Pages.StampGrades
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace MyCollection.Pages.Currencies
         }
 
         [BindProperty]
-      public Currency Currency { get; set; } = default!;
+      public StampGrade StampGrade { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Currencies == null)
+            if (id == null || _context.StampGrades == null)
             {
                 return NotFound();
             }
 
-            var currency = await _context.Currencies.FirstOrDefaultAsync(m => m.Id == id);
+            var stampgrade = await _context.StampGrades.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (currency == null)
+            if (stampgrade == null)
             {
                 return NotFound();
             }
             else 
             {
-                Currency = currency;
+                StampGrade = stampgrade;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Currencies == null)
+            if (id == null || _context.StampGrades == null)
             {
                 return NotFound();
             }
-            var currency = await _context.Currencies.FindAsync(id);
+            var stampgrade = await _context.StampGrades.FindAsync(id);
 
-            if (currency != null)
+            if (stampgrade != null)
             {
-                Currency = currency;
-                _context.Currencies.Remove(Currency);
+                StampGrade = stampgrade;
+                _context.StampGrades.Remove(StampGrade);
                 await _context.SaveChangesAsync();
             }
 

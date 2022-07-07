@@ -40,8 +40,8 @@ namespace MyCollection.Pages.Bones
                 photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
             }
 
-            ViewData["CurrencyId"] = new SelectList(_context.Currency, "Id", "Code");
-            ViewData["GradeID"] = new SelectList(_context.Grades, "Id", "Code");
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
+            ViewData["GradeID"] = new SelectList(_context.BoneGrades, "Id", "Code");
             ViewData["SignatureId"] = new SelectList(_context.Signatures, "Id", "Id");
             return Page();
         }

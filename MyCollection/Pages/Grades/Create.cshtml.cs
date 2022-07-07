@@ -31,12 +31,12 @@ namespace MyCollection.Pages.Grades
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Grades == null || Grade == null)
+          if (!ModelState.IsValid || _context.BoneGrades == null || Grade == null)
             {
                 return Page();
             }
 
-            _context.Grades.Add(Grade);
+            _context.BoneGrades.Add(Grade);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

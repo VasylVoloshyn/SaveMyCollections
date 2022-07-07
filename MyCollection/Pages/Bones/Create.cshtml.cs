@@ -25,8 +25,8 @@ namespace MyCollection.Pages.Bones
                 signatrure.PersonName =  signatrure.Person.Name + " " + signatrure.Person.FamilyName;
             }
 
-            ViewData["CurrencyId"] = new SelectList(_context.Currency, "Id", "Code");
-            ViewData["GradeID"] = new SelectList(_context.Grades, "Id", "Code");
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
+            ViewData["GradeID"] = new SelectList(_context.BoneGrades, "Id", "Code");
             ViewData["SignatureId"] = new SelectList(signatures, "Id", "PersonName");
              
             return Page();

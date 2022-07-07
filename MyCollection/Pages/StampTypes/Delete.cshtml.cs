@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Currencies
+namespace MyCollection.Pages.StampTypes
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace MyCollection.Pages.Currencies
         }
 
         [BindProperty]
-      public Currency Currency { get; set; } = default!;
+      public StampType StampType { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Currencies == null)
+            if (id == null || _context.StampTypes == null)
             {
                 return NotFound();
             }
 
-            var currency = await _context.Currencies.FirstOrDefaultAsync(m => m.Id == id);
+            var stamptype = await _context.StampTypes.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (currency == null)
+            if (stamptype == null)
             {
                 return NotFound();
             }
             else 
             {
-                Currency = currency;
+                StampType = stamptype;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Currencies == null)
+            if (id == null || _context.StampTypes == null)
             {
                 return NotFound();
             }
-            var currency = await _context.Currencies.FindAsync(id);
+            var stamptype = await _context.StampTypes.FindAsync(id);
 
-            if (currency != null)
+            if (stamptype != null)
             {
-                Currency = currency;
-                _context.Currencies.Remove(Currency);
+                StampType = stamptype;
+                _context.StampTypes.Remove(StampType);
                 await _context.SaveChangesAsync();
             }
 

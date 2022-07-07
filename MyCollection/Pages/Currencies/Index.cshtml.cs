@@ -23,9 +23,9 @@ namespace MyCollection.Pages.Currencies
 
         public async Task OnGetAsync()
         {
-            if (_context.Currency != null)
+            if (_context.Currencies != null)
             {
-                Currency = await _context.Currency
+                Currency = await _context.Currencies
                 .Include(c => c.Country).ToListAsync();
             }
         }

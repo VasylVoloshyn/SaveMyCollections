@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
-namespace MyCollection.Pages.Grades
+namespace MyCollection.Pages.StampTypes
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace MyCollection.Pages.Grades
             _context = context;
         }
 
-      public Grade Grade { get; set; } = default!; 
+      public StampType StampType { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.BoneGrades == null)
+            if (id == null || _context.StampTypes == null)
             {
                 return NotFound();
             }
 
-            var grade = await _context.BoneGrades.FirstOrDefaultAsync(m => m.Id == id);
-            if (grade == null)
+            var stamptype = await _context.StampTypes.FirstOrDefaultAsync(m => m.Id == id);
+            if (stamptype == null)
             {
                 return NotFound();
             }
             else 
             {
-                Grade = grade;
+                StampType = stamptype;
             }
             return Page();
         }

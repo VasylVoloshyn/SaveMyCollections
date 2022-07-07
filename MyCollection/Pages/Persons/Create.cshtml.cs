@@ -31,12 +31,12 @@ namespace MyCollection.Pages.Persons
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Person == null || Person == null)
+          if (!ModelState.IsValid || _context.Persons == null || Person == null)
             {
                 return Page();
             }
 
-            _context.Person.Add(Person);
+            _context.Persons.Add(Person);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
