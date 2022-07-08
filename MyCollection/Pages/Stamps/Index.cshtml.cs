@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
@@ -28,7 +29,13 @@ namespace MyCollection.Pages.Stamps
                 Stamp = await _context.Stamps
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
-                .Include(s => s.StampGrade).ToListAsync();
+                .Include(s => s.StampGrade)
+                .Include(s=>s.StampPhoto)
+                .ToListAsync();
+                foreach (var stamp in Stamp)
+                {
+                    stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(stamp.StampPhoto.PreviewImageData);
+                }
             }
         }
     }

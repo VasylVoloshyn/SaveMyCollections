@@ -37,6 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Stamp[0].Note)
             </th>
+            <th>
+                @Html.DisplayName("Stamp Photo")
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -67,6 +70,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
+            <td>
+                    <img src=@item.StampPhoto.PreviewImageUrl>
+             </td>
+            
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

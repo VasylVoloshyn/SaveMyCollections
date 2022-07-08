@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -49,6 +49,10 @@
                 <label asp-for="Stamp.Note" class="control-label"></label>
                 <input asp-for="Stamp.Note" class="form-control" />
                 <span asp-validation-for="Stamp.Note" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label class="control-label"> Stamp Photo</label>
+                <input type="file" name="stampImage" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

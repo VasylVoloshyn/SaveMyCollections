@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
@@ -32,12 +33,16 @@ namespace MyCollection.Pages.Stamps
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile? stampImage)
         {
           if (!ModelState.IsValid || _context.Stamps == null || Stamp == null)
             {
                 return Page();
             }
+            var stampPhoto = new Photo();
+            
+            stampPhoto = await ImageService.CreateImageAsync(stampImage);
+            Stamp.StampPhoto = stampPhoto;
 
             _context.Stamps.Add(Stamp);
             await _context.SaveChangesAsync();

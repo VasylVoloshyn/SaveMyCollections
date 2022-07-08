@@ -22,47 +22,66 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-
+                        <li>
+                            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Settings
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Currencies/Index">Currencies</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Dimes/Index">Dimes</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Countries/Index">Countries</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Persons/Index">Persons</a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Signatures/Index">Signatures</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Grades/Index">Bone Grades</a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/CoinGrades/Index">Coin Grades</a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/StampTypes/Index">Stamp Types</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/StampGrades/Index">Stamp Grades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item dropdown ml-auto">
-                            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdownTZ" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Settings
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="~/Dimes/Index">Dimes</a>
-                                <a class="dropdown-item" href="~/Currencies/Index">Currencies</a>
-
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div>
     </header>
 
     <div class="container">
@@ -78,7 +97,8 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>        
+    <script src="~/lib/popper/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

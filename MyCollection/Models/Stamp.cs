@@ -20,7 +20,9 @@ namespace MyCollection.Models
         [ValidateNever]
         public virtual StampGrade StampGrade { get; set; } = null!;
         public double? Price { get; set; } = null!;
-        public string? Note { get; set; } = null!;        
+        public string? Note { get; set; } = null!;
+        public int StampPhotoId { get; set; }
+        [ValidateNever]
         public Photo StampPhoto { get; set; } = null!;
     }
 }
