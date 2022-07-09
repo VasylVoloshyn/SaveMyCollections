@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCollection.Data;
 
@@ -11,9 +12,10 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    partial class MyCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20220708134623_stampPhotoNullable")]
+    partial class stampPhotoNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,9 +363,6 @@ namespace MyCollection.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CurrencyId")
                         .HasColumnType("int");
 
@@ -392,8 +391,6 @@ namespace MyCollection.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
 
                     b.HasIndex("CurrencyId");
 
@@ -564,12 +561,6 @@ namespace MyCollection.Migrations
 
             modelBuilder.Entity("MyCollection.Models.Stamp", b =>
                 {
-                    b.HasOne("MyCollection.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyCollection.Models.Currency", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyId");
@@ -587,8 +578,6 @@ namespace MyCollection.Migrations
                     b.HasOne("MyCollection.Models.Photo", "StampPhoto")
                         .WithMany()
                         .HasForeignKey("StampPhotoId");
-
-                    b.Navigation("Country");
 
                     b.Navigation("Currency");
 

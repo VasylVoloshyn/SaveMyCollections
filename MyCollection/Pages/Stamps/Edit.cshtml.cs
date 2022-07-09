@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
     public class EditModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public EditModel(MyCollection.Data.MyCollectionContext context)
+        public EditModel(MyCollectionContext context)
         {
             _context = context;
         }
@@ -30,28 +27,66 @@ namespace MyCollection.Pages.Stamps
                 return NotFound();
             }
 
-            var stamp =  await _context.Stamps.FirstOrDefaultAsync(m => m.Id == id);
+            var stamp = await _context.Stamps
+                .Include(s=>s.Country)
+                .Include(s => s.StampGrade)
+                .Include(s => s.Currency)
+                .Include(c => c.Dime)
+                .Include(c => c.StampPhoto)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (stamp == null)
             {
                 return NotFound();
             }
             Stamp = stamp;
-           ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
-           ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
-           ViewData["StampGradeId"] = new SelectList(_context.StampGrades, "Id", "Code");
+            if (Stamp.StampPhotoId != null)
+            {
+                stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(stamp.StampPhoto.PreviewImageData);
+            }
+
+            Stamp = stamp;
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
+            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
+            ViewData["StampGradeId"] = new SelectList(_context.StampGrades, "Id", "Code");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, IFormFile? stampImage)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Stamp).State = EntityState.Modified;
+            var stampToUpdate = await _context.Stamps
+                .AsNoTracking()
+                .Include(b => b.StampPhoto)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
+            _context.Entry(Stamp).State = EntityState.Modified;
+            if (stampToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            Stamp.StampPhoto = stampToUpdate.StampPhoto;
+            bool isPhotoExist = Stamp.StampPhoto != null;
+            Photo photoToRemove = null;
+            if (stampImage != null)
+            {
+                if (isPhotoExist)
+                {
+                    photoToRemove = Stamp.StampPhoto;
+                    Stamp.StampPhoto = await ImageService.CreateImageAsync(stampImage);
+                }
+                else
+                {
+                    Stamp.StampPhoto = await ImageService.CreateImageAsync(stampImage);
+                }
+            }
 
             try
             {
@@ -69,12 +104,32 @@ namespace MyCollection.Pages.Stamps
                 }
             }
 
+            if (photoToRemove != null)
+            {
+                _context.Photos.Remove(photoToRemove);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!StampExists(Stamp.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
             return RedirectToPage("./Index");
         }
 
         private bool StampExists(int id)
         {
-          return (_context.Stamps?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Stamps?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

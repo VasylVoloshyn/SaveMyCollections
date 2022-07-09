@@ -11,22 +11,28 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Stamp.Id" />
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Stamp.IsCancelated" /> @Html.DisplayNameFor(model => model.Stamp.IsCancelated)
-                </label>
+            <input type="hidden" asp-for="Stamp.Id" />   
+            <div class="form-group">
+                <label asp-for="Stamp.CountryId" class="control-label"></label>
+                <select asp-for="Stamp.CountryId" class="form-control" asp-items="ViewBag.CountryId">
+                    <option value="">-- Select Country --</option>
+                </select>
+                <span asp-validation-for="Stamp.CountryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.CurrencyId" class="control-label"></label>
-                <select asp-for="Stamp.CurrencyId" class="form-control" asp-items="ViewBag.CurrencyId"></select>
+                <select asp-for="Stamp.CurrencyId" class="form-control" asp-items="ViewBag.CurrencyId">
+                    <option value="">-- Select Currency --</option>
+                </select>
                 <span asp-validation-for="Stamp.CurrencyId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.DimeId" class="control-label"></label>
-                <select asp-for="Stamp.DimeId" class="form-control" asp-items="ViewBag.DimeId"></select>
+                <select asp-for="Stamp.DimeId" class="form-control" asp-items="ViewBag.DimeId">
+                    <option value="">-- Select Dime --</option>
+                </select>
                 <span asp-validation-for="Stamp.DimeId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -38,6 +44,11 @@
                 <label asp-for="Stamp.Year" class="control-label"></label>
                 <input asp-for="Stamp.Year" class="form-control" />
                 <span asp-validation-for="Stamp.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Stamp.IsCancelated" /> @Html.DisplayNameFor(model => model.Stamp.IsCancelated)
+                </label>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.StampGradeId" class="control-label"></label>
@@ -53,6 +64,13 @@
                 <label asp-for="Stamp.Note" class="control-label"></label>
                 <input asp-for="Stamp.Note" class="form-control" />
                 <span asp-validation-for="Stamp.Note" class="text-danger"></span>
+            </div>
+            <div>
+                <img src=@Model.Stamp.StampPhoto?.PreviewImageUrl />
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Stamp Photo</label>
+                <input type="file" name="stampImage" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

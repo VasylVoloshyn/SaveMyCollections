@@ -17,14 +17,14 @@ namespace MyCollection.Pages.Stamps
         }
 
         [BindProperty]
-      public Stamp Stamp { get; set; } = default!;
+        public Stamp Stamp { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Stamps == null)
             {
                 return NotFound();
-            }            
+            }
 
             var stamp = await _context.Stamps
                 .Include(s => s.StampGrade)
@@ -40,8 +40,11 @@ namespace MyCollection.Pages.Stamps
             else
             {
                 Stamp = stamp;
-                
-               Stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(Stamp.StampPhoto.PreviewImageData);                
+
+                if (Stamp.StampPhoto != null)
+                {
+                    Stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(Stamp.StampPhoto.PreviewImageData);
+                }
             }
 
             return Page();
@@ -53,7 +56,7 @@ namespace MyCollection.Pages.Stamps
             {
                 return NotFound();
             }
-            
+
             var stamp = await _context.Stamps
                 .Include(m => m.StampPhoto)
                 .FirstOrDefaultAsync(i => i.Id == id);
@@ -62,9 +65,12 @@ namespace MyCollection.Pages.Stamps
             {
                 Stamp = stamp;
                 _context.Stamps.Remove(Stamp);
-                var photo = Stamp.StampPhoto;                                
-                _context.Photos.Remove(photo);
-                
+                var photo = Stamp.StampPhoto;
+                if (photo != null)
+                {
+                    _context.Photos.Remove(photo);
+                }
+
                 await _context.SaveChangesAsync();
             }
 

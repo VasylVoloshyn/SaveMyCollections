@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
@@ -13,29 +9,82 @@ namespace MyCollection.Pages.Stamps
 {
     public class IndexModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly IConfiguration Configuration;
 
-        public IndexModel(MyCollection.Data.MyCollectionContext context)
+        public IndexModel(MyCollectionContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
-        public IList<Stamp> Stamp { get;set; } = default!;
+        public string CountrySort { get; set; }
+        public string YearSort { get; set; }
+        public string NominalSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+        public PaginatedList<Stamp> Stamp { get; set; } = default!;
+
+        public async Task OnGetAsync(string sortOrder,
+            string currentFilter, string searchString, int? pageIndex)
         {
-            if (_context.Stamps != null)
+            CurrentSort = sortOrder;
+            CountrySort = string.IsNullOrEmpty(sortOrder) ? "country_desc" : "";
+            NominalSort = sortOrder == "Nominal" ? "nominal_desc" : "Nominal";
+            YearSort = sortOrder == "Year" ? "year_desc" : "Year";
+            if (searchString != null)
             {
-                Stamp = await _context.Stamps
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            CurrentFilter = searchString;
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", CurrentFilter);
+
+            IQueryable<Stamp> stamps = _context.Stamps
+                .Include(s => s.Country)
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
                 .Include(s => s.StampGrade)
-                .Include(s=>s.StampPhoto)
-                .ToListAsync();
-                foreach (var stamp in Stamp)
-                {
-                    stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(stamp.StampPhoto.PreviewImageData);
-                }
+                .Include(s => s.StampPhoto)
+                .Select(s => s);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                stamps = stamps.Where(s => s.CountryId.ToString() == searchString);
+            }
+            switch (sortOrder)
+            {
+                case "country_desc":
+                    stamps = stamps.OrderByDescending(s => s.CountryId);
+                    break;
+                case "Nominal":
+                    stamps = stamps.OrderBy(s => s.Nominal);
+                    break;
+                case "nominal_desc":
+                    stamps = stamps.OrderByDescending(s => s.Nominal);
+                    break;
+                case "Year":
+                    stamps = stamps.OrderBy(s => s.Year);
+                    break;
+                case "year_desc":
+                    stamps = stamps.OrderByDescending(s => s.Year);
+                    break;
+                default:
+                    stamps = stamps.OrderBy(s => s.CountryId);
+                    break;
+            }
+
+            var pageSize = Configuration.GetValue("PageSize", 4);
+            Stamp = await PaginatedList<Stamp>.CreateAsync(stamps.AsNoTracking(), pageIndex ?? 1, pageSize);
+
+            foreach (var photo in Stamp.Where(s=>s.StampPhoto!=null).Select(b => b.StampPhoto))
+            {                
+                photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
             }
         }
     }

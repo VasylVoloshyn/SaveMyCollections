@@ -10,11 +10,28 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Country:
+            <select name="SearchString" class ="form-control" asp-items="ViewBag.CountryId">
+                <option value="">-- Select Country --</option>
+            </select>
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+           
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Stamp[0].IsCancelated)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CountrySort"
+                   asp-route-currentFilter="@Model.CurrentFilter">               
+                @Html.DisplayNameFor(model => model.Stamp[0].Country)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Stamp[0].Currency)
@@ -23,10 +40,19 @@
                 @Html.DisplayNameFor(model => model.Stamp[0].Dime)
             </th>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NominalSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">                               
                 @Html.DisplayNameFor(model => model.Stamp[0].Nominal)
+                </a>
             </th>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.YearSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">                               
                 @Html.DisplayNameFor(model => model.Stamp[0].Year)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stamp[0].IsCancelated)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Stamp[0].StampGrade)
@@ -38,8 +64,8 @@
                 @Html.DisplayNameFor(model => model.Stamp[0].Note)
             </th>
             <th>
-                @Html.DisplayName("Stamp Photo")
-            </th>
+                @Html.DisplayName("Stamp Image")
+            </th>            
             <th></th>
         </tr>
     </thead>
@@ -47,19 +73,22 @@
 @foreach (var item in Model.Stamp) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IsCancelated)
+                @Html.DisplayFor(modelItem => item.Country.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Currency.Code)
+                @Html.DisplayFor(modelItem => item.Currency.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Dime.Code)
+                @Html.DisplayFor(modelItem => item.Dime.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nominal)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCancelated)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StampGrade.Code)
@@ -71,9 +100,8 @@
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                    <img src=@item.StampPhoto.PreviewImageUrl>
-             </td>
-            
+                    <img src=@item.StampPhoto?.PreviewImageUrl>
+                </td>                
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
@@ -83,3 +111,24 @@
 }
     </tbody>
 </table>
+
+
+@{
+    var prevDisabled = !Model.Stamp.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Stamp.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Stamp.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Stamp.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

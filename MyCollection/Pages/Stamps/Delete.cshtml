@@ -11,12 +11,12 @@
 <div>
     <h4>Stamp</h4>
     <hr />
-    <dl class="row">
+    <dl class="row">        
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Stamp.IsCancelated)
+            @Html.DisplayNameFor(model => model.Stamp.Country)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Stamp.IsCancelated)
+            @Html.DisplayFor(model => model.Stamp.Country.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Stamp.Currency)
@@ -43,6 +43,12 @@
             @Html.DisplayFor(model => model.Stamp.Year)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Stamp.IsCancelated)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Stamp.IsCancelated)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Stamp.StampGrade)
         </dt>
         <dd class="col-sm-10">
@@ -65,7 +71,7 @@
         </dt>
         <dd class="col-sm-10">
             <div>
-                <img src=@Model.Stamp.StampPhoto.PreviewImageUrl />
+                <img src=@Model.Stamp.StampPhoto?.PreviewImageUrl />
             </div>
         </dd>
     </dl>

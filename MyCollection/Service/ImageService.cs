@@ -39,11 +39,10 @@ namespace MyCollection.Service
         }
         
         public static string GetImageUrl(byte[] image)
-        {
+        {            
             string imreBase64Data = Convert.ToBase64String(image);
             string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
             return imgDataURL;
-
         }
 
         public static byte[] ImageToByteArray(System.Drawing.Image imageIn)

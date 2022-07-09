@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
+using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context)
         {
             _context = context;
         }
 
-      public Stamp Stamp { get; set; } = default!; 
+        public Stamp Stamp { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,15 +25,26 @@ namespace MyCollection.Pages.Stamps
                 return NotFound();
             }
 
-            var stamp = await _context.Stamps.FirstOrDefaultAsync(m => m.Id == id);
+            var stamp = await _context.Stamps
+                .Include(s => s.Country)
+                .Include(s => s.Currency)
+                .Include(s => s.Dime)
+                .Include(s => s.StampGrade)
+                .Include(s => s.StampPhoto)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (stamp == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Stamp = stamp;
+                if (Stamp.StampPhoto != null)
+                {
+                    Stamp.StampPhoto.ImageUrl = ImageService.GetImageUrl(Stamp.StampPhoto.ImageData);
+                }
             }
+
             return Page();
         }
     }
