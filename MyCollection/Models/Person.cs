@@ -11,5 +11,6 @@ namespace MyCollection.Models
         [Required]
         public string FamilyName { get; set; } = string.Empty;
         public string? Note { get; set; } = null!;
+        public string? WikiLink { get; set; } = null!;
     }
 }

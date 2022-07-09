@@ -12,5 +12,6 @@ namespace MyCollection.Models
 
         [Required]
         public string Name { get; set; } = string.Empty;
+        public string? WikiLink { get; set; } = null;
     }
 }

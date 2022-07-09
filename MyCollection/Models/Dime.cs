@@ -15,5 +15,6 @@ namespace MyCollection.Models
         public int CountryId { get; set; }
         [ValidateNever]
         public Country Country { get; set; } = null!;
+        public string? WikiLink { get; set; } = null!;
     }
 }

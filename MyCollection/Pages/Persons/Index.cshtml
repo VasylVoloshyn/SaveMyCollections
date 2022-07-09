@@ -22,6 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Person[0].Note)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Person[0].WikiLink)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WikiLink)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

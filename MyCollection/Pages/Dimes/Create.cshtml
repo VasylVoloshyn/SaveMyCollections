@@ -28,6 +28,11 @@
                 <select asp-for="Dime.CountryId" class ="form-control" asp-items="ViewBag.CountryId"></select>
             </div>
             <div class="form-group">
+                <label asp-for="Dime.WikiLink" class="control-label"></label>
+                <input asp-for="Dime.WikiLink" class="form-control" />
+                <span asp-validation-for="Dime.WikiLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
