@@ -14,7 +14,16 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.StampType[0].Code)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StampType[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StampType[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StampType[0].WikiLink)
             </th>
             <th></th>
         </tr>
@@ -23,7 +32,18 @@
 @foreach (var item in Model.StampType) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                
+                
+                <a href="@item.WikiLink">Wiki</a>
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
