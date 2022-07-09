@@ -9,6 +9,7 @@ namespace MyCollection.Data
         {
             context.Database.Migrate();
             bool saveData = false;
+            #region BoneGrades
             if (!context.BoneGrades.Any())
             {
                 var grades = new List<BoneGrade> {
@@ -51,7 +52,9 @@ namespace MyCollection.Data
                 context.BoneGrades.AddRange(grades);
                 saveData = true;
             }
+            #endregion BoneGrades
 
+            #region CoinGrades
             if (!context.CoinGrades.Any())
             {
                 var coinGrades = new List<CoinGrade> {
@@ -94,7 +97,7 @@ namespace MyCollection.Data
                     new CoinGrade{ Code = "VF",
                                    Name = "Very Fine",
                                    Description = "Дуже гарна. У стані Very Fine монети вже мають досить помітну потертість, і кілька згладжених деталей малюнка (як правило, добре різниться порядок лише 75 % деталей малюнка). За шкалою Шелдона монети такої безпеки поділяють на наступні категорії: VF 20, VF 25"
-                    },                    
+                    },
                     new CoinGrade{ Code = "F",
                                    Name = "Fine",
                                    Description = "Гарна. Стан Fine визначає виражену потертість поверхонь внаслідок тривалого перебування монети в зверненні. Різно приблизно 50 % оригінальних деталей малюнка монети. Фахівці по Шелдоновской системі виділяють два стану: F 12 і F 15."
@@ -123,7 +126,9 @@ namespace MyCollection.Data
                 context.CoinGrades.AddRange(coinGrades);
                 saveData = true;
             }
+            #endregion CoinGrades
 
+            #region StampGrades
             if (!context.StampGrades.Any())
             {
                 var stampGrades = new List<StampGrade> {
@@ -199,8 +204,10 @@ namespace MyCollection.Data
                 };
                 context.StampGrades.AddRange(stampGrades);
                 saveData = true;
-             }
+            }
+            #endregion StampGrades
 
+            #region StampTypes
             if (!context.StampTypes.Any())
             {
                 var stampTypes = new List<StampType>
@@ -272,11 +279,310 @@ namespace MyCollection.Data
                 context.StampTypes.AddRange(stampTypes);
                 saveData = true;
             }
+            #endregion StampTypes
+
+            #region Countries
+            if (!context.Countries.Any())
+            {
+                var countries = new List<Country>
+                {
+                    new Country
+                    {
+                        Code = "UA",
+                        Name = "Україна",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B0"
+                    },
+                    new Country
+                    {
+                        Code = "US",
+                        Name = "Сполучені Штати Америки",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A1%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D1%96_%D0%A8%D1%82%D0%B0%D1%82%D0%B8_%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D0%B8"
+                    },
+                     new Country
+                    {
+                        Code = "GB",
+                        Name = "Велика Британія",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%B0_%D0%91%D1%80%D0%B8%D1%82%D0%B0%D0%BD%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "EU",
+                        Name = "Європейський Союз",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%84%D0%B2%D1%80%D0%BE%D0%BF%D0%B5%D0%B9%D1%81%D1%8C%D0%BA%D0%B8%D0%B9_%D0%A1%D0%BE%D1%8E%D0%B7"
+                    },
+                     new Country
+                    {
+                        Code = "DE",
+                        Name = "Німеччина",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9D%D1%96%D0%BC%D0%B5%D1%87%D1%87%D0%B8%D0%BD%D0%B0"
+                    },
+                     new Country
+                    {
+                        Code = "PL",
+                        Name = "Польща",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9F%D0%BE%D0%BB%D1%8C%D1%89%D0%B0"
+                    },
+                     new Country
+                    {
+                        Code = "FR",
+                        Name = "Франція",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "IT",
+                        Name = "Італія",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%86%D1%82%D0%B0%D0%BB%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "ES",
+                        Name = "Іспанія",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%86%D1%81%D0%BF%D0%B0%D0%BD%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "HR",
+                        Name = "Хорватія",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A5%D0%BE%D1%80%D0%B2%D0%B0%D1%82%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "EE",
+                        Name = "Естонія",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%95%D1%81%D1%82%D0%BE%D0%BD%D1%96%D1%8F"
+                    },
+                     new Country
+                    {
+                        Code = "NP",
+                        Name = "Непал",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9D%D0%B5%D0%BF%D0%B0%D0%BB"
+                    },
+                     new Country
+                     {
+                         Code = "TR",
+                         Name = "Туреччина",
+                         WikiLink = "https://uk.wikipedia.org/wiki/%D0%A2%D1%83%D1%80%D0%B5%D1%87%D1%87%D0%B8%D0%BD%D0%B0"
+
+                     }
+                };
+                context.Countries.AddRange(countries);
+                saveData = true;
+            }
+            #endregion Countries
 
             if (saveData)
             {
                 context.SaveChanges();
             }
+
+            #region Currencies
+            if (!context.Currencies.Any())
+            {
+                var countries = new List<Currency>
+                {
+                    new Currency
+                    {
+                        Code = "UAH",
+                        Name = "Гривня",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="UA").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%93%D1%80%D0%B8%D0%B2%D0%BD%D1%8F"
+                    },
+                    new Currency
+                    {
+                        Code = "UAК",
+                        Name = "Карбованець",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="UA").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9A%D0%B0%D1%80%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B5%D1%86%D1%8C"
+                    },
+                    new Currency
+                    {
+                        Code = "USD",
+                        Name = "Dollar",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="US").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%94%D0%BE%D0%BB%D0%B0%D1%80_%D0%A1%D0%A8%D0%90"
+                    },
+                    new Currency
+                    {
+                        Code = "EUR",
+                        Name = "Євро",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="EU").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%84%D0%B2%D1%80%D0%BE"
+                    },
+                    new Currency
+                    {
+                        Code = "PLN",
+                        Name = "Злотий",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="PL").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%97%D0%BB%D0%BE%D1%82%D0%B8%D0%B9"
+                    },
+                    new Currency
+                    {
+                        Code = "TRY",
+                        Name = "Турецька ліра",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="PL").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A2%D1%83%D1%80%D0%B5%D1%86%D1%8C%D0%BA%D0%B0_%D0%BB%D1%96%D1%80%D0%B0"
+                    },
+                };
+                context.Currencies.AddRange(countries);
+                context.SaveChanges();
+            }
+            #endregion Currencies
+
+            #region Dimes
+            if (!context.Dimes.Any())
+            {
+                var dimes = new List<Dime>
+                {
+                    new Dime
+                    {
+                        Code = "UAH K",
+                        Name = "Копійка",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="UA").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BF%D1%96%D0%B9%D0%BA%D0%B0"
+                    },
+                    new Dime
+                    {
+                        Code = "UAH H",
+                        Name = "Гривня",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="UA").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%93%D1%80%D0%B8%D0%B2%D0%BD%D1%8F"
+                    },
+                    new Dime
+                    {
+                        Code = "USD C",
+                        Name = "Cent",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="US").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BD%D1%82_(%D0%B3%D1%80%D0%BE%D1%88%D1%96)"
+                    },
+                     new Dime
+                    {
+                        Code = "USD D",
+                        Name = "Dollar",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="US").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%94%D0%BE%D0%BB%D0%B0%D1%80_%D0%A1%D0%A8%D0%90"
+                    },
+                    new Dime
+                    {
+                        Code = "EUR C",
+                        Name = "Євроцент",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="EU").Select(c=>c.Id).First(),
+                        WikiLink = "https://ru.wikipedia.org/wiki/%D0%95%D0%B2%D1%80%D0%BE%D1%86%D0%B5%D0%BD%D1%82"
+                    },
+                    new Dime
+                    {
+                        Code = "EUR E",
+                        Name = "Євро",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="EU").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9C%D0%BE%D0%BD%D0%B5%D1%82%D0%B8_%D1%94%D0%B2%D1%80%D0%BE"
+                    },
+                    new Dime
+                    {
+                        Code = "PLN",
+                        Name = "Грош",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="PL").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%93%D1%80%D0%BE%D1%88"
+                    },
+                    new Dime
+                    {
+                        Code = "TRY",
+                        Name = "Куруш",
+                        CountryId = context.Countries.AsNoTracking().Where(c=>c.Code=="PL").Select(c=>c.Id).First(),
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9A%D1%83%D1%80%D1%83%D1%88_(%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D0%B0)"
+                    },
+                };
+                context.Dimes.AddRange(dimes);
+                context.SaveChanges();
+            }
+            #endregion Dimes
+
+            #region Persons
+            if (!context.Persons.Any())
+            {
+                var persons = new List<Person>
+                {
+                    new Person
+                    {
+                        Name = "Володимир",
+                        FamilyName = "Матвієнко",
+                        FatherName = "Павлович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B2%D1%96%D1%94%D0%BD%D0%BA%D0%BE_%D0%92%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%9F%D0%B0%D0%B2%D0%BB%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Вадим",
+                        FamilyName = "Гетьман",
+                        FatherName = "Петрович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%93%D0%B5%D1%82%D1%8C%D0%BC%D0%B0%D0%BD_%D0%92%D0%B0%D0%B4%D0%B8%D0%BC_%D0%9F%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Віктор",
+                        FamilyName = "Ющенко",
+                        FatherName = "Андрійович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%AE%D1%89%D0%B5%D0%BD%D0%BA%D0%BE_%D0%92%D1%96%D0%BA%D1%82%D0%BE%D1%80_%D0%90%D0%BD%D0%B4%D1%80%D1%96%D0%B9%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Володимир",
+                        FamilyName = "Стельмах",
+                        FatherName = "Семенович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A1%D1%82%D0%B5%D0%BB%D1%8C%D0%BC%D0%B0%D1%85_%D0%92%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BC%D0%B8%D1%80_%D0%A1%D0%B5%D0%BC%D0%B5%D0%BD%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Сергій",
+                        FamilyName = "Тігіпко",
+                        FatherName = "Леонідович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A2%D1%96%D0%B3%D1%96%D0%BF%D0%BA%D0%BE_%D0%A1%D0%B5%D1%80%D0%B3%D1%96%D0%B9_%D0%9B%D0%B5%D0%BE%D0%BD%D1%96%D0%B4%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Сергій",
+                        FamilyName = "Арбузов",
+                        FatherName = "Геннадійович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%90%D1%80%D0%B1%D1%83%D0%B7%D0%BE%D0%B2_%D0%A1%D0%B5%D1%80%D0%B3%D1%96%D0%B9_%D0%93%D0%B5%D0%BD%D0%BD%D0%B0%D0%B4%D1%96%D0%B9%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Ігор",
+                        FamilyName = "Соркін",
+                        FatherName = "В'ячеславович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D1%80%D0%BA%D1%96%D0%BD_%D0%86%D0%B3%D0%BE%D1%80_%D0%92%27%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                    new Person
+                    {
+                        Name = "Степан",
+                        FamilyName = "Кубів",
+                        FatherName = "Іванович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%9A%D1%83%D0%B1%D1%96%D0%B2_%D0%A1%D1%82%D0%B5%D0%BF%D0%B0%D0%BD_%D0%86%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                     new Person
+                    {
+                        Name = "Валерія",
+                        FamilyName = "Гонтарева",
+                        FatherName = "Олексіївна",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%93%D0%BE%D0%BD%D1%82%D0%B0%D1%80%D0%B5%D0%B2%D0%B0_%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D1%96%D1%8F_%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D1%97%D0%B2%D0%BD%D0%B0"
+                    },
+                     new Person
+                    {
+                        Name = "Яків",
+                        FamilyName = "Смолій",
+                        FatherName = "Васильович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A1%D0%BC%D0%BE%D0%BB%D1%96%D0%B9_%D0%AF%D0%BA%D1%96%D0%B2_%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%8C%D0%BE%D0%B2%D0%B8%D1%87"
+                    },
+                      new Person
+                    {
+                        Name = "Кирило",
+                        FamilyName = "Шевченко",
+                        FatherName = "Євгенович",
+                        WikiLink = "https://uk.wikipedia.org/wiki/%D0%A8%D0%B5%D0%B2%D1%87%D0%B5%D0%BD%D0%BA%D0%BE_%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%D0%BE_%D0%84%D0%B2%D0%B3%D0%B5%D0%BD%D0%BE%D0%B2%D0%B8%D1%87"
+                    }
+                };
+                context.Persons.AddRange(persons);
+                context.SaveChanges();
+            }
+            #endregion Persons
         }
     }
 }

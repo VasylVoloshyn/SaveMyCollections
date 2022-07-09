@@ -20,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.Person[0].FamilyName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Person[0].FatherName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Person[0].Note)
             </th>
             <th>
@@ -38,10 +41,13 @@
                 @Html.DisplayFor(modelItem => item.FamilyName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.FatherName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WikiLink)
+                <a href="@item.WikiLink">Wiki</a>
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

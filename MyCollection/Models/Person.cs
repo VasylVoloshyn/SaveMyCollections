@@ -10,6 +10,7 @@ namespace MyCollection.Models
         public string Name { get; set; } = string.Empty;
         [Required]
         public string FamilyName { get; set; } = string.Empty;
+        public string? FatherName { get; set; } = string.Empty;
         public string? Note { get; set; } = null!;
         public string? WikiLink { get; set; } = null!;
     }
