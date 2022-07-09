@@ -583,6 +583,78 @@ namespace MyCollection.Data
                 context.SaveChanges();
             }
             #endregion Persons
+
+            #region Signatures
+            if (!context.Signatures.Any())
+            {
+                var signatures = new List<Signature>
+                {
+                    new Signature
+                    { 
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Матвієнко").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 6 червня 1991 - 24 березня 1992"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Гетьман").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 24 березня 1992 — 18 грудня 1992"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Ющенко").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 26 січня 1993 — 11 січня 2000"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Стельмах").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 21 січня 2000 — 17 грудня 2002"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Тігіпко").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 17 грудня 2002 — 16 грудня 2004"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Стельмах").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 16 грудня 2004 — 23 грудня 2010"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Арбузов").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 23 грудня 2010 — 11 січня 2013"
+                    },
+                    new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Соркін").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 11 січня 2013 — 24 лютого 2014"
+                    },
+                     new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Кубів").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 24 лютого 2014  — 19 червня 2014"
+                    },
+                     new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Гонтарева").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 19 червня 2014  — 15 березня 2018"
+                    },
+                      new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Смолій").Select(c=>c.Id).First(),
+                        Note = "Час на посаді 15 березня 2018  — 13 липня 2020"
+                    },
+                      new Signature
+                    {
+                        PersonId = context.Persons.AsNoTracking().Where(p=>p.FamilyName=="Шевченко").Select(c=>c.Id).First(),
+                        Note = "Час на посаді з 16 липня 2020"
+                    },
+
+                };
+                context.Signatures.AddRange(signatures);
+                context.SaveChanges();
+            }
+            #endregion Signatures
         }
     }
 }
