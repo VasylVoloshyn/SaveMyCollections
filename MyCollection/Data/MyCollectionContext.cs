@@ -17,7 +17,7 @@ namespace MyCollection.Data
 
         #region Bones
         public DbSet<Signature> Signatures { get; set; } = null!;
-        public DbSet<Grade> BoneGrades { get; set; } = null!;
+        public DbSet<BoneGrade> BoneGrades { get; set; } = null!;
         public DbSet<Bone> Bones { get; set; } = null!;
         public DbSet<BonePhoto> BonePhotos { get; set; } = null!;
         #endregion Bones

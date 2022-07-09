@@ -21,7 +21,7 @@ namespace MyCollection.Pages.Grades
         }
 
         [BindProperty]
-        public Grade Grade { get; set; } = default!;
+        public BoneGrade Grade { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

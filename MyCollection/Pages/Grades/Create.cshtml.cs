@@ -25,7 +25,7 @@ namespace MyCollection.Pages.Grades
         }
 
         [BindProperty]
-        public Grade Grade { get; set; } = default!;
+        public BoneGrade Grade { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

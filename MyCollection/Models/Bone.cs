@@ -20,7 +20,7 @@ namespace MyCollection.Models
         public virtual Signature Signature { get; set; } = null!;
         public int GradeID { get; set; }
         [ValidateNever]
-        public virtual Grade Grade { get; set; } = null!;
+        public virtual BoneGrade Grade { get; set; } = null!;
         public double? Price { get; set; } = null!;
         public string? Note { get; set; } = null!;
         [ValidateNever]

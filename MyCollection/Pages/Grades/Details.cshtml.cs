@@ -19,7 +19,7 @@ namespace MyCollection.Pages.Grades
             _context = context;
         }
 
-      public Grade Grade { get; set; } = default!; 
+      public BoneGrade Grade { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

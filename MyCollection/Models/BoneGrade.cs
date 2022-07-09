@@ -2,7 +2,7 @@
 
 namespace MyCollection.Models
 {
-    public class Grade
+    public class BoneGrade
     {
         [Key]
         public int Id { get; set; }

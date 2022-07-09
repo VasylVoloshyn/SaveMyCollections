@@ -12,8 +12,8 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    [Migration("20220706180407_AddedStamps")]
-    partial class AddedStamps
+    [Migration("20220709105838_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,30 @@ namespace MyCollection.Migrations
                     b.HasIndex("SignatureId");
 
                     b.ToTable("Bones");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.BoneGrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BoneGrades");
                 });
 
             modelBuilder.Entity("MyCollection.Models.BonePhoto", b =>
@@ -254,30 +278,6 @@ namespace MyCollection.Migrations
                     b.ToTable("Dimes");
                 });
 
-            modelBuilder.Entity("MyCollection.Models.Grade", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BoneGrades");
-                });
-
             modelBuilder.Entity("MyCollection.Models.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -363,11 +363,17 @@ namespace MyCollection.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CurrencyId")
                         .HasColumnType("int");
 
                     b.Property<int?>("DimeId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsCancelated")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("Nominal")
                         .HasColumnType("int");
@@ -381,13 +387,15 @@ namespace MyCollection.Migrations
                     b.Property<int>("StampGradeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StampPhotoId")
+                    b.Property<int?>("StampPhotoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("CurrencyId");
 
@@ -449,7 +457,7 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCollection.Models.Grade", "Grade")
+                    b.HasOne("MyCollection.Models.BoneGrade", "Grade")
                         .WithMany()
                         .HasForeignKey("GradeID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -558,6 +566,12 @@ namespace MyCollection.Migrations
 
             modelBuilder.Entity("MyCollection.Models.Stamp", b =>
                 {
+                    b.HasOne("MyCollection.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MyCollection.Models.Currency", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyId");
@@ -574,9 +588,9 @@ namespace MyCollection.Migrations
 
                     b.HasOne("MyCollection.Models.Photo", "StampPhoto")
                         .WithMany()
-                        .HasForeignKey("StampPhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StampPhotoId");
+
+                    b.Navigation("Country");
 
                     b.Navigation("Currency");
 
