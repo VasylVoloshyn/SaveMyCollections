@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MyCollection.Models;
 
 
 namespace MyCollection.Data
 {
-    public class MyCollectionContext : DbContext
+    public class MyCollectionContext : IdentityDbContext
     {
         #region General        
         public DbSet<Photo> Photos { get; set; } = null!;
@@ -34,8 +35,7 @@ namespace MyCollection.Data
         public DbSet<Stamp> Stamps{get;set;} = null!;
         #endregion Stamps
 
-        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }
-
+        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }       
 
     }
 }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyCollection
 {
@@ -30,7 +31,10 @@ namespace MyCollection
             services.AddDbContext<MyCollectionContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyCollection")));
 
-            //services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                        .AddEntityFrameworkStores<MyCollectionContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +56,7 @@ namespace MyCollection
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
