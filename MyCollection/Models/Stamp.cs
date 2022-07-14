@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
+    [Table("Stamp", Schema = "dbo")]
     public class Stamp
     {
         [Key]

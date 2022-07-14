@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Models;
 
 
 namespace MyCollection.Data
 {
-    public class MyCollectionContext : IdentityDbContext
+    public class MyCollectionContext : IdentityDbContext<ApplicationUser>
     {
         #region General        
         public DbSet<Photo> Photos { get; set; } = null!;
@@ -32,10 +33,15 @@ namespace MyCollection.Data
         #region Stamps
         public DbSet<StampType> StampTypes { get; set; } = null!;
         public DbSet<StampGrade> StampGrades { get; set; } = null!;
-        public DbSet<Stamp> Stamps{get;set;} = null!;
+        public DbSet<Stamp> Stamps { get; set; } = null!;
         #endregion Stamps
 
-        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }       
+        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.HasDefaultSchema("Identity");            
+        }        
 
     }
 }

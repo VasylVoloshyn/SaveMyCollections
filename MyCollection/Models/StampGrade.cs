@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
+    [Table("StampGrade", Schema = "dbo")]
     public class StampGrade
     {
         [Key]

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
+    [Table("Signature", Schema = "dbo")]
     public class Signature
     {
         [Key]

@@ -13,6 +13,7 @@ using MyCollection.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using MyCollection.Service;
+using MyCollection.Models;
 
 namespace MyCollection
 {
@@ -35,8 +36,16 @@ namespace MyCollection
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                        .AddEntityFrameworkStores<MyCollectionContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                        .AddEntityFrameworkStores<MyCollectionContext>()
+                        .AddDefaultUI()
+                        .AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedAccount = true;
+            });
+
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.ConfigureApplicationCookie(o => {

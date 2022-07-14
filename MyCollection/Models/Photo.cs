@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyCollection.Models
 {
+    [Table("Photo", Schema = "dbo")]
     public class Photo
     {
         [Key]
