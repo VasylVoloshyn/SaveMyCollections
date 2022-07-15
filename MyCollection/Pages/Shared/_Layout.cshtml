@@ -75,6 +75,28 @@
                                 </ul>
                             </div>
                         </li>
+                        <li>
+                            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Admin
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Admin/RoleManager/Index">Role Manager</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item nav-link text-dark"
+                                                   asp-area="" asp-page="/Admin/UserRoles/Index">User Roles</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
