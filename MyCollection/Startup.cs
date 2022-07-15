@@ -48,7 +48,7 @@ namespace MyCollection
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("SuperAdmin").RequireRole("Admin"));
+                     policy => policy.RequireRole("SuperAdmin", "Admin"));
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
