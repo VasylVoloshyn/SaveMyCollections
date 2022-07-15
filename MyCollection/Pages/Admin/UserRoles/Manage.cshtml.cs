@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +6,7 @@ using MyCollection.Models;
 
 namespace MyCollection.Pages.Admin.UserRoles
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class ManageModel : PageModel
     {
         private readonly MyCollection.Data.MyCollectionContext _context;
