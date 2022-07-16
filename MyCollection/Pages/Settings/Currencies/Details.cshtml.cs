@@ -27,7 +27,9 @@ namespace MyCollection.Pages.Currencies
                 return NotFound();
             }
 
-            var currency = await _context.Currencies.FirstOrDefaultAsync(m => m.Id == id);
+            var currency = await _context.Currencies
+                .Include(c => c.Country)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (currency == null)
             {
                 return NotFound();

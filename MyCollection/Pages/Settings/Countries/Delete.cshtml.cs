@@ -32,7 +32,8 @@ namespace MyCollection.Pages.Countries
                 return NotFound();
             }
 
-            var country = await _context.Countries.FirstOrDefaultAsync(m => m.Id == id);
+            var country = await _context.Countries                
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (country == null)
             {

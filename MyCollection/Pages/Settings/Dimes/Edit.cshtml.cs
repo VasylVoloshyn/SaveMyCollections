@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +13,16 @@ using MyCollection.Models;
 
 namespace MyCollection.Pages.Dimes
 {
+    [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(MyCollection.Data.MyCollectionContext context)
+        public EditModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -30,13 +35,18 @@ namespace MyCollection.Pages.Dimes
                 return NotFound();
             }
 
-            var dime =  await _context.Dimes.FirstOrDefaultAsync(m => m.Id == id);
+            var dime = await _context.Dimes.FirstOrDefaultAsync(m => m.Id == id);
             if (dime == null)
             {
                 return NotFound();
             }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || dime.User != user)
+            {
+                return RedirectToPage("/AccessDenied");
+            }
             Dime = dime;
-           ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Code");
+            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Code");
             return Page();
         }
 

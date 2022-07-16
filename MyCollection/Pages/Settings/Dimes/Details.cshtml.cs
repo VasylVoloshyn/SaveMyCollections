@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +9,13 @@ namespace MyCollection.Pages.Dimes
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
       public Dime Dime { get; set; } = default!; 
@@ -28,13 +27,23 @@ namespace MyCollection.Pages.Dimes
                 return NotFound();
             }
 
-            var dime = await _context.Dimes.FirstOrDefaultAsync(m => m.Id == id);
+            var dime = await _context.Dimes
+                .Include(d => d.Country)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (dime == null)
             {
                 return NotFound();
             }
             else 
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    if (dime.User == user)
+                    {
+                        dime.AllowEdit = true;
+                    }
+                }
                 Dime = dime;
             }
             return Page();
