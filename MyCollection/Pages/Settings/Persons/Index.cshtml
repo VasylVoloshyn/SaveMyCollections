@@ -47,12 +47,19 @@
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
-                <a href="@item.WikiLink">Wiki</a>
+                @if(item.WikiLink!=null)
+                {
+                    <a href="@item.WikiLink">Wiki</a>
+                }
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.AllowEdit) {
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                    @if (item.AllowEdit) {
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
             </td>
         </tr>
 }

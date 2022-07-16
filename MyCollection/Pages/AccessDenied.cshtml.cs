@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MyCollection.Pages
 {
-    public class NotFoundModel : PageModel
+    public class AccessDeniedModel : PageModel
     {
         public void OnGet()
         {

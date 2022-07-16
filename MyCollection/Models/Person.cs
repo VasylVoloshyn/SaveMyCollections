@@ -15,5 +15,9 @@ namespace MyCollection.Models
         public string? FatherName { get; set; } = string.Empty;
         public string? Note { get; set; } = null!;
         public string? WikiLink { get; set; } = null!;
+
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
     }
 }

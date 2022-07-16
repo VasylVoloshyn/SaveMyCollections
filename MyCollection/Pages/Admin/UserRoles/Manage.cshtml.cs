@@ -32,7 +32,7 @@ namespace MyCollection.Pages.Admin.UserRoles
             if (user == null)
             {
                 ViewData["ErrorMessage"] = $"User with Id = {userId} cannot be found";
-                return RedirectToPage("/NotFound");
+                return NotFound();
             }
             ViewData["UserName"] = user.UserName;
 

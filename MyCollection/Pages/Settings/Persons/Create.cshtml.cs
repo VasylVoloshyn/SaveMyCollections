@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,11 +13,14 @@ namespace MyCollection.Pages.Persons
 {
     public class CreateModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateModel(MyCollection.Data.MyCollectionContext context)
+        public CreateModel(MyCollectionContext context,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -36,7 +40,10 @@ namespace MyCollection.Pages.Persons
                 return Page();
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            Person.User = user;
             _context.Persons.Add(Person);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
