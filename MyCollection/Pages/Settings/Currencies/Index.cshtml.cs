@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
@@ -12,21 +8,35 @@ namespace MyCollection.Pages.Currencies
 {
     public class IndexModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollection.Data.MyCollectionContext context)
+        public IndexModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public IList<Currency> Currency { get;set; } = default!;
+        public IList<Currency> Currency { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Currencies != null)
             {
+                var user = await _userManager.GetUserAsync(User);
                 Currency = await _context.Currencies
-                .Include(c => c.Country).ToListAsync();
+                    .Where(c => c.User == user || c.User == null)
+                    .Include(c => c.Country).ToListAsync();
+                if (user != null)
+                {
+                    foreach (var currency in Currency)
+                    {
+                        if (currency.User == user)
+                        {
+                            currency.AllowEdit = true;
+                        }
+                    }
+                }
             }
         }
     }

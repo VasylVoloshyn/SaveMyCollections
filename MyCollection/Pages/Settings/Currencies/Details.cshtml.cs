@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +9,13 @@ namespace MyCollection.Pages.Currencies
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
       public Currency Currency { get; set; } = default!; 
@@ -35,6 +34,14 @@ namespace MyCollection.Pages.Currencies
             }
             else 
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    if (currency.User == user)
+                    {
+                        currency.AllowEdit = true;
+                    }
+                }
                 Currency = currency;
             }
             return Page();

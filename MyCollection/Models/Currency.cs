@@ -18,5 +18,8 @@ namespace MyCollection.Models
         [ValidateNever]
         public Country Country { get; set; } = null!;
         public string? WikiLink { get; set; } = null!;
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
     }
 }

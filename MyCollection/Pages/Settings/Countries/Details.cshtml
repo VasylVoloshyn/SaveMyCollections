@@ -27,15 +27,15 @@
             @Html.DisplayNameFor(model => model.Country.WikiLink)
         </dt>
         <dd class="col-sm-10">
-            @if(Model.Country.WikiLink!=null)
-                {
-                    <a href="@Model.Country.WikiLink">Wiki</a>
-                }
+            @if (Model.Country.WikiLink != null)
+            {
+                <a href="@Model.Country.WikiLink">Wiki</a>
+            }
         </dd>
     </dl>
 </div>
 <div>
-     @if (Model.Country.AllowEdit)
+    @if (Model.Country.AllowEdit)
     {
         <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Country?.Id">Edit</a>
     }
