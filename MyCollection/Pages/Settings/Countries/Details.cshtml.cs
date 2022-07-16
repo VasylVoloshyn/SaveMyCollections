@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +13,13 @@ namespace MyCollection.Pages.Countries
 {
     public class DetailsModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollection.Data.MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
       public Country Country { get; set; } = default!; 
@@ -35,6 +38,14 @@ namespace MyCollection.Pages.Countries
             }
             else 
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    if (country.User == user)
+                    {
+                        country.AllowEdit = true;
+                    }
+                }
                 Country = country;
             }
             return Page();
