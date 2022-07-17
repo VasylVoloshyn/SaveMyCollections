@@ -61,6 +61,11 @@ namespace MyCollection.Pages.Countries
 
             if (country != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || country.User != user)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Country = country;
                 _context.Countries.Remove(Country);
                 await _context.SaveChangesAsync();

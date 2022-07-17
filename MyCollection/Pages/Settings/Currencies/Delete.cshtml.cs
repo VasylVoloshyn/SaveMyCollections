@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -64,6 +60,11 @@ namespace MyCollection.Pages.Currencies
 
             if (currency != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || currency.User != user)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Currency = currency;
                 _context.Currencies.Remove(Currency);
                 await _context.SaveChangesAsync();

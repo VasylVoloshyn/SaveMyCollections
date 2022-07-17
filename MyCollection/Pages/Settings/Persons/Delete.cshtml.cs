@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -62,6 +58,11 @@ namespace MyCollection.Pages.Persons
 
             if (person != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || person.User != user)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Person = person;
                 _context.Persons.Remove(Person);
                 await _context.SaveChangesAsync();

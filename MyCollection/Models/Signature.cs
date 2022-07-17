@@ -15,8 +15,12 @@ namespace MyCollection.Models
         public Person Person { get; set; } = null!;
         public string? Note { get; set; } = null!;
 
+        [ValidateNever]
         [NotMapped]
         public string PersonName { get; set; }= null!;
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
 
     }
 }
