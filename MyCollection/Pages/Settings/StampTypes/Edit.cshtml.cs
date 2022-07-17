@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
 
 namespace MyCollection.Pages.StampTypes
 {
+    [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(MyCollection.Data.MyCollectionContext context)
+        public EditModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -34,6 +34,11 @@ namespace MyCollection.Pages.StampTypes
             if (stamptype == null)
             {
                 return NotFound();
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || stamptype.User != user)
+            {
+                return RedirectToPage("/AccessDenied");
             }
             StampType = stamptype;
             return Page();
