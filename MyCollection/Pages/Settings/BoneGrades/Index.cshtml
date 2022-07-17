@@ -26,19 +26,20 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Grade) {
-        <tr class="row">
-            <td class="col-md-1">
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td class="col-md-2">
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td class="col-md-6">
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td class="col-md-3">
-                @if (item.AllowEdit)
+        @foreach (var item in Model.Grade)
+        {
+            <tr class="row">
+                <td class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="col-md-6">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="col-md-3">
+                    @if (item.AllowEdit)
                     {
                         <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
                     }
@@ -47,8 +48,8 @@
                     {
                         <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                     }
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

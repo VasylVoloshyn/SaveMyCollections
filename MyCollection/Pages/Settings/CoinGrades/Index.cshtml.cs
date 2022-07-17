@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
@@ -12,11 +8,14 @@ namespace MyCollection.Pages.CoinGrades
 {
     public class IndexModel : PageModel
     {
-        private readonly MyCollection.Data.MyCollectionContext _context;
+        private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollection.Data.MyCollectionContext context)
+
+        public IndexModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IList<CoinGrade> CoinGrade { get;set; } = default!;
@@ -25,7 +24,21 @@ namespace MyCollection.Pages.CoinGrades
         {
             if (_context.CoinGrades != null)
             {
-                CoinGrade = await _context.CoinGrades.ToListAsync();
+                var user = await _userManager.GetUserAsync(User);
+                CoinGrade = await _context.CoinGrades
+                    .Where(c => c.User == user || c.User == null)
+                    .ToListAsync();
+
+                if (user != null)
+                {
+                    foreach (var coinGrade in CoinGrade)
+                    {
+                        if (coinGrade.User == user)
+                        {
+                            coinGrade.AllowEdit = true;
+                        }
+                    }
+                }
             }
         }
     }
