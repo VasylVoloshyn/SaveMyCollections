@@ -14,5 +14,8 @@ namespace MyCollection.Models
         public string Name { get; set; }  = string.Empty;
         
         public string? Description { get; set; } = null;
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
     }
 }

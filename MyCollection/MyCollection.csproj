@@ -62,11 +62,11 @@
     <None Include="Pages\Settings\Dimes\Details.cshtml" />
     <None Include="Pages\Settings\Dimes\Edit.cshtml" />
     <None Include="Pages\Settings\Dimes\Index.cshtml" />
-    <None Include="Pages\Settings\Grades\Create.cshtml" />
-    <None Include="Pages\Settings\Grades\Delete.cshtml" />
-    <None Include="Pages\Settings\Grades\Details.cshtml" />
-    <None Include="Pages\Settings\Grades\Edit.cshtml" />
-    <None Include="Pages\Settings\Grades\Index.cshtml" />
+    <None Include="Pages\Settings\BoneGrades\Create.cshtml" />
+    <None Include="Pages\Settings\BoneGrades\Delete.cshtml" />
+    <None Include="Pages\Settings\BoneGrades\Details.cshtml" />
+    <None Include="Pages\Settings\BoneGrades\Edit.cshtml" />
+    <None Include="Pages\Settings\BoneGrades\Index.cshtml" />
     <None Include="Pages\Settings\Persons\Create.cshtml" />
     <None Include="Pages\Settings\Persons\Delete.cshtml" />
     <None Include="Pages\Settings\Persons\Details.cshtml" />
