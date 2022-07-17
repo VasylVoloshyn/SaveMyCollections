@@ -38,7 +38,6 @@ namespace MyCollection.Pages.StampTypes
             }
             else 
             {
-
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || stamptype.User != user)
                 {
