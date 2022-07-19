@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
-using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
@@ -36,11 +35,12 @@ namespace MyCollection.Pages.Stamps
             }
 
             var stamp = await _context.Stamps
-                .Include(s=>s.Country)
+                .Include(s => s.User)
+                .Include(s => s.Country)
                 .Include(s => s.StampGrade)
                 .Include(s => s.Currency)
-                .Include(c => c.Dime)
-                .Include(c => c.StampPhoto)
+                .Include(s => s.Dime)
+                .Include(s => s.StampPhoto)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (stamp == null)
@@ -50,7 +50,7 @@ namespace MyCollection.Pages.Stamps
             else
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || stamp.User != user)
+                if (user == null || stamp.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -72,7 +72,12 @@ namespace MyCollection.Pages.Stamps
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (stamp != null)
-            {                
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || stamp.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Stamp = stamp;
                 _context.Stamps.Remove(Stamp);
                 var photo = Stamp.StampPhoto;

@@ -41,7 +41,7 @@ namespace MyCollection.Pages.Currencies
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || currency.User != user)
+                if (user == null || currency.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -61,7 +61,7 @@ namespace MyCollection.Pages.Currencies
             if (currency != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || currency.User != user)
+                if (user == null || currency.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }

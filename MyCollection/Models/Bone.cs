@@ -27,5 +27,8 @@ namespace MyCollection.Models
         public string? Note { get; set; } = null!;
         [ValidateNever]
         public ICollection<BonePhoto> BonePhotos { get; set; } = null!;
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
     }
 }

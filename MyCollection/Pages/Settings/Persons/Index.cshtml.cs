@@ -26,14 +26,14 @@ namespace MyCollection.Pages.Persons
             if (_context.Persons != null)
             {
                 Person = await _context.Persons
-                    .Where(p=>p.User == user || p.User == null)                                        
+                    .Where(p => p.User == null || p.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var person in Person)
                     {
-                        if (person.User == user)
+                        if (person.User?.Id == user.Id)
                         {
                             person.AllowEdit = true;
                         }

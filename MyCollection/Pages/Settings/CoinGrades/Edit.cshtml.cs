@@ -41,7 +41,7 @@ namespace MyCollection.Pages.CoinGrades
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || coingrade.User != user)
+            if (user == null || coingrade.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

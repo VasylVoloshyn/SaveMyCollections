@@ -36,7 +36,7 @@ namespace MyCollection.Pages.Grades
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || grade.User != user)
+            if (user == null || grade.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Bones
 {
+    [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(MyCollectionContext context)
+        public EditModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -28,18 +37,20 @@ namespace MyCollection.Pages.Bones
             }
 
             var bone = await _context.Bones
+                .Include( b=> b.User)
                 .Include(b => b.BonePhotos)
                 .ThenInclude(b => b.Photo).FirstOrDefaultAsync(m => m.Id == id);
             if (bone == null)
             {
                 return NotFound();
             }
-            Bone = bone;
-            foreach (var photo in Bone.BonePhotos.Select(b => b.Photo))
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || bone.User?.Id != user.Id)
             {
-                photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+                return RedirectToPage("/AccessDenied");
             }
-
+            Bone = bone;
+            
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
             ViewData["GradeID"] = new SelectList(_context.BoneGrades, "Id", "Code");
             ViewData["SignatureId"] = new SelectList(_context.Signatures, "Id", "Id");
@@ -56,30 +67,33 @@ namespace MyCollection.Pages.Bones
             }
             _context.Attach(Bone).State = EntityState.Modified;
 
-            var boneToUpdate = await _context.Bones.Include(b => b.BonePhotos)
+            var boneToUpdate = await _context.Bones
+                .Include(b => b.User)
+                .Include(b => b.BonePhotos)                
                 .ThenInclude(b => b.Photo).FirstOrDefaultAsync(b => b.Id == id);
 
             if (boneToUpdate == null)
             {
                 return NotFound();
             }
+            var user = await _userManager.GetUserAsync(User);
 
             bool isAversExist = Bone.BonePhotos.Any(c => c.IsAvers);
             bool isReversExist = Bone.BonePhotos.Any(c => c.IsRevers);
             
-            List<Photo> photoToRemove = new List<Photo>();
+            List<UserPhoto> photoToRemove = new List<UserPhoto>();
             if (aversImage != null)
             {
                 if (isAversExist)
                 {
                     photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsAvers).First().Photo);
-                    Bone.BonePhotos.Where(c => c.IsAvers).First().Photo = await ImageService.CreateImageAsync(aversImage);
+                    Bone.BonePhotos.Where(c => c.IsAvers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, aversImage, user);
                 }
                 else
                 {
                     var avers = new BonePhoto();
                     avers.BoneId = Bone.Id;
-                    avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                    avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, aversImage, user);
                     avers.IsAvers = true;
                     Bone.BonePhotos.Add(avers);
                 }
@@ -90,19 +104,23 @@ namespace MyCollection.Pages.Bones
                 if (isReversExist)
                 {
                     photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsRevers).First().Photo);
-                    Bone.BonePhotos.Where(c => c.IsRevers).First().Photo = await ImageService.CreateImageAsync(reversImage);
+                    Bone.BonePhotos.Where(c => c.IsRevers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, reversImage, user);
                 }
                 else
                 {
                     var revers = new BonePhoto();
                     revers.BoneId = Bone.Id;
-                    revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                    revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, reversImage, user);
                     revers.IsRevers = true;
                     Bone.BonePhotos.Add(revers);
                 }
             }
 
-            _context.Photos.RemoveRange(photoToRemove);
+            foreach(var photo in photoToRemove)
+            {
+                await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);
+            }
+            _context.UserPhotos.RemoveRange(photoToRemove);
 
             try
             {

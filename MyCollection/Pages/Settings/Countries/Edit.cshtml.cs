@@ -37,7 +37,7 @@ namespace MyCollection.Pages.Countries
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || country.User != user)
+            if (user == null || country.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

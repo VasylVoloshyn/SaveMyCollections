@@ -41,7 +41,7 @@ namespace MyCollection.Pages.CoinGrades
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (coingrade.User == user)
+                    if (coingrade.User?.Id == user.Id)
                     {
                         coingrade.AllowEdit = true;
                     }

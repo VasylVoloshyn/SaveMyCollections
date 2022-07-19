@@ -43,7 +43,7 @@ namespace MyCollection.Pages.CoinGrades
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || coingrade.User != user)
+                if (user == null || coingrade.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -62,6 +62,11 @@ namespace MyCollection.Pages.CoinGrades
 
             if (coingrade != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || coingrade.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 CoinGrade = coingrade;
                 _context.CoinGrades.Remove(CoinGrade);
                 await _context.SaveChangesAsync();

@@ -36,7 +36,7 @@ namespace MyCollection.Pages.StampTypes
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || stamptype.User != user)
+            if (user == null || stamptype.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

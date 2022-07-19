@@ -13,7 +13,7 @@ namespace MyCollection.Pages.Stamps
         private readonly IConfiguration Configuration;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollectionContext context, IConfiguration configuration, 
+        public IndexModel(MyCollectionContext context, IConfiguration configuration,
             UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -49,19 +49,20 @@ namespace MyCollection.Pages.Stamps
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", CurrentFilter);
             var user = await _userManager.GetUserAsync(User);
             IQueryable<Stamp> stamps = _context.Stamps
-                .Where(s => s.User == user || s.User == null)
+                .Where(s => s.User == null || s.User.Id == user.Id )
+                .Include(s => s.User)
                 .Include(s => s.Country)
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
                 .Include(s => s.StampGrade)
-                .Include(s => s.StampPhoto)
-                .Select(s => s);            
+                .Include(s => s.StampPhoto)                
+                .Select(s => s);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 stamps = stamps.Where(s => s.CountryId.ToString() == searchString);
             }
-            
+
             switch (sortOrder)
             {
                 case "country_desc":
@@ -86,16 +87,16 @@ namespace MyCollection.Pages.Stamps
 
             var pageSize = Configuration.GetValue("PageSize", 4);
             Stamp = await PaginatedList<Stamp>.CreateAsync(stamps.AsNoTracking(), pageIndex ?? 1, pageSize);
-            //if (user != null)
-            //{
-            foreach (var stamp in Stamp)
+            if (user != null)
             {
-                //if (stamp.User == user)
-                //{
-                stamp.AllowEdit = true;
-                //}
+                foreach (var stamp in Stamp)
+                {
+                    if (stamp.User?.Id == user.Id)
+                    {
+                        stamp.AllowEdit = true;
+                    }
+                }
             }
-            //}
         }
     }
 }

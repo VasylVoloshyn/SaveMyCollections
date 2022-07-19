@@ -39,7 +39,7 @@ namespace MyCollection.Pages.Dimes
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (dime.User == user)
+                    if (dime.User?.Id == user.Id)
                     {
                         dime.AllowEdit = true;
                     }

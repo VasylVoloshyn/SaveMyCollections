@@ -39,7 +39,7 @@ namespace MyCollection.Pages.Signatures
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (signature.User == user)
+                    if (signature.User?.Id == user.Id)
                     {
                         signature.AllowEdit = true;
                     }

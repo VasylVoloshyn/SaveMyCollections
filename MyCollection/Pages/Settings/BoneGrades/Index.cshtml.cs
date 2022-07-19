@@ -25,14 +25,14 @@ namespace MyCollection.Pages.Grades
             {
                 var user = await _userManager.GetUserAsync(User);
                 Grade = await _context.BoneGrades
-                    .Where(b => b.User == user || b.User == null)
+                    .Where(b => b.User == null || b.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var grade in Grade)
                     {
-                        if (grade.User == user)
+                        if (grade.User?.Id == user.Id)
                         {
                             grade.AllowEdit = true;
                         }

@@ -26,14 +26,14 @@ namespace MyCollection.Pages.CoinGrades
             {
                 var user = await _userManager.GetUserAsync(User);
                 CoinGrade = await _context.CoinGrades
-                    .Where(c => c.User == user || c.User == null)
+                    .Where(c => c.User == null || c.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var coinGrade in CoinGrade)
                     {
-                        if (coinGrade.User == user)
+                        if (coinGrade.User?.Id == user.Id)
                         {
                             coinGrade.AllowEdit = true;
                         }

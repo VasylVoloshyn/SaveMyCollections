@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace MyCollection.Pages.Bones
     public class DetailsModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
       public Bone Bone { get; set; } = default!; 
@@ -29,13 +32,14 @@ namespace MyCollection.Pages.Bones
             }
 
             var bone = await _context.Bones
-                .Include(b=>b.BonePhotos)
-                .ThenInclude(b=>b.Photo)
-                .Include(b=>b.Signature)
-                .ThenInclude(b=>b.Person)
-                .Include(b=>b.Grade)
-                .Include(b=>b.Currency)
-                .ThenInclude(b=>b.Country)               
+                .Include(b => b.User)
+                .Include(b => b.BonePhotos)
+                .ThenInclude(b => b.Photo)
+                .Include(b => b.Signature)
+                .ThenInclude(b => b.Person)
+                .Include(b => b.Grade)
+                .Include(b => b.Currency)
+                .ThenInclude(b => b.Country)               
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bone == null)
             {
@@ -43,11 +47,15 @@ namespace MyCollection.Pages.Bones
             }
             else 
             {
-                Bone = bone;
-                foreach (var photo in Bone.BonePhotos.Select(b => b.Photo))
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
                 {
-                    photo.ImageUrl = ImageService.GetImageUrl(photo.ImageData);
+                    if (bone.User?.Id == user.Id)
+                    {
+                        bone.AllowEdit = true;
+                    }
                 }
+                Bone = bone;                
             }
             return Page();
         }

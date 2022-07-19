@@ -37,7 +37,7 @@ namespace MyCollection.Pages.Signatures
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || signature.User != user)
+            if (user == null || signature.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

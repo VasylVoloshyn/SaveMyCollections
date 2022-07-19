@@ -41,7 +41,7 @@ namespace MyCollection.Pages.Persons
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || person.User != user)
+            if (user == null || person.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

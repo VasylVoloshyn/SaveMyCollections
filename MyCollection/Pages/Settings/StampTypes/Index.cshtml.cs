@@ -25,14 +25,14 @@ namespace MyCollection.Pages.StampTypes
             {
                 var user = await _userManager.GetUserAsync(User);
                 StampType = await _context.StampTypes
-                    .Where(s => s.User == user || s.User == null)
+                    .Where(s => s.User == null || s.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var stampType in StampType)
                     {
-                        if (stampType.User == user)
+                        if (stampType.User?.Id == user.Id)
                         {
                             stampType.AllowEdit = true;
                         }

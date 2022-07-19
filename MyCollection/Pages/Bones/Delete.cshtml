@@ -60,19 +60,21 @@
             @Html.DisplayName("Avers")
         </dt>
         <dd class="col-sm-10">
-            <img src=@Model.Bone.BonePhotos.Where(c=>c.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl class="img-fluid"/>        
+            <img style="width:320px; object-fit:cover; border-radius:5px"
+                 src="@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayName("Revers")
         </dt>
         <dd class="col-sm-10">
-            <img src=@Model.Bone.BonePhotos.Where(c=>c.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl class="img-fluid" />        
+            <img style="width:320px; object-fit:cover; border-radius:5px"
+                 src="@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
         </dd>
     </dl>
     
     <form method="post">
         <input type="hidden" asp-for="Bone.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />                 
+        <a class="btn btn-info" asp-page="./Index">Back to List</a>
     </form>
 </div>

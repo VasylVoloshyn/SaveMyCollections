@@ -37,7 +37,7 @@ namespace MyCollection.Pages.Persons
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (person.User == user)
+                    if (person.User?.Id == user.Id)
                     {
                         person.AllowEdit = true;
                     }

@@ -25,13 +25,13 @@ namespace MyCollection.Pages.Currencies
             {
                 var user = await _userManager.GetUserAsync(User);
                 Currency = await _context.Currencies
-                    .Where(c => c.User == user || c.User == null)
+                    .Where(c => c.User == null || c.User.Id == user.Id)
                     .Include(c => c.Country).ToListAsync();
                 if (user != null)
                 {
                     foreach (var currency in Currency)
                     {
-                        if (currency.User == user)
+                        if (currency.User?.Id == user.Id)
                         {
                             currency.AllowEdit = true;
                         }

@@ -25,14 +25,14 @@ namespace MyCollection.Pages.Signatures
             {
                 var user = await _userManager.GetUserAsync(User);
                 Signature = await _context.Signatures
-                    .Where(s => s.User == user || s.User == null)
+                    .Where(s => s.User == null || s.User.Id == user.Id)
                     .Include(s => s.Person).ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var signature in Signature)
                     {
-                        if (signature.User == user)
+                        if (signature.User?.Id == user.Id)
                         {
                             signature.AllowEdit = true;
                         }

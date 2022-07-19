@@ -39,7 +39,7 @@ namespace MyCollection.Pages.StampGrades
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || stampgrade.User != user)
+                if (user == null || stampgrade.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -58,6 +58,11 @@ namespace MyCollection.Pages.StampGrades
 
             if (stampgrade != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || stampgrade.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 StampGrade = stampgrade;
                 _context.StampGrades.Remove(StampGrade);
                 await _context.SaveChangesAsync();

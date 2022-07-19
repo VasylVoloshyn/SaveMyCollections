@@ -39,7 +39,7 @@ namespace MyCollection.Pages.Persons
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || person.User != user)
+                if (user == null || person.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -59,7 +59,7 @@ namespace MyCollection.Pages.Persons
             if (person != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || person.User != user)
+                if (user == null || person.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }

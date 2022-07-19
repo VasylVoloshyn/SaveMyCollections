@@ -25,14 +25,14 @@ namespace MyCollection.Pages.Countries
             {
                 var user = await _userManager.GetUserAsync(User);
                 Country = await _context.Countries
-                    .Where(c => c.User == user || c.User == null)
+                    .Where(c => c.User == null || c.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var country in Country)
                     {
-                        if (country.User == user)
+                        if (country.User?.Id == user.Id)
                         {
                             country.AllowEdit = true;
                         }

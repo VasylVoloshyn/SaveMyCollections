@@ -37,7 +37,7 @@ namespace MyCollection.Pages.Countries
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (country.User == user)
+                    if (country.User?.Id == user.Id)
                     {
                         country.AllowEdit = true;
                     }

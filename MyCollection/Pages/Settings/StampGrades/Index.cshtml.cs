@@ -25,14 +25,14 @@ namespace MyCollection.Pages.StampGrades
             {
                 var user = await _userManager.GetUserAsync(User);
                 StampGrade = await _context.StampGrades
-                    .Where(s => s.User == user || s.User == null)
+                    .Where(s => s.User == null || s.User.Id == user.Id)
                     .ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var stampGrade in StampGrade)
                     {
-                        if (stampGrade.User == user)
+                        if (stampGrade.User?.Id == user.Id)
                         {
                             stampGrade.AllowEdit = true;
                         }

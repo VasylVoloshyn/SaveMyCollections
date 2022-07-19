@@ -41,7 +41,7 @@ namespace MyCollection.Pages.Dimes
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || dime.User != user)
+                if (user == null || dime.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -61,7 +61,7 @@ namespace MyCollection.Pages.Dimes
             if (dime != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || dime.User != user)
+                if (user == null || dime.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }

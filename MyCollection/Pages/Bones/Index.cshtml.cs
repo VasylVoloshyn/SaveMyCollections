@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,12 +16,14 @@ namespace MyCollection.Pages.Bones
     public class IndexModel : PageModel
     {
         private readonly MyCollectionContext _context;
-        private readonly IConfiguration Configuration;
+        private readonly IConfiguration Configuration;       
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollectionContext context, IConfiguration configuration)
+        public IndexModel(MyCollectionContext context, IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             Configuration = configuration;
+            _userManager = userManager;
         }
 
         public string CurrencySort { get; set; }
@@ -35,7 +38,7 @@ namespace MyCollection.Pages.Bones
             string currentFilter, string searchString, int? pageIndex)
         {
             CurrentSort = sortOrder;
-            CurrencySort = String.IsNullOrEmpty(sortOrder) ? "currency_desc" : "";
+            CurrencySort = string.IsNullOrEmpty(sortOrder) ? "currency_desc" : "";
             NominalSort = sortOrder == "Nominal" ? "nominal_desc" : "Nominal";
             YearSort = sortOrder == "Year" ? "year_desc" : "Year";
             if (searchString != null)
@@ -50,17 +53,21 @@ namespace MyCollection.Pages.Bones
             CurrentFilter = searchString;
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code", CurrentFilter);
 
+            var user = await _userManager.GetUserAsync(User);
             IQueryable<Bone> bones = _context.Bones
-                .Include(c=>c.Currency)
-                .Include(c=>c.Signature)
-                .ThenInclude(c=>c.Person)
-                .Include(c=>c.Grade)
-                .Include(c=>c.BonePhotos)
+                .Where(b => b.User == null || b.User.Id == user.Id)
+                .Include(b => b.User)
+                .Include(b=>b.Currency)
+                .Include(b=>b.Signature)
+                .ThenInclude(b=>b.Person)
+                .Include(b=>b.Grade)
+                .Include(b=>b.BonePhotos)
                 .ThenInclude(b=>b.Photo)
+                
                 .Select(b => b);
 
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 bones = bones.Where(s => s.CurrencyId.ToString() == searchString);
             }
@@ -89,11 +96,14 @@ namespace MyCollection.Pages.Bones
             var pageSize = Configuration.GetValue("PageSize", 4);
             Bone = await PaginatedList<Bone>.CreateAsync(bones.AsNoTracking(), pageIndex ?? 1, pageSize);
 
-            foreach (var img in Bone.Select(b => b.BonePhotos))
+            if (user != null)
             {
-                foreach (var photo in img)
+                foreach (var bone in Bone)
                 {
-                    photo.Photo.PreviewImageUrl = ImageService.GetImageUrl(photo.Photo.PreviewImageData);
+                    if (bone.User?.Id == user.Id)
+                    {
+                        bone.AllowEdit = true;
+                    }
                 }
             }
         }

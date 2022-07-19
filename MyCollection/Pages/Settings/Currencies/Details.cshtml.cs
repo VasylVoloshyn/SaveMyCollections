@@ -39,7 +39,7 @@ namespace MyCollection.Pages.Currencies
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (currency.User == user)
+                    if (currency.User?.Id == user.Id)
                     {
                         currency.AllowEdit = true;
                     }

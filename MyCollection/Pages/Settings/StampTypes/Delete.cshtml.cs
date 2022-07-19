@@ -39,7 +39,7 @@ namespace MyCollection.Pages.StampTypes
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || stamptype.User != user)
+                if (user == null || stamptype.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -58,6 +58,11 @@ namespace MyCollection.Pages.StampTypes
 
             if (stamptype != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || stamptype.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 StampType = stamptype;
                 _context.StampTypes.Remove(StampType);
                 await _context.SaveChangesAsync();

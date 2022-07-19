@@ -37,7 +37,7 @@ namespace MyCollection.Pages.StampTypes
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (stamptype.User == user)
+                    if (stamptype.User?.Id == user.Id)
                     {
                         stamptype.AllowEdit = true;
                     }

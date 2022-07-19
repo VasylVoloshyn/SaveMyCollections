@@ -41,7 +41,7 @@ namespace MyCollection.Pages.Dimes
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || dime.User != user)
+            if (user == null || dime.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

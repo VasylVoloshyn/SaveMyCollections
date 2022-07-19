@@ -37,7 +37,7 @@ namespace MyCollection.Pages.Grades
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (grade.User == user)
+                    if (grade.User?.Id == user.Id)
                     {
                         grade.AllowEdit = true;
                     }

@@ -37,6 +37,7 @@ namespace MyCollection.Pages.Stamps
             }
 
             var stamp = await _context.Stamps
+                .Include(s => s.User)
                 .Include(s => s.Country)
                 .Include(s => s.StampGrade)
                 .Include(s => s.Currency)
@@ -48,7 +49,7 @@ namespace MyCollection.Pages.Stamps
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || stamp.User != user)
+            if (user == null || stamp.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }
@@ -91,7 +92,7 @@ namespace MyCollection.Pages.Stamps
                 if (isPhotoExist)
                 {
                     photoToRemove = Stamp.StampPhoto;
-                    Stamp.StampPhoto = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Stamp, stampImage, user);                    
+                    Stamp.StampPhoto = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Stamp, stampImage, user);
                 }
                 else
                 {

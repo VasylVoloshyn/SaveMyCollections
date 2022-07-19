@@ -50,14 +50,22 @@
                 <span asp-validation-for="Bone.Note" class="text-danger"></span>
             </div>
             <div>
-                <img src=@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl />
+                @if(Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
+                {
+                    <img style="width:320px; object-fit:cover; border-radius:5px"
+                        src="@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+                }
             </div>
             <div class="form-group">
                 <label class="control-label"> Change Avers</label>
                 <input type="file" name="aversImage" class="form-control" />
             </div>
             <div>
-                <img src=@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl />
+                @if(Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
+                {
+                    <img style="width:320px; object-fit:cover; border-radius:5px"
+                        src="@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+                }
             </div>
              <div class="form-group">
                 <label class="control-label">Change Revers</label>
@@ -66,13 +74,10 @@
             
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                 <a class="btn btn-info" asp-page="./Index">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -25,14 +25,14 @@ namespace MyCollection.Pages.Dimes
             {
                 var user = await _userManager.GetUserAsync(User);
                 Dime = await _context.Dimes
-                    .Where(d => d.User == user || d.User == null)
+                    .Where(d => d.User == null || d.User.Id == user.Id )
                     .Include(d => d.Country).ToListAsync();
 
                 if (user != null)
                 {
                     foreach (var dime in Dime)
                     {
-                        if (dime.User == user)
+                        if (dime.User?.Id == user.Id)
                         {
                             dime.AllowEdit = true;
                         }

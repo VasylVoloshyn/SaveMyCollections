@@ -36,7 +36,7 @@ namespace MyCollection.Pages.StampGrades
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || stampgrade.User != user)
+            if (user == null || stampgrade.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

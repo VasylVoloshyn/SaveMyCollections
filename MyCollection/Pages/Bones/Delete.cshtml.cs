@@ -1,4 +1,5 @@
-﻿
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,19 @@ using MyCollection.Service;
 
 namespace MyCollection.Pages.Bones
 {
+    [Authorize(Roles = "Basic")]
     public class DeleteModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DeleteModel(MyCollectionContext context)
+        public DeleteModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -28,6 +35,7 @@ namespace MyCollection.Pages.Bones
             }
 
             var bone = await _context.Bones
+                .Include(b=> b.User)
                 .Include(b => b.BonePhotos)
                 .ThenInclude(b => b.Photo)
                 .Include(b => b.Signature)
@@ -43,11 +51,13 @@ namespace MyCollection.Pages.Bones
             }
             else
             {
-                Bone = bone;
-                foreach (var photo in Bone.BonePhotos.Select(b => b.Photo))
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || bone.User?.Id != user.Id)
                 {
-                    photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+                    return RedirectToPage("/AccessDenied");
                 }
+                Bone = bone;
+                
             }
             return Page();
         }
@@ -59,20 +69,27 @@ namespace MyCollection.Pages.Bones
                 return NotFound();
             }
             var bone = await _context.Bones
-                .Include(m => m.BonePhotos)
-                .ThenInclude(m => m.Photo)
+                .Include(b=> b.User)
+                .Include(b => b.BonePhotos)
+                .ThenInclude(b => b.Photo)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (bone != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || bone.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Bone = bone;
                 _context.Bones.Remove(Bone);
                 var photos = Bone.BonePhotos.Select(o => o.Photo);
                 foreach (var photo in photos)
                 {
-                    _context.Photos.Remove(photo);
+                    await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);
+                    _context.UserPhotos.Remove(photo);
                 }
-
+                
                 await _context.SaveChangesAsync();
             }
 

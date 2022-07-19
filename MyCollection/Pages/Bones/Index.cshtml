@@ -93,16 +93,30 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
-                <td>
-                    <img src=@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo.PreviewImageUrl>
+                <td>   
+                     @if(item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
+                     {
+                        <img style="width:320px; object-fit:cover; border-radius:5px"
+                            src="@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+                     }
+                </td>
+                <td>                    
+                     @if(item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
+                     {
+                        <img style="width:320px; object-fit:cover; border-radius:5px"
+                            src="@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+                     }
                 </td>
                 <td>
-                    <img src=@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo.PreviewImageUrl>
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
                 </td>
             </tr>
         }

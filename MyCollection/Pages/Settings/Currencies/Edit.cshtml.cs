@@ -38,7 +38,7 @@ namespace MyCollection.Pages.Currencies
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(User);
-            if (user == null || currency.User != user)
+            if (user == null || currency.User?.Id != user.Id)
             {
                 return RedirectToPage("/AccessDenied");
             }

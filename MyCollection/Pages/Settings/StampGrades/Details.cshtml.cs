@@ -37,7 +37,7 @@ namespace MyCollection.Pages.StampGrades
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (stampgrade.User == user)
+                    if (stampgrade.User?.Id == user.Id)
                     {
                         stampgrade.AllowEdit = true;
                     }

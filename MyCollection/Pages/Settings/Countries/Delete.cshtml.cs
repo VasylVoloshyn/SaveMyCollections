@@ -42,7 +42,7 @@ namespace MyCollection.Pages.Countries
             else 
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || country.User != user)
+                if (user == null || country.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
@@ -62,7 +62,7 @@ namespace MyCollection.Pages.Countries
             if (country != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                if (user == null || country.User != user)
+                if (user == null || country.User?.Id != user.Id)
                 {
                     return RedirectToPage("/AccessDenied");
                 }

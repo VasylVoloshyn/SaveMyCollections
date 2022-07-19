@@ -28,6 +28,7 @@ namespace MyCollection.Pages.Stamps
             }
 
             var stamp = await _context.Stamps
+                .Include(s => s.User)
                 .Include(s => s.Country)
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
@@ -43,7 +44,7 @@ namespace MyCollection.Pages.Stamps
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    if (stamp.User == user)
+                    if (stamp.User?.Id == user.Id)
                     {
                         stamp.AllowEdit = true;
                     }
