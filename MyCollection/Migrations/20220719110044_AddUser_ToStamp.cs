@@ -4,27 +4,27 @@
 
 namespace MyCollection.Migrations
 {
-    public partial class AddUserToCurrencies : Migration
+    public partial class AddUser_ToStamp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
                 schema: "dbo",
-                table: "Currency",
+                table: "Stamp",
                 type: "nvarchar(450)",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_UserId",
+                name: "IX_Stamp_UserId",
                 schema: "dbo",
-                table: "Currency",
+                table: "Stamp",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Currency_AspNetUsers_UserId",
+                name: "FK_Stamp_AspNetUsers_UserId",
                 schema: "dbo",
-                table: "Currency",
+                table: "Stamp",
                 column: "UserId",
                 principalSchema: "Identity",
                 principalTable: "AspNetUsers",
@@ -34,19 +34,19 @@ namespace MyCollection.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Currency_AspNetUsers_UserId",
+                name: "FK_Stamp_AspNetUsers_UserId",
                 schema: "dbo",
-                table: "Currency");
+                table: "Stamp");
 
             migrationBuilder.DropIndex(
-                name: "IX_Currency_UserId",
+                name: "IX_Stamp_UserId",
                 schema: "dbo",
-                table: "Currency");
+                table: "Stamp");
 
             migrationBuilder.DropColumn(
                 name: "UserId",
                 schema: "dbo",
-                table: "Currency");
+                table: "Stamp");
         }
     }
 }

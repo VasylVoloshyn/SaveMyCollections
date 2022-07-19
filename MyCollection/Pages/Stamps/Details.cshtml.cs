@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
-using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
     public class DetailsModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public Stamp Stamp { get; set; } = default!;
@@ -38,11 +40,15 @@ namespace MyCollection.Pages.Stamps
             }
             else
             {
-                Stamp = stamp;
-                if (Stamp.StampPhoto != null)
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
                 {
-                    Stamp.StampPhoto.ImageUrl = ImageService.GetImageUrl(Stamp.StampPhoto.ImageData);
+                    if (stamp.User == user)
+                    {
+                        stamp.AllowEdit = true;
+                    }
                 }
+                Stamp = stamp;                
             }
 
             return Page();

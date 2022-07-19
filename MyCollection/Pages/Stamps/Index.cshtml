@@ -14,11 +14,11 @@
     <div class="form-actions no-color">
         <p>
             Find by Country:
-            <select name="SearchString" class ="form-control" asp-items="ViewBag.CountryId">
+            <select name="SearchString" class="form-control" asp-items="ViewBag.CountryId">
                 <option value="">-- Select Country --</option>
             </select>
             <input type="submit" value="Search" class="btn btn-primary" /> |
-           
+
             <a asp-page="./Index">Back to full List</a>
         </p>
     </div>
@@ -29,8 +29,8 @@
         <tr>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.CountrySort"
-                   asp-route-currentFilter="@Model.CurrentFilter">               
-                @Html.DisplayNameFor(model => model.Stamp[0].Country)
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Stamp[0].Country)
                 </a>
             </th>
             <th>
@@ -41,14 +41,14 @@
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.NominalSort"
-                   asp-route-currentFilter="@Model.CurrentFilter">                               
-                @Html.DisplayNameFor(model => model.Stamp[0].Nominal)
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Stamp[0].Nominal)
                 </a>
             </th>
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.YearSort"
-                   asp-route-currentFilter="@Model.CurrentFilter">                               
-                @Html.DisplayNameFor(model => model.Stamp[0].Year)
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Stamp[0].Year)
                 </a>
             </th>
             <th>
@@ -65,50 +65,58 @@
             </th>
             <th>
                 @Html.DisplayName("Stamp Image")
-            </th>            
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Stamp) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dime.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nominal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsCancelated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StampGrade.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                    <img src=@item.StampPhoto?.PreviewImageUrl>
-                </td>                
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Stamp)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dime.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nominal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCancelated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StampGrade.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    <img style="width:320px; object-fit:cover; border-radius:5px"
+                        src="@item.StampPhoto?.FileLocation\@item.StampPhoto?.FileName">
+                </td>
+                <td>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

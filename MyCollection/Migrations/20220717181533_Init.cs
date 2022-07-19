@@ -61,72 +61,6 @@ namespace MyCollection.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BoneGrade",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BoneGrade", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CoinGrade",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CoinGrade", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Country",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Country", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Person",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Person", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Photo",
                 schema: "dbo",
                 columns: table => new
@@ -145,36 +79,20 @@ namespace MyCollection.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StampGrade",
+                name: "UserPhoto",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Size = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StampGrade", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StampType",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StampType", x => x.Id);
+                    table.PrimaryKey("PK_UserPhoto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,6 +213,147 @@ namespace MyCollection.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BoneGrade",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BoneGrade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BoneGrade_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoinGrade",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoinGrade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CoinGrade_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Country",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Country_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Person",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Person", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Person_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StampGrade",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StampGrade", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StampGrade_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StampType",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StampType", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StampType_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Currency",
                 schema: "dbo",
                 columns: table => new
@@ -304,11 +363,18 @@ namespace MyCollection.Migrations
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false),
-                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Currency", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Currency_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Currency_Country_CountryId",
                         column: x => x.CountryId,
@@ -328,11 +394,18 @@ namespace MyCollection.Migrations
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false),
-                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    WikiLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dime", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dime_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Dime_Country_CountryId",
                         column: x => x.CountryId,
@@ -350,11 +423,18 @@ namespace MyCollection.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonId = table.Column<int>(type: "int", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Signature", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Signature_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "Identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Signature_Person_PersonId",
                         column: x => x.PersonId,
@@ -438,18 +518,18 @@ namespace MyCollection.Migrations
                         principalTable: "Dime",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Stamp_Photo_StampPhotoId",
-                        column: x => x.StampPhotoId,
-                        principalSchema: "dbo",
-                        principalTable: "Photo",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Stamp_StampGrade_StampGradeId",
                         column: x => x.StampGradeId,
                         principalSchema: "dbo",
                         principalTable: "StampGrade",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stamp_UserPhoto_StampPhotoId",
+                        column: x => x.StampPhotoId,
+                        principalSchema: "dbo",
+                        principalTable: "UserPhoto",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -619,6 +699,12 @@ namespace MyCollection.Migrations
                 column: "SignatureId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BoneGrade_UserId",
+                schema: "dbo",
+                table: "BoneGrade",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BonePhoto_BoneId",
                 schema: "dbo",
                 table: "BonePhoto",
@@ -643,6 +729,12 @@ namespace MyCollection.Migrations
                 column: "DimeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CoinGrade_UserId",
+                schema: "dbo",
+                table: "CoinGrade",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CoinPhoto_CoinId",
                 schema: "dbo",
                 table: "CoinPhoto",
@@ -655,10 +747,22 @@ namespace MyCollection.Migrations
                 column: "PhotoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Country_UserId",
+                schema: "dbo",
+                table: "Country",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Currency_CountryId",
                 schema: "dbo",
                 table: "Currency",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Currency_UserId",
+                schema: "dbo",
+                table: "Currency",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dime_CountryId",
@@ -667,10 +771,28 @@ namespace MyCollection.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dime_UserId",
+                schema: "dbo",
+                table: "Dime",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_UserId",
+                schema: "dbo",
+                table: "Person",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Signature_PersonId",
                 schema: "dbo",
                 table: "Signature",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Signature_UserId",
+                schema: "dbo",
+                table: "Signature",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stamp_CountryId",
@@ -701,6 +823,18 @@ namespace MyCollection.Migrations
                 schema: "dbo",
                 table: "Stamp",
                 column: "StampPhotoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StampGrade_UserId",
+                schema: "dbo",
+                table: "StampGrade",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StampType_UserId",
+                schema: "dbo",
+                table: "StampType",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -746,10 +880,6 @@ namespace MyCollection.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers",
-                schema: "Identity");
-
-            migrationBuilder.DropTable(
                 name: "Bone",
                 schema: "dbo");
 
@@ -763,6 +893,10 @@ namespace MyCollection.Migrations
 
             migrationBuilder.DropTable(
                 name: "StampGrade",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "UserPhoto",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
@@ -792,6 +926,10 @@ namespace MyCollection.Migrations
             migrationBuilder.DropTable(
                 name: "Country",
                 schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers",
+                schema: "Identity");
         }
     }
 }

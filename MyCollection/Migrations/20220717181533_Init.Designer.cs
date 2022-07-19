@@ -12,8 +12,8 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    [Migration("20220717163917_Add_StampGradeUser")]
-    partial class Add_StampGradeUser
+    [Migration("20220717181533_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -734,6 +734,34 @@ namespace MyCollection.Migrations
                     b.ToTable("StampType", "dbo");
                 });
 
+            modelBuilder.Entity("MyCollection.Models.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Size")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserPhoto", "dbo");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -976,7 +1004,7 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCollection.Models.Photo", "StampPhoto")
+                    b.HasOne("MyCollection.Models.UserPhoto", "StampPhoto")
                         .WithMany()
                         .HasForeignKey("StampPhotoId");
 

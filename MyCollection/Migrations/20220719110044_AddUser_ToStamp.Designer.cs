@@ -12,8 +12,8 @@ using MyCollection.Data;
 namespace MyCollection.Migrations
 {
     [DbContext(typeof(MyCollectionContext))]
-    [Migration("20220712060236_Init")]
-    partial class Init
+    [Migration("20220719110044_AddUser_ToStamp")]
+    partial class AddUser_ToStamp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -297,7 +297,12 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("BoneGrade", "dbo");
                 });
@@ -385,7 +390,12 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CoinGrade", "dbo");
                 });
@@ -435,10 +445,15 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WikiLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Country", "dbo");
                 });
@@ -462,12 +477,17 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WikiLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Currency", "dbo");
                 });
@@ -491,12 +511,17 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WikiLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Dime", "dbo");
                 });
@@ -523,10 +548,15 @@ namespace MyCollection.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WikiLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Person", "dbo");
                 });
@@ -577,9 +607,14 @@ namespace MyCollection.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Signature", "dbo");
                 });
@@ -619,6 +654,9 @@ namespace MyCollection.Migrations
                     b.Property<int?>("StampPhotoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("Year")
                         .HasColumnType("int");
 
@@ -633,6 +671,8 @@ namespace MyCollection.Migrations
                     b.HasIndex("StampGradeId");
 
                     b.HasIndex("StampPhotoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stamp", "dbo");
                 });
@@ -656,7 +696,12 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("StampGrade", "dbo");
                 });
@@ -681,12 +726,45 @@ namespace MyCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WikiLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("StampType", "dbo");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Size")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserPhoto", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -765,6 +843,15 @@ namespace MyCollection.Migrations
                     b.Navigation("Signature");
                 });
 
+            modelBuilder.Entity("MyCollection.Models.BoneGrade", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyCollection.Models.BonePhoto", b =>
                 {
                     b.HasOne("MyCollection.Models.Bone", "Bone")
@@ -803,6 +890,15 @@ namespace MyCollection.Migrations
                     b.Navigation("Dime");
                 });
 
+            modelBuilder.Entity("MyCollection.Models.CoinGrade", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyCollection.Models.CoinPhoto", b =>
                 {
                     b.HasOne("MyCollection.Models.Coin", "Coin")
@@ -822,6 +918,15 @@ namespace MyCollection.Migrations
                     b.Navigation("Photo");
                 });
 
+            modelBuilder.Entity("MyCollection.Models.Country", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyCollection.Models.Currency", b =>
                 {
                     b.HasOne("MyCollection.Models.Country", "Country")
@@ -830,7 +935,13 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Country");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Dime", b =>
@@ -841,7 +952,22 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Country");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.Person", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Signature", b =>
@@ -852,7 +978,13 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Person");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Stamp", b =>
@@ -877,9 +1009,13 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCollection.Models.Photo", "StampPhoto")
+                    b.HasOne("MyCollection.Models.UserPhoto", "StampPhoto")
                         .WithMany()
                         .HasForeignKey("StampPhotoId");
+
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Country");
 
@@ -890,6 +1026,26 @@ namespace MyCollection.Migrations
                     b.Navigation("StampGrade");
 
                     b.Navigation("StampPhoto");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.StampGrade", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.StampType", b =>
+                {
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyCollection.Models.Bone", b =>

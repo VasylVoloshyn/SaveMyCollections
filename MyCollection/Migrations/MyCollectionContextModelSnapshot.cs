@@ -652,6 +652,9 @@ namespace MyCollection.Migrations
                     b.Property<int?>("StampPhotoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("Year")
                         .HasColumnType("int");
 
@@ -666,6 +669,8 @@ namespace MyCollection.Migrations
                     b.HasIndex("StampGradeId");
 
                     b.HasIndex("StampPhotoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stamp", "dbo");
                 });
@@ -730,6 +735,34 @@ namespace MyCollection.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("StampType", "dbo");
+                });
+
+            modelBuilder.Entity("MyCollection.Models.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Size")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserPhoto", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -974,9 +1007,13 @@ namespace MyCollection.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyCollection.Models.Photo", "StampPhoto")
+                    b.HasOne("MyCollection.Models.UserPhoto", "StampPhoto")
                         .WithMany()
                         .HasForeignKey("StampPhotoId");
+
+                    b.HasOne("MyCollection.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Country");
 
@@ -987,6 +1024,8 @@ namespace MyCollection.Migrations
                     b.Navigation("StampGrade");
 
                     b.Navigation("StampPhoto");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyCollection.Models.StampGrade", b =>

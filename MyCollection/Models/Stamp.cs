@@ -28,6 +28,9 @@ namespace MyCollection.Models
         public string? Note { get; set; } = null!;
         public int? StampPhotoId { get; set; }
         [ValidateNever]
-        public virtual Photo? StampPhoto { get; set; } = null!;
+        public virtual UserPhoto? StampPhoto { get; set; } = null!;
+        public ApplicationUser? User { get; set; } = null;
+        [NotMapped]
+        public bool AllowEdit { get; set; }
     }
 }

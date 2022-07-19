@@ -28,7 +28,9 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\Images\Bone\" />
+    <Folder Include="wwwroot\Images\Coin\" />
+    <Folder Include="wwwroot\Images\Stamp\" />
   </ItemGroup>
 
   <ItemGroup>

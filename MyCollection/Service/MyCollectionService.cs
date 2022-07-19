@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MyCollection.Enums;
 
 namespace MyCollection.Service
 {
@@ -35,14 +33,7 @@ namespace MyCollection.Service
             return items;            
 
         }
-
-        
-        public enum MyColectionType
-        {
-            Bone,
-            Coin,
-            Stamp
-        }
+                
 
         public class CollectionItemInfo
         {

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
 using MyCollection.Models;
-using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
@@ -11,11 +11,14 @@ namespace MyCollection.Pages.Stamps
     {
         private readonly MyCollectionContext _context;
         private readonly IConfiguration Configuration;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollectionContext context, IConfiguration configuration)
+        public IndexModel(MyCollectionContext context, IConfiguration configuration, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             Configuration = configuration;
+            _userManager = userManager;
         }
 
         public string CountrySort { get; set; }
@@ -44,19 +47,21 @@ namespace MyCollection.Pages.Stamps
 
             CurrentFilter = searchString;
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", CurrentFilter);
-
+            var user = await _userManager.GetUserAsync(User);
             IQueryable<Stamp> stamps = _context.Stamps
+                .Where(s => s.User == user || s.User == null)
                 .Include(s => s.Country)
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
                 .Include(s => s.StampGrade)
                 .Include(s => s.StampPhoto)
-                .Select(s => s);
+                .Select(s => s);            
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 stamps = stamps.Where(s => s.CountryId.ToString() == searchString);
             }
+            
             switch (sortOrder)
             {
                 case "country_desc":
@@ -81,11 +86,16 @@ namespace MyCollection.Pages.Stamps
 
             var pageSize = Configuration.GetValue("PageSize", 4);
             Stamp = await PaginatedList<Stamp>.CreateAsync(stamps.AsNoTracking(), pageIndex ?? 1, pageSize);
-
-            foreach (var photo in Stamp.Where(s=>s.StampPhoto!=null).Select(b => b.StampPhoto))
-            {                
-                photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+            //if (user != null)
+            //{
+            foreach (var stamp in Stamp)
+            {
+                //if (stamp.User == user)
+                //{
+                stamp.AllowEdit = true;
+                //}
             }
+            //}
         }
     }
 }

@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
+    [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(MyCollectionContext context)
+        public EditModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -28,7 +37,7 @@ namespace MyCollection.Pages.Stamps
             }
 
             var stamp = await _context.Stamps
-                .Include(s=>s.Country)
+                .Include(s => s.Country)
                 .Include(s => s.StampGrade)
                 .Include(s => s.Currency)
                 .Include(c => c.Dime)
@@ -38,10 +47,10 @@ namespace MyCollection.Pages.Stamps
             {
                 return NotFound();
             }
-            Stamp = stamp;
-            if (Stamp.StampPhotoId != null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || stamp.User != user)
             {
-                stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(stamp.StampPhoto.PreviewImageData);
+                return RedirectToPage("/AccessDenied");
             }
 
             Stamp = stamp;
@@ -72,19 +81,21 @@ namespace MyCollection.Pages.Stamps
                 return NotFound();
             }
 
+            var user = await _userManager.GetUserAsync(User);
             Stamp.StampPhoto = stampToUpdate.StampPhoto;
             bool isPhotoExist = Stamp.StampPhoto != null;
-            Photo photoToRemove = null;
+            UserPhoto? photoToRemove = null;
+
             if (stampImage != null)
             {
                 if (isPhotoExist)
                 {
                     photoToRemove = Stamp.StampPhoto;
-                    Stamp.StampPhoto = await ImageService.CreateImageAsync(stampImage);
+                    Stamp.StampPhoto = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Stamp, stampImage, user);                    
                 }
                 else
                 {
-                    Stamp.StampPhoto = await ImageService.CreateImageAsync(stampImage);
+                    Stamp.StampPhoto = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Stamp, stampImage, user);
                 }
             }
 
@@ -106,7 +117,8 @@ namespace MyCollection.Pages.Stamps
 
             if (photoToRemove != null)
             {
-                _context.Photos.Remove(photoToRemove);
+                await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photoToRemove);
+                _context.UserPhotos.Remove(photoToRemove);
                 try
                 {
                     await _context.SaveChangesAsync();

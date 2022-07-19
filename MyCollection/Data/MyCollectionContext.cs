@@ -10,6 +10,7 @@ namespace MyCollection.Data
     {
         #region General        
         public DbSet<Photo> Photos { get; set; } = null!;
+        public DbSet<UserPhoto> UserPhotos { get; set; } = null!;
         public DbSet<Currency> Currencies { get; set; } = null!;
         public DbSet<Dime> Dimes { get; set; } = null!;
         public DbSet<Country> Countries { get; set; } = null!;

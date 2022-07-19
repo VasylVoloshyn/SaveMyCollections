@@ -1,19 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
+    [Authorize(Roles = "Basic")]
     public class CreateModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateModel(MyCollectionContext context)
+        public CreateModel(MyCollectionContext context, IWebHostEnvironment hostingEnv, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -37,12 +46,14 @@ namespace MyCollection.Pages.Stamps
                 return Page();
             }
 
+            var user = await _userManager.GetUserAsync(User);
             if (stampImage != null)
-            {                
-                Photo stampPhoto = await ImageService.CreateImageAsync(stampImage);
-                Stamp.StampPhoto = stampPhoto;
+            {
+                var uPhoto = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Stamp, stampImage, user);                
+                Stamp.StampPhoto = uPhoto;
             }
 
+            Stamp.User = user;
             _context.Stamps.Add(Stamp);
             await _context.SaveChangesAsync();
 

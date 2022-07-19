@@ -1,19 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Stamps
 {
+    [Authorize(Roles = "Basic")]
     public class DeleteModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DeleteModel(MyCollectionContext context)
+        public DeleteModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -27,6 +36,7 @@ namespace MyCollection.Pages.Stamps
             }
 
             var stamp = await _context.Stamps
+                .Include(s=>s.Country)
                 .Include(s => s.StampGrade)
                 .Include(s => s.Currency)
                 .Include(c => c.Dime)
@@ -39,12 +49,12 @@ namespace MyCollection.Pages.Stamps
             }
             else
             {
-                Stamp = stamp;
-
-                if (Stamp.StampPhoto != null)
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || stamp.User != user)
                 {
-                    Stamp.StampPhoto.PreviewImageUrl = ImageService.GetImageUrl(Stamp.StampPhoto.PreviewImageData);
+                    return RedirectToPage("/AccessDenied");
                 }
+                Stamp = stamp;                
             }
 
             return Page();
@@ -62,13 +72,14 @@ namespace MyCollection.Pages.Stamps
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (stamp != null)
-            {
+            {                
                 Stamp = stamp;
                 _context.Stamps.Remove(Stamp);
                 var photo = Stamp.StampPhoto;
                 if (photo != null)
                 {
-                    _context.Photos.Remove(photo);
+                    await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);
+                    _context.UserPhotos.Remove(photo);
                 }
 
                 await _context.SaveChangesAsync();
