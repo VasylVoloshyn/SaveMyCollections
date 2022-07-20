@@ -24,8 +24,9 @@ namespace MyCollection.Pages.StampGrades
             if (_context.StampGrades != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 StampGrade = await _context.StampGrades
-                    .Where(s => s.User == null || s.User.Id == user.Id)
+                    .Where(s => s.User == null || s.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

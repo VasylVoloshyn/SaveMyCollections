@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Coins
 {
+    [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(MyCollectionContext context)
+        public EditModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -27,18 +36,21 @@ namespace MyCollection.Pages.Coins
                 return NotFound();
             }
             var coin = await _context.Coins
-                .Include(b => b.CoinPhotos)
-                .ThenInclude(b => b.Photo)
+                .Include(c => c.User)
+                .Include(c => c.CoinPhotos)
+                .ThenInclude(c => c.Photo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (coin == null)
             {
                 return NotFound();
             }
-            Coin = coin;
-            foreach (var photo in Coin.CoinPhotos.Select(b => b.Photo))
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || coin.User?.Id != user.Id)
             {
-                photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+                return RedirectToPage("/AccessDenied");
             }
+            Coin = coin;
+            
 
             ViewData["CoinGradeId"] = new SelectList(_context.CoinGrades, "Id", "Code");
             ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
@@ -57,32 +69,33 @@ namespace MyCollection.Pages.Coins
             _context.Attach(Coin).State = EntityState.Modified;
 
             var coinToUpdate = await _context.Coins
-                .Include(b => b.CoinPhotos)
-                .ThenInclude(b => b.Photo)
+                .Include(c => c.User)
+                .Include(c => c.CoinPhotos)
+                .ThenInclude(c => c.Photo)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             if (coinToUpdate == null)
             {
                 return NotFound();
             }
-
+            var user = await _userManager.GetUserAsync(User);
             Coin.CoinPhotos = coinToUpdate.CoinPhotos;
             bool isAversExist = Coin.CoinPhotos.Any(c=>c.IsAvers);
             bool isReversExist = Coin.CoinPhotos.Any(c => c.IsRevers);
             
-            List<Photo> photoToRemove = new List<Photo>();
+            List<UserPhoto> photoToRemove = new List<UserPhoto>();
             if (aversImage != null)
             {
                 if (isAversExist)
                 {
                     photoToRemove.Add(Coin.CoinPhotos.Where(c=>c.IsAvers).First().Photo);
-                    Coin.CoinPhotos.Where(c=>c.IsAvers).First().Photo = await ImageService.CreateImageAsync(aversImage);
+                    Coin.CoinPhotos.Where(c => c.IsAvers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, aversImage, user);
                 }
                 else
                 {
                     var avers = new CoinPhoto();
                     avers.CoinId = Coin.Id;
-                    avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                    Coin.CoinPhotos.Where(c => c.IsAvers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, aversImage, user);
                     avers.IsAvers = true;
                     Coin.CoinPhotos.Add(avers);
                 }
@@ -93,19 +106,23 @@ namespace MyCollection.Pages.Coins
                 if (isReversExist)
                 {
                     photoToRemove.Add(Coin.CoinPhotos.Where(c=>c.IsRevers).First().Photo);
-                    Coin.CoinPhotos.Where(c=>c.IsRevers).First().Photo = await ImageService.CreateImageAsync(reversImage);
+                    Coin.CoinPhotos.Where(c=>c.IsRevers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, reversImage, user);
                 }
                 else
                 {
                     var revers = new CoinPhoto();
                     revers.CoinId = Coin.Id;
-                    revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                    Coin.CoinPhotos.Where(c => c.IsRevers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, reversImage, user);
                     revers.IsRevers = true;
                     Coin.CoinPhotos.Add(revers);
                 }
             }
 
-            _context.Photos.RemoveRange(photoToRemove);            
+            foreach (var photo in photoToRemove)
+            {
+                await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);
+            }
+            _context.UserPhotos.RemoveRange(photoToRemove);            
 
             try
             {

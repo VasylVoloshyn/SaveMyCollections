@@ -24,8 +24,9 @@ namespace MyCollection.Pages.Dimes
             if (_context.Dimes != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 Dime = await _context.Dimes
-                    .Where(d => d.User == null || d.User.Id == user.Id )
+                    .Where(d => d.User == null || d.User.Id == userId )
                     .Include(d => d.Country).ToListAsync();
 
                 if (user != null)

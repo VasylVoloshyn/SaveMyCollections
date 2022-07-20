@@ -24,8 +24,9 @@ namespace MyCollection.Pages.Grades
             if (_context.BoneGrades != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 Grade = await _context.BoneGrades
-                    .Where(b => b.User == null || b.User.Id == user.Id)
+                    .Where(b => b.User == null || b.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

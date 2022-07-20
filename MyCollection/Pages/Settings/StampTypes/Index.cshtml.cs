@@ -24,8 +24,9 @@ namespace MyCollection.Pages.StampTypes
             if (_context.StampTypes != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 StampType = await _context.StampTypes
-                    .Where(s => s.User == null || s.User.Id == user.Id)
+                    .Where(s => s.User == null || s.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

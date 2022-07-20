@@ -54,8 +54,8 @@ namespace MyCollection.Pages.Bones
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code", CurrentFilter);
 
             var user = await _userManager.GetUserAsync(User);
-            IQueryable<Bone> bones = _context.Bones
-                .Where(b => b.User == null || b.User.Id == user.Id)
+            var userId = user?.Id;
+            IQueryable<Bone> bones = _context.Bones                
                 .Include(b => b.User)
                 .Include(b=>b.Currency)
                 .Include(b=>b.Signature)
@@ -63,13 +63,14 @@ namespace MyCollection.Pages.Bones
                 .Include(b=>b.Grade)
                 .Include(b=>b.BonePhotos)
                 .ThenInclude(b=>b.Photo)
-                
+                .Where(b => b.User == null || b.User.Id == userId)
                 .Select(b => b);
 
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                bones = bones.Where(s => s.CurrencyId.ToString() == searchString);
+                bones = bones                    
+                    .Where(s => s.CurrencyId.ToString() == searchString);
             }
             switch (sortOrder)
             {
@@ -93,8 +94,9 @@ namespace MyCollection.Pages.Bones
                     break;
             }
            
+
             var pageSize = Configuration.GetValue("PageSize", 4);
-            Bone = await PaginatedList<Bone>.CreateAsync(bones.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Bone = await PaginatedList<Bone>.CreateAsync(bones, pageIndex ?? 1, pageSize);
 
             if (user != null)
             {

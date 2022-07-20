@@ -24,8 +24,9 @@ namespace MyCollection.Pages.Currencies
             if (_context.Currencies != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 Currency = await _context.Currencies
-                    .Where(c => c.User == null || c.User.Id == user.Id)
+                    .Where(c => c.User == null || c.User.Id == userId)
                     .Include(c => c.Country).ToListAsync();
                 if (user != null)
                 {

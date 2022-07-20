@@ -24,8 +24,9 @@ namespace MyCollection.Pages.Countries
             if (_context.Countries != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 Country = await _context.Countries
-                    .Where(c => c.User == null || c.User.Id == user.Id)
+                    .Where(c => c.User == null || c.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

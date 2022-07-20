@@ -24,8 +24,9 @@ namespace MyCollection.Pages.Signatures
             if (_context.Signatures != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 Signature = await _context.Signatures
-                    .Where(s => s.User == null || s.User.Id == user.Id)
+                    .Where(s => s.User == null || s.User.Id == userId)
                     .Include(s => s.Person).ToListAsync();
 
                 if (user != null)

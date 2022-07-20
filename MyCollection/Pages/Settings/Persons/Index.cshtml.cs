@@ -22,11 +22,12 @@ namespace MyCollection.Pages.Persons
 
         public async Task OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);            
+            var user = await _userManager.GetUserAsync(User);
+            var userId = user?.Id;
             if (_context.Persons != null)
             {
                 Person = await _context.Persons
-                    .Where(p => p.User == null || p.User.Id == user.Id)
+                    .Where(p => p.User == null || p.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

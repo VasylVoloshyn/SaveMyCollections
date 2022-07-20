@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
@@ -7,13 +9,19 @@ using MyCollection.Service;
 
 namespace MyCollection.Pages.Coins
 {
+    [Authorize(Roles = "Basic")]
     public class DeleteModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DeleteModel(MyCollectionContext context)
+        public DeleteModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -27,6 +35,7 @@ namespace MyCollection.Pages.Coins
             }
 
             var coin = await _context.Coins
+                .Include(c => c.User)
                 .Include(c => c.Dime)
                 .Include(c => c.CoinGrade)
                 .Include(c => c.CoinPhotos)
@@ -39,11 +48,12 @@ namespace MyCollection.Pages.Coins
             }
             else
             {
-                Coin = coin;
-                foreach (var photo in Coin.CoinPhotos.Select(b => b.Photo))
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || coin.User?.Id != user.Id)
                 {
-                    photo.PreviewImageUrl = ImageService.GetImageUrl(photo.PreviewImageData);
+                    return RedirectToPage("/AccessDenied");
                 }
+                Coin = coin;                
             }
             return Page();
         }
@@ -56,18 +66,25 @@ namespace MyCollection.Pages.Coins
             }
 
             var coin = await _context.Coins
-                .Include(m => m.CoinPhotos)
-                .ThenInclude(m => m.Photo)
+                .Include(c => c.User)
+                .Include(c => c.CoinPhotos)
+                .ThenInclude(c => c.Photo)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (coin != null)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null || coin.User?.Id != user.Id)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
                 Coin = coin;
                 _context.Coins.Remove(Coin);
                 var photos = Coin.CoinPhotos.Select(o => o.Photo);
                 foreach (var photo in photos)
                 {
-                    _context.Photos.Remove(photo);
+                    await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);
+                    _context.UserPhotos.Remove(photo);
                 }
 
                 await _context.SaveChangesAsync();

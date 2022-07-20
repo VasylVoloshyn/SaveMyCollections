@@ -15,6 +15,6 @@ namespace MyCollection.Models
         public bool IsRevers { get; set; }
         [Required]
         public int PhotoId { get; set; }
-        public Photo Photo { get; set; } = null!;
+        public UserPhoto Photo { get; set; } = null!;
     }
 }

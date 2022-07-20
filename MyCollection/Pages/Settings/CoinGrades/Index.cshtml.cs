@@ -25,8 +25,9 @@ namespace MyCollection.Pages.CoinGrades
             if (_context.CoinGrades != null)
             {
                 var user = await _userManager.GetUserAsync(User);
+                var userId = user?.Id;
                 CoinGrade = await _context.CoinGrades
-                    .Where(c => c.User == null || c.User.Id == user.Id)
+                    .Where(c => c.User == null || c.User.Id == userId)
                     .ToListAsync();
 
                 if (user != null)

@@ -48,19 +48,21 @@ namespace MyCollection.Pages.Stamps
             CurrentFilter = searchString;
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", CurrentFilter);
             var user = await _userManager.GetUserAsync(User);
-            IQueryable<Stamp> stamps = _context.Stamps
-                .Where(s => s.User == null || s.User.Id == user.Id )
+            var userId = user?.Id;
+            IQueryable<Stamp> stamps = _context.Stamps                
                 .Include(s => s.User)
                 .Include(s => s.Country)
                 .Include(s => s.Currency)
                 .Include(s => s.Dime)
                 .Include(s => s.StampGrade)
-                .Include(s => s.StampPhoto)                
+                .Include(s => s.StampPhoto)
+                .Where(s => s.User == null || s.User.Id == userId)
                 .Select(s => s);
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                stamps = stamps.Where(s => s.CountryId.ToString() == searchString);
+                stamps = stamps                    
+                    .Where(s => s.CountryId.ToString() == searchString);
             }
 
             switch (sortOrder)

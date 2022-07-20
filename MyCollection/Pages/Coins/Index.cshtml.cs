@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
@@ -11,11 +12,14 @@ namespace MyCollection.Pages.Coins
     {
         private readonly MyCollectionContext _context;
         private readonly IConfiguration Configuration;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(MyCollectionContext context, IConfiguration configuration)
+        public IndexModel(MyCollectionContext context, IConfiguration configuration,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             Configuration = configuration;
+            _userManager = userManager;
         }
 
         public string DimeSort { get; set; }
@@ -45,16 +49,22 @@ namespace MyCollection.Pages.Coins
             CurrentFilter = searchString;
             ViewData["CurrencyId"] = new SelectList(_context.Dimes, "Id", "Code", CurrentFilter);
 
+            var user = await _userManager.GetUserAsync(User);
+            var userId = user?.Id;
+
             IQueryable<Coin> coins = _context.Coins
+                .Include(c => c.User)
                 .Include(c => c.Dime)
                 .Include(c => c.CoinGrade)
                 .Include(c => c.CoinPhotos)
-                .ThenInclude(b => b.Photo)
-                .Select(b => b);
+                .ThenInclude(c => c.Photo)
+                .Where(c => c.User == null || c.User.Id == userId)
+                .Select(c => c);
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                coins = coins.Where(s => s.DimeId.ToString() == searchString);
+                coins = coins                   
+                    .Where(s => s.DimeId.ToString() == searchString);
             }
             switch (sortOrder)
             {
@@ -81,11 +91,14 @@ namespace MyCollection.Pages.Coins
             var pageSize = Configuration.GetValue("PageSize", 4);
             Coin = await PaginatedList<Coin>.CreateAsync(coins.AsNoTracking(), pageIndex ?? 1, pageSize);
 
-            foreach (var img in Coin.Select(b => b.CoinPhotos))
+            if (user != null)
             {
-                foreach (var photo in img)
+                foreach (var coin in Coin)
                 {
-                    photo.Photo.PreviewImageUrl = ImageService.GetImageUrl(photo.Photo.PreviewImageData);
+                    if (coin.User?.Id == user.Id)
+                    {
+                        coin.AllowEdit = true;
+                    }
                 }
             }
         }

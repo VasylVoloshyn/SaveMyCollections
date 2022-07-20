@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MyCollection.Data;
@@ -10,10 +11,12 @@ namespace MyCollection.Pages.Coins
     public class DetailsModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DetailsModel(MyCollectionContext context)
+        public DetailsModel(MyCollectionContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;            
         }
 
         public Coin Coin { get; set; } = default!;
@@ -26,6 +29,7 @@ namespace MyCollection.Pages.Coins
             }
 
             var coin = await _context.Coins
+                .Include(c => c.User)
                 .Include(c => c.CoinPhotos)
                 .ThenInclude(c => c.Photo)
                 .Include(c => c.CoinGrade)
@@ -38,11 +42,15 @@ namespace MyCollection.Pages.Coins
             }
             else
             {
-                Coin = coin;
-                foreach (var photo in Coin.CoinPhotos.Select(c => c.Photo))
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
                 {
-                    photo.ImageUrl = ImageService.GetImageUrl(photo.ImageData);
+                    if (coin.User?.Id == user.Id)
+                    {
+                        coin.AllowEdit = true;
+                    }
                 }
+                Coin = coin;                
             }
 
             return Page();

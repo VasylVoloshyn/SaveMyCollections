@@ -1,19 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyCollection.Data;
+using MyCollection.Enums;
 using MyCollection.Models;
 using MyCollection.Service;
 
 namespace MyCollection.Pages.Coins
 {
+    [Authorize(Roles = "Basic")]
     public class CreateModel : PageModel
     {
         private readonly MyCollectionContext _context;
+        private readonly IWebHostEnvironment _hostingEnv;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateModel(MyCollectionContext context)
+        public CreateModel(MyCollectionContext context, IWebHostEnvironment hostingEnv,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _hostingEnv = hostingEnv;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -34,12 +43,15 @@ namespace MyCollection.Pages.Coins
             {
                 return Page();
             }
+
+            var user = await _userManager.GetUserAsync(User);
+
             var coinPhotos = new List<CoinPhoto>();
             if (aversImage != null)
             {
                 var avers = new CoinPhoto();
                 avers.CoinId = Coin.Id;
-                avers.Photo = await ImageService.CreateImageAsync(aversImage);
+                avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, aversImage, user);                
                 avers.IsAvers = true;
                 coinPhotos.Add(avers);
             }
@@ -48,12 +60,13 @@ namespace MyCollection.Pages.Coins
             {
                 var revers = new CoinPhoto();
                 revers.CoinId = Coin.Id;
-                revers.Photo = await ImageService.CreateImageAsync(reversImage);
+                revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Coin, reversImage, user);                
                 revers.IsRevers = true;
                 coinPhotos.Add(revers);
             }
 
             Coin.CoinPhotos = coinPhotos;
+            Coin.User = user;
 
             _context.Coins.Add(Coin);
             await _context.SaveChangesAsync();
