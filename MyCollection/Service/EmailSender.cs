@@ -20,18 +20,14 @@ namespace MyCollection.Service
         public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
 
         public async Task SendEmailAsync(string toEmail, string subject, string message)
-        {
-            if (string.IsNullOrEmpty(Options.OutlookAccount))
-            {
-                throw new Exception("Null SendGridKey");
-            }
-            await Execute(Options.OutlookAccount, Options.OutlookPassw, subject, message, toEmail);
+        {          
+            await Execute(subject, message, toEmail);
         }
 
-        public async Task Execute(string outlookAccount, string outlookPassw, string subject, string message, string toEmail)
+        public async Task Execute( string subject, string message, string toEmail)
         {
             string to = toEmail;
-            string from = "voloshyn.vasyl@outlook.com";
+            string from = "noreply@savemycollections.com";
             MailMessage mailMessage = new MailMessage(from, to);
             mailMessage.Subject = subject;
             mailMessage.IsBodyHtml = true;
@@ -39,10 +35,10 @@ namespace MyCollection.Service
 
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = false;
-            client.Host = "smtp.office365.com";
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential(outlookAccount, outlookPassw);
+            client.Host = "mail.savemycollections.com";
+            client.Port = 8889;
+            //client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("noreply@savemycollections.com", "#r$9ib745U6KEpV");
 
             client.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
 
