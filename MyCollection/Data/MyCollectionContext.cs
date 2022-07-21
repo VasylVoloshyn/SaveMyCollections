@@ -37,12 +37,7 @@ namespace MyCollection.Data
         public DbSet<Stamp> Stamps { get; set; } = null!;
         #endregion Stamps
 
-        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.HasDefaultSchema("Identity");            
-        }        
+        public MyCollectionContext(DbContextOptions<MyCollectionContext> option) : base(option) { }            
 
     }
 }
