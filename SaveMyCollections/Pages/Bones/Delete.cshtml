@@ -1,0 +1,80 @@
+﻿@page
+@model SaveMyCollections.Pages.Bones.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bone</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Currency)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Currency.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Nominal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Nominal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Signature)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Signature.Person.Name)
+            @Html.DisplayFor(model => model.Bone.Signature.Person.FamilyName)
+            @Html.DisplayFor(model => model.Bone.Signature.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Grade)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Grade.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bone.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bone.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Avers")
+        </dt>
+        <dd class="col-sm-10">
+            <img style="width:320px; object-fit:cover; border-radius:5px"
+                 src="@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Revers")
+        </dt>
+        <dd class="col-sm-10">
+            <img style="width:320px; object-fit:cover; border-radius:5px"
+                 src="@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Bone.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />                 
+        <a class="btn btn-info" asp-page="./Index">Back to List</a>
+    </form>
+</div>

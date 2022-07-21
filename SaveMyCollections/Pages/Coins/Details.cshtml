@@ -1,0 +1,73 @@
+﻿@page
+@model SaveMyCollections.Pages.Coins.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Coin</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Dime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Dime.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Nominal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Nominal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.CoinGrade)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.CoinGrade.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Avers")
+        </dt>
+        <dd class="col-sm-10">
+            <img style="width:800px; object-fit:cover; border-radius:5px"
+                 src="@Model.Coin.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Coin.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+            
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Revers")
+        </dt>
+        <dd class="col-sm-10">
+            <img style="width:800px; object-fit:cover; border-radius:5px"
+                 src="@Model.Coin.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Coin.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model.Coin.AllowEdit)
+    {
+        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Coin?.Id">Edit</a>
+    }
+    <a class="btn btn-info" asp-page="./Index">Back to List</a>
+</div>

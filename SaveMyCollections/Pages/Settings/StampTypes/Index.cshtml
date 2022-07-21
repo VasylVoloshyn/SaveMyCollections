@@ -1,0 +1,64 @@
+﻿@page
+@model SaveMyCollections.Pages.StampTypes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr  class="row">
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.StampType[0].Code)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.StampType[0].Name)
+            </th>
+            <th class="col-md-4">
+                @Html.DisplayNameFor(model => model.StampType[0].Description)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.StampType[0].WikiLink)
+            </th>
+            <th class="col-md-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.StampType)
+        {
+            <tr class="row">
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="col-md-1">
+                    @if (item.WikiLink != null)
+                    {
+                        <a href="@item.WikiLink">Wiki</a>
+                    }
+                </td>
+                <td class="col-md-3">
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

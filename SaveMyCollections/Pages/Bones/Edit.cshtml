@@ -1,0 +1,87 @@
+﻿@page
+@model SaveMyCollections.Pages.Bones.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bone</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bone.Id" />
+            <div class="form-group">
+                <label asp-for="Bone.CurrencyId" class="control-label"></label>
+                <select asp-for="Bone.CurrencyId" class="form-control" asp-items="ViewBag.CurrencyId"></select>
+                <span asp-validation-for="Bone.CurrencyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.Nominal" class="control-label"></label>
+                <input asp-for="Bone.Nominal" class="form-control" />
+                <span asp-validation-for="Bone.Nominal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.Year" class="control-label"></label>
+                <input asp-for="Bone.Year" class="form-control" />
+                <span asp-validation-for="Bone.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.SignatureId" class="control-label"></label>
+                <select asp-for="Bone.SignatureId" class="form-control" asp-items="ViewBag.SignatureId"></select>
+                <span asp-validation-for="Bone.SignatureId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.GradeID" class="control-label"></label>
+                <select asp-for="Bone.GradeID" class="form-control" asp-items="ViewBag.GradeID"></select>
+                <span asp-validation-for="Bone.GradeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.Price" class="control-label"></label>
+                <input asp-for="Bone.Price" class="form-control" />
+                <span asp-validation-for="Bone.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bone.Note" class="control-label"></label>
+                <input asp-for="Bone.Note" class="form-control" />
+                <span asp-validation-for="Bone.Note" class="text-danger"></span>
+            </div>
+            <div>
+                @if(Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
+                {
+                    <img style="width:320px; object-fit:cover; border-radius:5px"
+                        src="@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+                }
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Change Avers</label>
+                <input type="file" name="aversImage" class="form-control" />
+            </div>
+            <div>
+                @if(Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
+                {
+                    <img style="width:320px; object-fit:cover; border-radius:5px"
+                        src="@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Bone.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+                }
+            </div>
+             <div class="form-group">
+                <label class="control-label">Change Revers</label>
+                <input type="file" name="reversImage" class="form-control" />
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                 <a class="btn btn-info" asp-page="./Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
