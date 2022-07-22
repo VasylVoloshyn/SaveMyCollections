@@ -71,10 +71,10 @@ namespace SaveMyCollections
             {
                 var supportedCultures = new[]
                 {
-                    new CultureInfo("en"),
-                    new CultureInfo("ua")
+                    new CultureInfo("en-US"),
+                    new CultureInfo("uk-UA")
                 };
-                options.DefaultRequestCulture = new RequestCulture("en-GB");
+                options.DefaultRequestCulture = new RequestCulture("en-US");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
