@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Currencies
+namespace SaveMyCollections.Pages.Settings.Currencies
 {
     public class IndexModel : PageModel
     {

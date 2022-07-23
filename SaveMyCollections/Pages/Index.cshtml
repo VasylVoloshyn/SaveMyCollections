@@ -1,6 +1,9 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
 @using SaveMyCollections.Service
 @using Microsoft.AspNetCore.Localization
+@inject IStringLocalizer<IndexModel> localizer
+@inject IHtmlLocalizer<IndexModel> htmlLocalizer
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -8,6 +11,11 @@
     var requestCulture = requestCultureFeature.RequestCulture;
 
 }
+
+<div class="text-center">
+    <h1 class="display-4">@localizer["Hello"]</h1>
+    <p>@htmlLocalizer["Hello"]</p>
+</div>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

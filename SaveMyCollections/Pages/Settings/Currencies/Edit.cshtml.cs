@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Currencies
+namespace SaveMyCollections.Pages.Settings.Currencies
 {
     [Authorize(Roles = "Basic")]
     public class EditModel : PageModel
