@@ -19,6 +19,8 @@ using System.Globalization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using SaveMyCollections.Resources;
+using SaveMyCollections.RouteModelConventions;
+using Microsoft.AspNetCore.Localization.Routing;
 
 namespace SaveMyCollections
 {
@@ -34,7 +36,23 @@ namespace SaveMyCollections
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages(options => {
+                options.Conventions.Add(new CultureTemplatePageRouteModelConvention());
+                
+            });
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("uk-UA")
+                };
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders.Insert(0, new RouteDataRequestCultureProvider { Options = options });
+            });
 
             services.AddDbContext<SaveMyCollectionsContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyCollection")));
@@ -67,19 +85,7 @@ namespace SaveMyCollections
             {
                 o.ExpireTimeSpan = TimeSpan.FromDays(5);
                 o.SlidingExpiration = true;
-            });
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("uk-UA")
-                };
-                options.DefaultRequestCulture = new RequestCulture("en-US");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
+            });            
 
             services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization(options =>
             {
@@ -88,8 +94,8 @@ namespace SaveMyCollections
                     var assemblyName = new AssemblyName(typeof(CommonResources).GetTypeInfo().Assembly.FullName);
                     return factory.Create(nameof(CommonResources), assemblyName.Name);
                 };
-            }); ;
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            });
+            
             services.AddSingleton<CommonLocalizationService>();
         }
 
@@ -121,7 +127,7 @@ namespace SaveMyCollections
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapRazorPages();                
             });
 
             

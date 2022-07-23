@@ -102,10 +102,10 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\CommonResources.en-US.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CommonResources.uk-UA.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Pages\IndexModel.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
