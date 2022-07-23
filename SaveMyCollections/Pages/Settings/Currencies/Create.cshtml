@@ -1,4 +1,5 @@
 ﻿@page
+@inject CommonLocalizationService commonLocalizer
 @model SaveMyCollections.Pages.Settings.Currencies.CreateModel
 
 @{
@@ -24,7 +25,7 @@
                 <span asp-validation-for="Currency.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Currency.CountryId" class="control-label"></label>
+                <label asp-for="Currency.Country" class="control-label"></label>
                 <select asp-for="Currency.CountryId" class ="form-control" asp-items="ViewBag.CountryId"></select>
             </div>
             <div class="form-group">

@@ -1,6 +1,7 @@
 ﻿@page
 @inject IStringLocalizer<IndexModel> localizer
 @inject IHtmlLocalizer<IndexModel> htmlLocalizer
+@inject CommonLocalizationService commonLocalizer
 @model SaveMyCollections.Pages.Settings.Currencies.IndexModel
 @{
     ViewData["Title"] = "Index";
@@ -58,7 +59,7 @@
                     {
                         <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
                     }
-                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">@commonLocalizer.Get("Details")</a>
                     @if (item.AllowEdit)
                     {
                         <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>

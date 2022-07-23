@@ -12,10 +12,13 @@ namespace SaveMyCollections.Models
         [Required]
         public string Code { get; set; } = string.Empty;
         [Required]
+        
         public string Name { get; set; } = string.Empty;
         [Required]
+        [Display(Name="Country")]
         public int CountryId { get; set; }
         [ValidateNever]
+        [Display(Name = "Country")]
         public Country Country { get; set; } = null!;
         public string? WikiLink { get; set; } = null!;
         public ApplicationUser? User { get; set; } = null;

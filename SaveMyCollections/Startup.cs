@@ -17,6 +17,8 @@ using SaveMyCollections.Services;
 using SaveMyCollections.Models;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using System.Reflection;
+using SaveMyCollections.Resources;
 
 namespace SaveMyCollections
 {
@@ -79,7 +81,14 @@ namespace SaveMyCollections
                 options.SupportedUICultures = supportedCultures;
             });
 
-            services.AddMvc().AddViewLocalization();
+            services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization(options =>
+            {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                {
+                    var assemblyName = new AssemblyName(typeof(CommonResources).GetTypeInfo().Assembly.FullName);
+                    return factory.Create(nameof(CommonResources), assemblyName.Name);
+                };
+            }); ;
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<CommonLocalizationService>();
         }
