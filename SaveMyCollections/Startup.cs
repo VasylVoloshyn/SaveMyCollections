@@ -81,6 +81,7 @@ namespace SaveMyCollections
 
             services.AddMvc().AddViewLocalization();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddSingleton<CommonLocalizationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

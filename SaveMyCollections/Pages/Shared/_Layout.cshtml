@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+@using SaveMyCollections.Services
 @inject IAuthorizationService AuthorizationService
+@inject CommonLocalizationService localizer
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +37,7 @@
                                         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li>
                                                 <a class="dropdown-item nav-link text-dark"
-                                                   asp-area="" asp-page="/Settings/Currencies/Index">Currencies</a>
+                                                   asp-area="" asp-page="/Settings/Currencies/Index">@localizer.Get("Currencies")</a>
                                             </li>
                                             <li>
                                                 <a class="dropdown-item nav-link text-dark"
