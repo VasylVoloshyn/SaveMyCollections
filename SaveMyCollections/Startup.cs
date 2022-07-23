@@ -13,7 +13,7 @@ using SaveMyCollections.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
-using SaveMyCollections.Service;
+using SaveMyCollections.Services;
 using SaveMyCollections.Models;
 using System.Globalization;
 using Microsoft.Extensions.Options;

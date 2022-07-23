@@ -3,7 +3,7 @@ using SaveMyCollections.Data;
 using SaveMyCollectionsEnums;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollectionsService
+namespace SaveMyCollections.Services
 {
     public class UserPhotoServise
     {

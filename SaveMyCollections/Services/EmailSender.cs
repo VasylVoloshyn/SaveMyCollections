@@ -4,7 +4,7 @@ using System.Net.Mail;
 using System.Net;
 using System.ComponentModel;
 
-namespace SaveMyCollections.Service
+namespace SaveMyCollections.Services
 {
     public class EmailSender : IEmailSender
     {

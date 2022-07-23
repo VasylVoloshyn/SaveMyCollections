@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
-using SaveMyCollectionsService;
+using SaveMyCollections.Services;
 
 namespace SaveMyCollections.Pages.Stamps
 {

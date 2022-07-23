@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollectionsEnums;
 using SaveMyCollections.Models;
-using SaveMyCollectionsService;
+using SaveMyCollections.Services;
 
 namespace SaveMyCollections.Pages.Bones
 {

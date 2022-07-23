@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SaveMyCollections.Data;
 using SaveMyCollectionsEnums;
 using SaveMyCollections.Models;
-using SaveMyCollectionsService;
+using SaveMyCollections.Services;
 
 namespace SaveMyCollections.Pages.Coins
 {

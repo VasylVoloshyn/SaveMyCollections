@@ -1,4 +1,4 @@
-﻿namespace SaveMyCollections.Service
+﻿namespace SaveMyCollections.Services
 {
     public class AuthMessageSenderOptions
     {       
