@@ -12,19 +12,19 @@ namespace SaveMyCollections.Services
             {
                 MyColectionType = MyColectionType.Bone,
                 ImageUrl = "../Images/Bones.jpg",
-                CollectionUrl = "/Bones/Index"
+                CollectionUrl = "/Collections/Bones/Index"
             };
             var coins =  new CollectionItemInfo
             {
                 MyColectionType = MyColectionType.Coin,
                 ImageUrl = "../Images/Coins.jpg",
-                CollectionUrl = "/Coins/Index"
+                CollectionUrl = "/Collections/Coins/Index"
             };
             var stamps = new CollectionItemInfo
             {
                 MyColectionType = MyColectionType.Stamp,
                 ImageUrl = "../Images/Stamps.jpg",
-                CollectionUrl = "/Stamps/Index"
+                CollectionUrl = "/Collections/Stamps/Index"
             };
 
             items.Add(bones);

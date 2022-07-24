@@ -34,16 +34,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\Bones\Create.cshtml" />
-    <None Include="Pages\Bones\Delete.cshtml" />
-    <None Include="Pages\Bones\Details.cshtml" />
-    <None Include="Pages\Bones\Edit.cshtml" />
-    <None Include="Pages\Bones\Index.cshtml" />
-    <None Include="Pages\Coins\Create.cshtml" />
-    <None Include="Pages\Coins\Delete.cshtml" />
-    <None Include="Pages\Coins\Details.cshtml" />
-    <None Include="Pages\Coins\Edit.cshtml" />
-    <None Include="Pages\Coins\Index.cshtml" />
+    <None Include="Pages\Collections\Bones\Create.cshtml" />
+    <None Include="Pages\Collections\Bones\Delete.cshtml" />
+    <None Include="Pages\Collections\Bones\Details.cshtml" />
+    <None Include="Pages\Collections\Bones\Edit.cshtml" />
+    <None Include="Pages\Collections\Bones\Index.cshtml" />
+    <None Include="Pages\Collections\Coins\Create.cshtml" />
+    <None Include="Pages\Collections\Coins\Delete.cshtml" />
+    <None Include="Pages\Collections\Coins\Details.cshtml" />
+    <None Include="Pages\Collections\Coins\Edit.cshtml" />
+    <None Include="Pages\Collections\Coins\Index.cshtml" />
     <None Include="Pages\Settings\CoinGrades\Create.cshtml" />
     <None Include="Pages\Settings\CoinGrades\Delete.cshtml" />
     <None Include="Pages\Settings\CoinGrades\Details.cshtml" />
@@ -89,11 +89,11 @@
     <None Include="Pages\Settings\StampTypes\Details.cshtml" />
     <None Include="Pages\Settings\StampTypes\Edit.cshtml" />
     <None Include="Pages\Settings\StampTypes\Index.cshtml" />
-    <None Include="Pages\Stamps\Create.cshtml" />
-    <None Include="Pages\Stamps\Delete.cshtml" />
-    <None Include="Pages\Stamps\Details.cshtml" />
-    <None Include="Pages\Stamps\Edit.cshtml" />
-    <None Include="Pages\Stamps\Index.cshtml" />
+    <None Include="Pages\Collections\Stamps\Create.cshtml" />
+    <None Include="Pages\Collections\Stamps\Delete.cshtml" />
+    <None Include="Pages\Collections\Stamps\Details.cshtml" />
+    <None Include="Pages\Collections\Stamps\Edit.cshtml" />
+    <None Include="Pages\Collections\Stamps\Index.cshtml" />
     <None Include="wwwroot\Images\Stamps.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -107,7 +107,7 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Pages\IndexModel.en-US.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Pages\IndexModel.uk-UA.resx">
       <Generator></Generator>
