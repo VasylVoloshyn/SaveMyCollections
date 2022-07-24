@@ -128,9 +128,7 @@ namespace SaveMyCollections
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();                
-            });
-
-            
+            });           
 
         }
     }
