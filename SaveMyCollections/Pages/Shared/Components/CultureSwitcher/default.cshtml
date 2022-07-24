@@ -17,11 +17,11 @@
     var el = document.getElementById("culture-options");
     el.addEventListener("change", () => {
         var culture = el.options[el.selectedIndex].value;
-        if (segments.length > 2) {
+        if (segments[1]== "uk-UA" || segments[1]== "en-US") {
             segments[1] = culture;
-            location.href = segments.join('/');
+            location.href = segments.join('/')+ location.search;
         } else {
-            location.href = '/' + culture + location.pathname;
+            location.href = '/' + culture + location.pathname+location.search;
         }
     });
 </script>

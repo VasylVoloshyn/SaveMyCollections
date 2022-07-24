@@ -37,7 +37,7 @@ public class CultureAnchorTagHelper : AnchorTagHelper
     private const string Href = "href";
 
     private readonly IHttpContextAccessor contextAccessor;
-    private readonly string defaultRequestCulture = "en-US";
+    private readonly string defaultRequestCulture = "en";
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
@@ -51,4 +51,5 @@ public class CultureAnchorTagHelper : AnchorTagHelper
         base.Process(context, output);
     }
 }
+
 
