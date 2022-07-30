@@ -43,7 +43,7 @@ namespace SaveMyCollections.Pages.Dimes
             var user = await _userManager.GetUserAsync(User);
             if (user == null || dime.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             Dime = dime;
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Code");

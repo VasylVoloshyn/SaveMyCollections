@@ -41,7 +41,7 @@ namespace SaveMyCollections.Pages.Grades
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || grade.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Grade = grade;
             }
@@ -61,7 +61,7 @@ namespace SaveMyCollections.Pages.Grades
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || grade.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Grade = grade;
                 _context.BoneGrades.Remove(Grade);

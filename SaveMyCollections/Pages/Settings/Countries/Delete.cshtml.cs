@@ -44,7 +44,7 @@ namespace SaveMyCollections.Pages.Countries
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || country.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Country = country;
             }
@@ -64,7 +64,7 @@ namespace SaveMyCollections.Pages.Countries
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || country.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Country = country;
                 _context.Countries.Remove(Country);

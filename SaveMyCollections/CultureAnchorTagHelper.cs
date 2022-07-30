@@ -41,11 +41,23 @@ public class CultureAnchorTagHelper : AnchorTagHelper
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        var culture = (string)contextAccessor.HttpContext.Request.RouteValues["culture"];
+        var culture = (string)contextAccessor.HttpContext.Request.RouteValues["culture"];        
+        var page = (string)contextAccessor.HttpContext.Request.RouteValues["page"];
 
-        if (culture != null && culture != defaultRequestCulture)
+        bool redericToError = false;
+        if (page== "/Index" && culture!=null && culture != "en-US" && culture != "uk-UA" )
+        {            
+            contextAccessor.HttpContext.Response.Redirect("/General/Error");
+            return;
+        }
+
+        if (!redericToError)
         {
-            RouteValues["culture"] = culture;
+            if (culture != null && culture != defaultRequestCulture)
+            {
+                
+                RouteValues["culture"] = culture;
+            }
         }
 
         base.Process(context, output);

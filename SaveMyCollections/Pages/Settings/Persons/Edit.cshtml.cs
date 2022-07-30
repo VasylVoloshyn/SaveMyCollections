@@ -43,7 +43,7 @@ namespace SaveMyCollections.Pages.Persons
             var user = await _userManager.GetUserAsync(User);
             if (user == null || person.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
 
             Person = person;

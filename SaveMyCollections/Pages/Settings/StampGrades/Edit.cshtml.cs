@@ -38,7 +38,7 @@ namespace SaveMyCollections.Pages.StampGrades
             var user = await _userManager.GetUserAsync(User);
             if (user == null || stampgrade.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             StampGrade = stampgrade;
             return Page();

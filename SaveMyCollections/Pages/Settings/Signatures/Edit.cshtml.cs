@@ -39,7 +39,7 @@ namespace SaveMyCollections.Pages.Signatures
             var user = await _userManager.GetUserAsync(User);
             if (user == null || signature.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             Signature = signature;
             ViewData["PersonId"] = new SelectList(_context.Persons, "Id", "FamilyName");

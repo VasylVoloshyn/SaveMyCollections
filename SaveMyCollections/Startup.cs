@@ -37,8 +37,7 @@ namespace SaveMyCollections
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages(options => {
-                options.Conventions.Add(new CultureTemplatePageRouteModelConvention());
-                
+                options.Conventions.Add(new CultureTemplatePageRouteModelConvention());               
             });
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.Configure<RequestLocalizationOptions>(options =>
@@ -75,8 +74,7 @@ namespace SaveMyCollections
             });
             services.ConfigureApplicationCookie(o =>
             {
-                o.AccessDeniedPath = new PathString("/AccessDenied");
-
+                o.AccessDeniedPath = new PathString("/General/AccessDenied");                
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
@@ -108,11 +106,11 @@ namespace SaveMyCollections
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/General/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }            
-            app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
+            app.UseStatusCodePagesWithReExecute("/General/Error", "?code={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

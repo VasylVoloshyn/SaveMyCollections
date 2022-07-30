@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SaveMyCollections.Pages
+namespace SaveMyCollections.Pages.General
 {
     public class PrivacyModel : PageModel
     {

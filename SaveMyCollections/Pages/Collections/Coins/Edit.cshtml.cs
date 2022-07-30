@@ -47,7 +47,7 @@ namespace SaveMyCollections.Pages.Coins
             var user = await _userManager.GetUserAsync(User);
             if (user == null || coin.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             Coin = coin;
             

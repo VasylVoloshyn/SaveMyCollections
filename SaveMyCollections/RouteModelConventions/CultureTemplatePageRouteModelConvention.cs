@@ -4,8 +4,8 @@ namespace SaveMyCollections.RouteModelConventions
 {
     public class CultureTemplatePageRouteModelConvention : IPageRouteModelConvention
     {
-        public void Apply(PageRouteModel model)
-        {
+        public void Apply(PageRouteModel model)               
+        {           
             var selectorCount = model.Selectors.Count;
 
             for (var i = 0; i < selectorCount; i++)
@@ -19,8 +19,8 @@ namespace SaveMyCollections.RouteModelConventions
                         Order = -1,
                         Template = AttributeRouteModel.CombineTemplates("{culture?}", selector.AttributeRouteModel.Template),
                     }
-                });
-            }
+                });                                
+            }            
         }
     }
 }

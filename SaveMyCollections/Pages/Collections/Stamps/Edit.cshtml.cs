@@ -51,7 +51,7 @@ namespace SaveMyCollections.Pages.Stamps
             var user = await _userManager.GetUserAsync(User);
             if (user == null || stamp.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
 
             Stamp = stamp;

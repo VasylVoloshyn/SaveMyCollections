@@ -54,7 +54,7 @@ namespace SaveMyCollections.Pages.Bones
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || bone.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Bone = bone;
                 
@@ -79,7 +79,7 @@ namespace SaveMyCollections.Pages.Bones
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || bone.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Bone = bone;
                 _context.Bones.Remove(Bone);

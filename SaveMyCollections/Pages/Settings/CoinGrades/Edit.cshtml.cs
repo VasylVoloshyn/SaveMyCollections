@@ -43,7 +43,7 @@ namespace SaveMyCollections.Pages.CoinGrades
             var user = await _userManager.GetUserAsync(User);
             if (user == null || coingrade.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             CoinGrade = coingrade;
             return Page();

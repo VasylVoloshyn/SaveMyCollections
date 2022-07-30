@@ -43,7 +43,7 @@ namespace SaveMyCollections.Pages.Signatures
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || signature.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Signature = signature;
             }
@@ -63,7 +63,7 @@ namespace SaveMyCollections.Pages.Signatures
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null || signature.User?.Id != user.Id)
                 {
-                    return RedirectToPage("/AccessDenied");
+                    return RedirectToPage("/General/AccessDenied");
                 }
                 Signature = signature;
                 _context.Signatures.Remove(Signature);

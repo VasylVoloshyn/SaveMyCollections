@@ -40,7 +40,7 @@ namespace SaveMyCollections.Pages.Settings.Currencies
             var user = await _userManager.GetUserAsync(User);
             if (user == null || currency.User?.Id != user.Id)
             {
-                return RedirectToPage("/AccessDenied");
+                return RedirectToPage("/General/AccessDenied");
             }
             Currency = currency;
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Code");
