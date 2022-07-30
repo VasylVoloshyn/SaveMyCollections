@@ -227,6 +227,9 @@
     <value>Зміна параметрів облікового запису</value>
     <comment>Areas/Identity/Pages/Account/Manage/_Layout.cshtml</comment>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
   <data name="Configure authenticator app" xml:space="preserve">
     <value>Налаштування програми аутентифікації</value>
     <comment>Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml</comment>
@@ -618,6 +621,9 @@
     <value>Установка пароля</value>
     <comment>Areas/Identity/Pages/Account/Manage/SetPassword.cshtml</comment>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
   <data name="Setup authenticator app" xml:space="preserve">
     <value>Налаштування програми автентифікатора</value>
     <comment>Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml</comment>
@@ -927,6 +933,9 @@
   <data name="Welcome" xml:space="preserve">
     <value>Ласкаво просимо</value>
     <comment>Pages/Index.cshtml</comment>
+  </data>
+  <data name="WikiLink" xml:space="preserve">
+    <value>Посилання Wiki</value>
   </data>
   <data name="You do not have a local username/password for this site. Add a local account so you can log in without an external login." xml:space="preserve">
     <value>У вас немає локального імені користувача / пароля для цього сайту. Додайте 
