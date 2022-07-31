@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BoneGrades" xml:space="preserve">
+    <value>Bone Grades</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>Countries</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
@@ -129,8 +135,20 @@
   <data name="Detais" xml:space="preserve">
     <value>Detail</value>
   </data>
+  <data name="Dimes" xml:space="preserve">
+    <value>Dimes</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>Persons</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Signatures" xml:space="preserve">
+    <value>Signatures</value>
   </data>
   <data name="WikiLink" xml:space="preserve">
     <value>Wiki Link</value>

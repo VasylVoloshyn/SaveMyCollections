@@ -254,6 +254,9 @@
     <value>Не вдалося знайти властивість з ім'ям {0}.</value>
     <comment>DataAnnotations: CompareAttribute_UnknownProperty</comment>
   </data>
+  <data name="Countries" xml:space="preserve">
+    <value>Країни</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Країна</value>
   </data>
@@ -274,6 +277,9 @@
   <data name="Development Mode" xml:space="preserve">
     <value>Режим розробки</value>
     <comment>Pages/Error.cshtml</comment>
+  </data>
+  <data name="Dimes" xml:space="preserve">
+    <value>Копійки</value>
   </data>
   <data name="Disable 2FA" xml:space="preserve">
     <value>Відключити 2FA</value>
@@ -501,6 +507,9 @@
     <value>Особисті дані</value>
     <comment>Areas/Identity/Pages/Account/Manage/PersonalData.cshtml</comment>
   </data>
+  <data name="Persons" xml:space="preserve">
+    <value>Персони</value>
+  </data>
   <data name="Please check your email to reset your password." xml:space="preserve">
     <value>Будь ласка, перевірте свою електронну пошту для скидання пароля.</value>
     <comment>Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml</comment>
@@ -627,6 +636,9 @@
   <data name="Setup authenticator app" xml:space="preserve">
     <value>Налаштування програми автентифікатора</value>
     <comment>Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml</comment>
+  </data>
+  <data name="Signatures" xml:space="preserve">
+    <value>Підписи</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Надіслати</value>
