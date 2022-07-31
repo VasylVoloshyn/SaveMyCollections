@@ -1,8 +1,7 @@
 ﻿@page
 @using SaveMyCollections.Services
 @using Microsoft.AspNetCore.Localization
-@inject IStringLocalizer<IndexModel> localizer
-@inject IHtmlLocalizer<IndexModel> htmlLocalizer
+@inject CommonLocalizationService commonLocalizer
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -16,12 +15,13 @@
         <div class="card">
             <div class="card-img" style="background-image:url('@item.ImageUrl')"> </div>
             <div class="card-body">
-                <h5 class="card-title">@item.MyColectionType.ToString()</h5>
+                <h5 class="card-title">@commonLocalizer.Get(item.Name)</h5>
+                <div>@commonLocalizer.Get(item.Description) </div>
             </div>
             <div class="card-footer">
                 <small class="text-muted">
                     <a class="btn btn-primary" asp-area="" asp-page="@item.CollectionUrl">
-                        @item.MyColectionType.ToString()
+                        @commonLocalizer.Get(item.Name)
                     </a>                    
                 </small>
             </div>

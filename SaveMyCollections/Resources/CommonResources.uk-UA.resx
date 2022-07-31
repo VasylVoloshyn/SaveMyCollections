@@ -199,6 +199,9 @@
     <value>Додати додаток аутентифікації</value>
     <comment>Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml</comment>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
   <data name="An error occurred while processing your request." xml:space="preserve">
     <value>Сталася помилка при обробці Вашого запиту.</value>
     <comment>Pages/Error.cshtml</comment>
@@ -216,6 +219,9 @@
   </data>
   <data name="Banknotes" xml:space="preserve">
     <value>Банкноти</value>
+  </data>
+  <data name="BanknotesCollectionDescription" xml:space="preserve">
+    <value>Ось моя колекція банкнот.</value>
   </data>
   <data name="Both ErrorMessageResourceType and ErrorMessageResourceName need to be set on this attribute." xml:space="preserve">
     <value>Для цього атрибута повинні бути встановлені як ErrorMessageResourceType, так і ErrorMessageResourceName.</value>
@@ -235,6 +241,15 @@
   </data>
   <data name="Code" xml:space="preserve">
     <value>Код</value>
+  </data>
+  <data name="CoinGrades" xml:space="preserve">
+    <value>Якість Копійок</value>
+  </data>
+  <data name="Coins" xml:space="preserve">
+    <value>Монети</value>
+  </data>
+  <data name="CoinsCollectionDescription" xml:space="preserve">
+    <value>Ось моя колекція монет.</value>
   </data>
   <data name="Configure authenticator app" xml:space="preserve">
     <value>Налаштування програми аутентифікації</value>
@@ -372,6 +387,9 @@
     <value>Google Authenticator для &lt;a href="{3}"&gt; Android &lt;/a&gt; и &lt;a href="{4}"&gt; iOS&lt;/a&gt;.</value>
     <comment>Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml</comment>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Привіт</value>
+  </data>
   <data name="Hello {0}!" xml:space="preserve">
     <value>Доброго дня, {0}!</value>
     <comment>Pages/Shared/_LoginPartial.cshtml</comment>
@@ -437,6 +455,9 @@
     <value>Вхід</value>
     <comment>Areas/Identity/Pages/Account/Login.cshtml</comment>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Вийти</value>
+  </data>
   <data name="Manage" xml:space="preserve">
     <value>Управління</value>
     <comment>Pages/Shared/_LoginPartial.cshtml</comment>
@@ -460,6 +481,9 @@
   <data name="MinLengthAttribute must have a Length value that is zero or greater." xml:space="preserve">
     <value>MinLengthAttribute повинен мати значення довжини, що дорівнює нулю або більше.</value>
     <comment>DataAnnotations: MinLengthAttribute_InvalidMinLength</comment>
+  </data>
+  <data name="MyCollections" xml:space="preserve">
+    <value>Мої Колекції</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Ім'я</value>
@@ -620,6 +644,9 @@
     <value>Ім'я ролі '{0}' є недійсним.</value>
     <comment>Identity: InvalidRoleName</comment>
   </data>
+  <data name="RoleManager" xml:space="preserve">
+    <value>Менеджер Ролей</value>
+  </data>
   <data name="Sample Form" xml:space="preserve">
     <value>Зразок форми</value>
     <comment>Pages/SampleForm.cshtml</comment>
@@ -645,6 +672,18 @@
   </data>
   <data name="Signatures" xml:space="preserve">
     <value>Підписи</value>
+  </data>
+  <data name="StampGrades" xml:space="preserve">
+    <value>Якість Марок</value>
+  </data>
+  <data name="Stamps" xml:space="preserve">
+    <value>Марки</value>
+  </data>
+  <data name="StampsCollectionDescription" xml:space="preserve">
+    <value>Ось моя колекція марок.</value>
+  </data>
+  <data name="StampTypes" xml:space="preserve">
+    <value>Типи Марок</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Надіслати</value>
@@ -935,6 +974,9 @@
   <data name="User name '{0}' is invalid, can only contain letters or digits." xml:space="preserve">
     <value>Ім'я користувача '{0}' неприпустимо, може містити тільки букви або цифри.</value>
     <comment>Identity: InvalidUserName</comment>
+  </data>
+  <data name="UserRoles" xml:space="preserve">
+    <value>Ролі Користувачів</value>
   </data>
   <data name="Verification Code" xml:space="preserve">
     <value>Код підтвердження</value>
