@@ -1,32 +1,40 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SaveMyCollections.Data;
-using SaveMyCollectionsEnums;
+﻿using SaveMyCollectionsEnums;
 using SaveMyCollections.Models;
+using ImageProcessor;
+using ImageProcessor.Imaging;
+using ImageProcessor.Imaging.Formats;
+using System.Drawing;
 
 namespace SaveMyCollections.Services
 {
     public class UserPhotoServise
     {
         private const string ImageLocation = "Images";
-                
+
         public static async Task<UserPhoto> CreateImageAsync(IWebHostEnvironment _hostingEnv, MyColectionType type,
             IFormFile file, ApplicationUser user)
         {
-            var childDirectory = GetPath(_hostingEnv, type, user);
-
-            var fileName = file.FileName;
+            var childDirectory = GetPath(_hostingEnv, type, user);            
             var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            
-            var filePath = Path.Combine(childDirectory, fileName);
             var newFilePath = Path.Combine(childDirectory, newFileName);
 
-            using (FileStream fs = File.Create(filePath))
-            {                
-                await file.CopyToAsync(fs);
-            }
-            File.Copy(filePath, newFilePath);
-            File.Delete(filePath);
+            int quality = 100;
+            var format = new JpegFormat(); 
 
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                                
+                using (var imageFactory = new ImageFactory(preserveExifData: true))
+                {
+                    imageFactory.Load(memoryStream.ToArray()).                    
+                        Resize(new ResizeLayer(new Size(1920, 1080), resizeMode: ResizeMode.Max))
+                        .Format(format)
+                        .Quality(quality)
+                        .Save(newFilePath);
+                }
+            }
+            
             var photo = new UserPhoto();
             photo.FileName = newFileName;
             photo.FileExtension = Path.GetExtension(newFileName);
@@ -35,7 +43,7 @@ namespace SaveMyCollections.Services
 
             return photo;
         }
-
+        
         private static string GetPath(IWebHostEnvironment _hostingEnv, MyColectionType type, ApplicationUser user)
         {
             var UserParentDirectory = Path.Combine(_hostingEnv.WebRootPath, ImageLocation, type.ToString(), user.Id);
@@ -66,7 +74,6 @@ namespace SaveMyCollections.Services
             {
                 File.Delete(filePath);
             });
-
         }
     }
 }
