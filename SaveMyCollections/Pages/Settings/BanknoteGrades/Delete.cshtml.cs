@@ -21,16 +21,16 @@ namespace SaveMyCollections.Pages.Grades
         }
 
         [BindProperty]
-      public BoneGrade Grade { get; set; } = default!;
+      public BanknoteGrade Grade { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.BoneGrades == null)
+            if (id == null || _context.BanknoteGrades == null)
             {
                 return NotFound();
             }
 
-            var grade = await _context.BoneGrades.FirstOrDefaultAsync(m => m.Id == id);
+            var grade = await _context.BanknoteGrades.FirstOrDefaultAsync(m => m.Id == id);
 
             if (grade == null)
             {
@@ -50,11 +50,11 @@ namespace SaveMyCollections.Pages.Grades
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.BoneGrades == null)
+            if (id == null || _context.BanknoteGrades == null)
             {
                 return NotFound();
             }
-            var grade = await _context.BoneGrades.FindAsync(id);
+            var grade = await _context.BanknoteGrades.FindAsync(id);
 
             if (grade != null)
             {
@@ -64,7 +64,7 @@ namespace SaveMyCollections.Pages.Grades
                     return RedirectToPage("/General/AccessDenied");
                 }
                 Grade = grade;
-                _context.BoneGrades.Remove(Grade);
+                _context.BanknoteGrades.Remove(Grade);
                 await _context.SaveChangesAsync();
             }
 

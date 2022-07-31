@@ -10,9 +10,9 @@ namespace SaveMyCollections.Services
 
             var bones = new CollectionItemInfo
             {
-                MyColectionType = MyColectionType.Bone,
-                ImageUrl = "../Images/Bones.jpg",
-                CollectionUrl = "/Collections/Bones/Index"
+                MyColectionType = MyColectionType.Banknote,
+                ImageUrl = "../Images/Banknotes.jpg",
+                CollectionUrl = "/Collections/Banknotes/Index"
             };
             var coins =  new CollectionItemInfo
             {

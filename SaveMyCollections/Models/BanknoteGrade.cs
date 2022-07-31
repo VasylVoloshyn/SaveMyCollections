@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveMyCollections.Models
 {
-    [Table("BoneGrade", Schema = "dbo")]
-    public class BoneGrade
+    [Table("BanknoteGrade", Schema = "dbo")]
+    public class BanknoteGrade
     {
         [Key]
         public int Id { get; set; }

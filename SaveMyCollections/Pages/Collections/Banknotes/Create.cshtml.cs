@@ -35,49 +35,49 @@ namespace SaveMyCollections.Pages.Bones
             }
 
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
-            ViewData["GradeID"] = new SelectList(_context.BoneGrades, "Id", "Code");
+            ViewData["GradeID"] = new SelectList(_context.BanknoteGrades, "Id", "Code");
             ViewData["SignatureId"] = new SelectList(signatures, "Id", "PersonName");
              
             return Page();
         }
 
         [BindProperty]
-        public Bone Bone { get; set; } = default!;
+        public Banknote Bone { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(IFormFile? aversImage , IFormFile? reversImage)
         {
-          if (!ModelState.IsValid || _context.Bones == null || Bone == null)
+          if (!ModelState.IsValid || _context.Banknotes == null || Bone == null)
             {
                 return Page();
             }
 
             var user = await _userManager.GetUserAsync(User);
                                     
-            var bonePhotos = new List<BonePhoto>();
+            var bonePhotos = new List<BanknotePhoto>();
             if (aversImage != null)
             {
-                var avers = new BonePhoto();
-                avers.BoneId = Bone.Id;
-                avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, aversImage, user);                
+                var avers = new BanknotePhoto();
+                avers.BanknoteId = Bone.Id;
+                avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, aversImage, user);                
                 avers.IsAvers = true;
                 bonePhotos.Add(avers);
             }
 
             if (reversImage != null)
             {
-                var revers = new BonePhoto();
-                revers.BoneId = Bone.Id;                
-                revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, reversImage, user);
+                var revers = new BanknotePhoto();
+                revers.BanknoteId = Bone.Id;                
+                revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, reversImage, user);
                 revers.IsRevers = true;
                 bonePhotos.Add(revers);
             }
             
-            Bone.BonePhotos = bonePhotos;
+            Bone.BanknotePhoto = bonePhotos;
             Bone.User = user;
 
-            _context.Bones.Add(Bone);
+            _context.Banknotes.Add(Bone);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

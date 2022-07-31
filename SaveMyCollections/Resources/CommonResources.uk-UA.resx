@@ -211,6 +211,12 @@
     <value>Зв'яжіть ваш {0} обліковий запис.</value>
     <comment>Areas/Identity/Pages/Account/ExternalLogin.cshtml</comment>
   </data>
+  <data name="BanknoteGrades" xml:space="preserve">
+    <value>Якість Банкнот</value>
+  </data>
+  <data name="Banknotes" xml:space="preserve">
+    <value>Банкноти</value>
+  </data>
   <data name="Both ErrorMessageResourceType and ErrorMessageResourceName need to be set on this attribute." xml:space="preserve">
     <value>Для цього атрибута повинні бути встановлені як ErrorMessageResourceType, так і ErrorMessageResourceName.</value>
     <comment>DataAnnotations: ValidationAttribute_NeedBothResourceTypeAndResourceName</comment>

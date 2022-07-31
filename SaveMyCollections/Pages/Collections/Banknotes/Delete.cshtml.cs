@@ -25,18 +25,18 @@ namespace SaveMyCollections.Pages.Bones
         }
 
         [BindProperty]
-        public Bone Bone { get; set; } = default!;
+        public Banknote Bone { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Bones == null)
+            if (id == null || _context.Banknotes == null)
             {
                 return NotFound();
             }
 
-            var bone = await _context.Bones
+            var bone = await _context.Banknotes
                 .Include(b=> b.User)
-                .Include(b => b.BonePhotos)
+                .Include(b => b.BanknotePhoto)
                 .ThenInclude(b => b.Photo)
                 .Include(b => b.Signature)
                 .ThenInclude(b => b.Person)
@@ -64,13 +64,13 @@ namespace SaveMyCollections.Pages.Bones
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Bones == null)
+            if (id == null || _context.Banknotes == null)
             {
                 return NotFound();
             }
-            var bone = await _context.Bones
+            var bone = await _context.Banknotes
                 .Include(b=> b.User)
-                .Include(b => b.BonePhotos)
+                .Include(b => b.BanknotePhoto)
                 .ThenInclude(b => b.Photo)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
@@ -82,8 +82,8 @@ namespace SaveMyCollections.Pages.Bones
                     return RedirectToPage("/General/AccessDenied");
                 }
                 Bone = bone;
-                _context.Bones.Remove(Bone);
-                var photos = Bone.BonePhotos.Select(o => o.Photo);
+                _context.Banknotes.Remove(Bone);
+                var photos = Bone.BanknotePhoto.Select(o => o.Photo);
                 foreach (var photo in photos)
                 {
                     await UserPhotoServise.DeletePhotoAsync(_hostingEnv, photo);

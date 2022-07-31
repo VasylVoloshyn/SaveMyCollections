@@ -32,7 +32,7 @@ namespace SaveMyCollections.Pages.Bones
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
-        public PaginatedList<Bone> Bone { get;set; } = default!;
+        public PaginatedList<Banknote> Bone { get;set; } = default!;
 
         public async Task OnGetAsync(string sortOrder,
             string currentFilter, string searchString, int? pageIndex)
@@ -55,13 +55,13 @@ namespace SaveMyCollections.Pages.Bones
 
             var user = await _userManager.GetUserAsync(User);
             var userId = user?.Id;
-            IQueryable<Bone> bones = _context.Bones                
+            IQueryable<Banknote> bones = _context.Banknotes                
                 .Include(b => b.User)
                 .Include(b=>b.Currency)
                 .Include(b=>b.Signature)
                 .ThenInclude(b=>b.Person)
                 .Include(b=>b.Grade)
-                .Include(b=>b.BonePhotos)
+                .Include(b=>b.BanknotePhoto)
                 .ThenInclude(b=>b.Photo)
                 .Where(b => b.User == null || b.User.Id == userId)
                 .Select(b => b);
@@ -96,7 +96,7 @@ namespace SaveMyCollections.Pages.Bones
            
 
             var pageSize = Configuration.GetValue("PageSize", 4);
-            Bone = await PaginatedList<Bone>.CreateAsync(bones, pageIndex ?? 1, pageSize);
+            Bone = await PaginatedList<Banknote>.CreateAsync(bones, pageIndex ?? 1, pageSize);
 
             if (user != null)
             {

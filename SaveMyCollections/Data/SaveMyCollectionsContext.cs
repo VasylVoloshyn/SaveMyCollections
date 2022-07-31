@@ -19,9 +19,9 @@ namespace SaveMyCollections.Data
 
         #region Bones
         public DbSet<Signature> Signatures { get; set; } = null!;
-        public DbSet<BoneGrade> BoneGrades { get; set; } = null!;
-        public DbSet<Bone> Bones { get; set; } = null!;
-        public DbSet<BonePhoto> BonePhotos { get; set; } = null!;
+        public DbSet<BanknoteGrade> BanknoteGrades { get; set; } = null!;
+        public DbSet<Banknote> Banknotes { get; set; } = null!;
+        public DbSet<BanknotePhoto> BonePhotos { get; set; } = null!;
         #endregion Bones
 
         #region Coins

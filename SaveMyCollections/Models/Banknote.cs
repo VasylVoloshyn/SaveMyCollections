@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveMyCollections.Models
 {    
-    [Table("Bone",Schema = "dbo")]
-    public class Bone
+    [Table("Banknote",Schema = "dbo")]
+    public class Banknote
     {
         [Key]
         public int Id { get; set; }
@@ -22,11 +21,11 @@ namespace SaveMyCollections.Models
         public virtual Signature Signature { get; set; } = null!;
         public int GradeID { get; set; }
         [ValidateNever]
-        public virtual BoneGrade Grade { get; set; } = null!;
+        public virtual BanknoteGrade Grade { get; set; } = null!;
         public double? Price { get; set; } = null!;
         public string? Note { get; set; } = null!;
         [ValidateNever]
-        public ICollection<BonePhoto> BonePhotos { get; set; } = null!;
+        public ICollection<BanknotePhoto> BanknotePhoto { get; set; } = null!;
         public ApplicationUser? User { get; set; } = null;
         [NotMapped]
         public bool AllowEdit { get; set; }

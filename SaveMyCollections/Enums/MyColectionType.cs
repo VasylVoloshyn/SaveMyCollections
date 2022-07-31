@@ -2,7 +2,7 @@
 {
     public enum MyColectionType
     {
-        Bone,
+        Banknote,
         Coin,
         Stamp
     }

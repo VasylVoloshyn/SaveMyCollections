@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveMyCollections.Models
 {
-    [Table("BonePhoto", Schema = "dbo")]
-    public class BonePhoto
+    [Table("BanknotePhoto", Schema = "dbo")]
+    public class BanknotePhoto
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public int BoneId { get; set; }
-        public Bone Bone { get; set; } = null!;
+        public int BanknoteId { get; set; }
+        public Banknote Banknote { get; set; } = null!;
         [Required]
         public bool IsAvers { get; set; }
         public bool IsRevers { get; set; }

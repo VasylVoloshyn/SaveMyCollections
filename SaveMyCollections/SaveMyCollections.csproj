@@ -28,17 +28,17 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\Images\Bone\" />
+    <Folder Include="wwwroot\Images\Banknote\" />
     <Folder Include="wwwroot\Images\Coin\" />
     <Folder Include="wwwroot\Images\Stamp\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Pages\Collections\Bones\Create.cshtml" />
-    <None Include="Pages\Collections\Bones\Delete.cshtml" />
-    <None Include="Pages\Collections\Bones\Details.cshtml" />
-    <None Include="Pages\Collections\Bones\Edit.cshtml" />
-    <None Include="Pages\Collections\Bones\Index.cshtml" />
+    <None Include="Pages\Collections\Banknotes\Create.cshtml" />
+    <None Include="Pages\Collections\Banknotes\Delete.cshtml" />
+    <None Include="Pages\Collections\Banknotes\Details.cshtml" />
+    <None Include="Pages\Collections\Banknotes\Edit.cshtml" />
+    <None Include="Pages\Collections\Banknotes\Index.cshtml" />
     <None Include="Pages\Collections\Coins\Create.cshtml" />
     <None Include="Pages\Collections\Coins\Delete.cshtml" />
     <None Include="Pages\Collections\Coins\Details.cshtml" />
@@ -64,11 +64,11 @@
     <None Include="Pages\Settings\Dimes\Details.cshtml" />
     <None Include="Pages\Settings\Dimes\Edit.cshtml" />
     <None Include="Pages\Settings\Dimes\Index.cshtml" />
-    <None Include="Pages\Settings\BoneGrades\Create.cshtml" />
-    <None Include="Pages\Settings\BoneGrades\Delete.cshtml" />
-    <None Include="Pages\Settings\BoneGrades\Details.cshtml" />
-    <None Include="Pages\Settings\BoneGrades\Edit.cshtml" />
-    <None Include="Pages\Settings\BoneGrades\Index.cshtml" />
+    <None Include="Pages\Settings\BanknoteGrades\Create.cshtml" />
+    <None Include="Pages\Settings\BanknoteGrades\Delete.cshtml" />
+    <None Include="Pages\Settings\BanknoteGrades\Details.cshtml" />
+    <None Include="Pages\Settings\BanknoteGrades\Edit.cshtml" />
+    <None Include="Pages\Settings\BanknoteGrades\Index.cshtml" />
     <None Include="Pages\Settings\Persons\Create.cshtml" />
     <None Include="Pages\Settings\Persons\Delete.cshtml" />
     <None Include="Pages\Settings\Persons\Details.cshtml" />

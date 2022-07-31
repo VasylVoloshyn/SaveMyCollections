@@ -17,15 +17,15 @@ namespace SaveMyCollections.Pages.Grades
             _userManager = userManager;
         }
 
-        public IList<BoneGrade> Grade { get; set; } = default!;
+        public IList<BanknoteGrade> Grade { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.BoneGrades != null)
+            if (_context.BanknoteGrades != null)
             {
                 var user = await _userManager.GetUserAsync(User);
                 var userId = user?.Id;
-                Grade = await _context.BoneGrades
+                Grade = await _context.BanknoteGrades
                     .Where(b => b.User == null || b.User.Id == userId)
                     .ToListAsync();
 

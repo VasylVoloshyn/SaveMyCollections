@@ -27,18 +27,18 @@ namespace SaveMyCollections.Pages.Bones
         }
 
         [BindProperty]
-        public Bone Bone { get; set; } = default!;
+        public Banknote Bone { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Bones == null)
+            if (id == null || _context.Banknotes == null)
             {
                 return NotFound();
             }
 
-            var bone = await _context.Bones
+            var bone = await _context.Banknotes
                 .Include( b=> b.User)
-                .Include(b => b.BonePhotos)
+                .Include(b => b.BanknotePhoto)
                 .ThenInclude(b => b.Photo).FirstOrDefaultAsync(m => m.Id == id);
             if (bone == null)
             {
@@ -52,7 +52,7 @@ namespace SaveMyCollections.Pages.Bones
             Bone = bone;
             
             ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
-            ViewData["GradeID"] = new SelectList(_context.BoneGrades, "Id", "Code");
+            ViewData["GradeID"] = new SelectList(_context.BanknoteGrades, "Id", "Code");
             ViewData["SignatureId"] = new SelectList(_context.Signatures, "Id", "Id");
             return Page();
         }
@@ -67,9 +67,9 @@ namespace SaveMyCollections.Pages.Bones
             }
             _context.Attach(Bone).State = EntityState.Modified;
 
-            var boneToUpdate = await _context.Bones
+            var boneToUpdate = await _context.Banknotes
                 .Include(b => b.User)
-                .Include(b => b.BonePhotos)                
+                .Include(b => b.BanknotePhoto)                
                 .ThenInclude(b => b.Photo).FirstOrDefaultAsync(b => b.Id == id);
 
             if (boneToUpdate == null)
@@ -78,24 +78,24 @@ namespace SaveMyCollections.Pages.Bones
             }
             var user = await _userManager.GetUserAsync(User);
 
-            bool isAversExist = Bone.BonePhotos.Any(c => c.IsAvers);
-            bool isReversExist = Bone.BonePhotos.Any(c => c.IsRevers);
+            bool isAversExist = Bone.BanknotePhoto.Any(c => c.IsAvers);
+            bool isReversExist = Bone.BanknotePhoto.Any(c => c.IsRevers);
             
             List<UserPhoto> photoToRemove = new List<UserPhoto>();
             if (aversImage != null)
             {
                 if (isAversExist)
                 {
-                    photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsAvers).First().Photo);
-                    Bone.BonePhotos.Where(c => c.IsAvers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, aversImage, user);
+                    photoToRemove.Add(Bone.BanknotePhoto.Where(c => c.IsAvers).First().Photo);
+                    Bone.BanknotePhoto.Where(c => c.IsAvers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, aversImage, user);
                 }
                 else
                 {
-                    var avers = new BonePhoto();
-                    avers.BoneId = Bone.Id;
-                    avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, aversImage, user);
+                    var avers = new BanknotePhoto();
+                    avers.BanknoteId = Bone.Id;
+                    avers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, aversImage, user);
                     avers.IsAvers = true;
-                    Bone.BonePhotos.Add(avers);
+                    Bone.BanknotePhoto.Add(avers);
                 }
             }
 
@@ -103,16 +103,16 @@ namespace SaveMyCollections.Pages.Bones
             {
                 if (isReversExist)
                 {
-                    photoToRemove.Add(Bone.BonePhotos.Where(c => c.IsRevers).First().Photo);
-                    Bone.BonePhotos.Where(c => c.IsRevers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, reversImage, user);
+                    photoToRemove.Add(Bone.BanknotePhoto.Where(c => c.IsRevers).First().Photo);
+                    Bone.BanknotePhoto.Where(c => c.IsRevers).First().Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, reversImage, user);
                 }
                 else
                 {
-                    var revers = new BonePhoto();
-                    revers.BoneId = Bone.Id;
-                    revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Bone, reversImage, user);
+                    var revers = new BanknotePhoto();
+                    revers.BanknoteId = Bone.Id;
+                    revers.Photo = await UserPhotoServise.CreateImageAsync(_hostingEnv, MyColectionType.Banknote, reversImage, user);
                     revers.IsRevers = true;
-                    Bone.BonePhotos.Add(revers);
+                    Bone.BanknotePhoto.Add(revers);
                 }
             }
 
@@ -143,7 +143,7 @@ namespace SaveMyCollections.Pages.Bones
 
         private bool BoneExists(int id)
         {
-            return (_context.Bones?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Banknotes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

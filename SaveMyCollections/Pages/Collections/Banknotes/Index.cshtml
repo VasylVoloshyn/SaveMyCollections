@@ -94,17 +94,17 @@
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
                 <td>   
-                     @if(item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
+                     @if(item.BanknotePhoto.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
                      {
                         <img style="width:320px; object-fit:cover; border-radius:5px"
-                            src="@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@item.BonePhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
+                            src="@item.BanknotePhoto.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@item.BanknotePhoto.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
                      }
                 </td>
                 <td>                    
-                     @if(item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
+                     @if(item.BanknotePhoto.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
                      {
                         <img style="width:320px; object-fit:cover; border-radius:5px"
-                            src="@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@item.BonePhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
+                            src="@item.BanknotePhoto.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@item.BanknotePhoto.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
                      }
                 </td>
                 <td>

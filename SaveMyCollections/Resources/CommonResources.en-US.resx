@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoneGrades" xml:space="preserve">
-    <value>Bone Grades</value>
+  <data name="BanknoteGrades" xml:space="preserve">
+    <value>Banknote Grades</value>
+  </data>
+  <data name="Banknotes" xml:space="preserve">
+    <value>Banknotes</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>

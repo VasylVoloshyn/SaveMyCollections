@@ -25,20 +25,20 @@ namespace SaveMyCollections.Pages.Grades
         }
 
         [BindProperty]
-        public BoneGrade Grade { get; set; } = default!;
+        public BanknoteGrade Grade { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.BoneGrades == null || Grade == null)
+          if (!ModelState.IsValid || _context.BanknoteGrades == null || Grade == null)
             {
                 return Page();
             }
 
             var user = await _userManager.GetUserAsync(User);
             Grade.User = user;
-            _context.BoneGrades.Add(Grade);
+            _context.BanknoteGrades.Add(Grade);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

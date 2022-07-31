@@ -22,18 +22,18 @@ namespace SaveMyCollections.Pages.Bones
             _userManager = userManager;
         }
 
-      public Bone Bone { get; set; } = default!; 
+      public Banknote Bone { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Bones == null)
+            if (id == null || _context.Banknotes == null)
             {
                 return NotFound();
             }
 
-            var bone = await _context.Bones
+            var bone = await _context.Banknotes
                 .Include(b => b.User)
-                .Include(b => b.BonePhotos)
+                .Include(b => b.BanknotePhoto)
                 .ThenInclude(b => b.Photo)
                 .Include(b => b.Signature)
                 .ThenInclude(b => b.Person)

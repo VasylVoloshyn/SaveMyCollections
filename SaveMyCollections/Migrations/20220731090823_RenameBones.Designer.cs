@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaveMyCollections.Data;
 
@@ -11,9 +12,10 @@ using SaveMyCollections.Data;
 namespace SaveMyCollections.Migrations
 {
     [DbContext(typeof(SaveMyCollectionsContext))]
-    partial class SaveMyCollectionsContextModelSnapshot : ModelSnapshot
+    [Migration("20220731090823_RenameBones")]
+    partial class RenameBones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
