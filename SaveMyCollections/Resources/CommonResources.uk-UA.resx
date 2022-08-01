@@ -291,6 +291,9 @@
     <value>Створити новий акаунт.</value>
     <comment>Areas/Identity/Pages/Account/Register.cshtml</comment>
   </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Створити нову</value>
+  </data>
   <data name="Currencies" xml:space="preserve">
     <value>Валюти</value>
   </data>

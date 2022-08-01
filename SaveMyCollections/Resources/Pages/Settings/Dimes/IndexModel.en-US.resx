@@ -117,103 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
-  </data>
-  <data name="BackToList" xml:space="preserve">
-    <value>Back to list</value>
-  </data>
-  <data name="BanknoteGrades" xml:space="preserve">
-    <value>Banknote Grades</value>
-  </data>
-  <data name="Banknotes" xml:space="preserve">
-    <value>Banknotes</value>
-  </data>
-  <data name="BanknotesCollectionDescription" xml:space="preserve">
-    <value>Here is my banknotes collection.</value>
-  </data>
-  <data name="Code" xml:space="preserve">
-    <value>Code</value>
-  </data>
-  <data name="CoinGrades" xml:space="preserve">
-    <value>Coin Grades</value>
-  </data>
-  <data name="Coins" xml:space="preserve">
-    <value>Coins</value>
-  </data>
-  <data name="CoinsCollectionDescription" xml:space="preserve">
-    <value>Here is my coins collection.</value>
-  </data>
-  <data name="Countries" xml:space="preserve">
-    <value>Countries</value>
-  </data>
-  <data name="Country" xml:space="preserve">
-    <value>Country</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Create</value>
-  </data>
-  <data name="CreateNew" xml:space="preserve">
-    <value>Create new</value>
-  </data>
-  <data name="Currencies" xml:space="preserve">
-    <value>Currencies</value>
-  </data>
-  <data name="Currency" xml:space="preserve">
-    <value>Currency</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Detais" xml:space="preserve">
-    <value>Detail</value>
-  </data>
   <data name="Dimes" xml:space="preserve">
     <value>Dimes</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Hello</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="MyCollections" xml:space="preserve">
-    <value>My Collections</value>
-  </data>
-  <data name="Persons" xml:space="preserve">
-    <value>Persons</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
-  </data>
-  <data name="RoleManager" xml:space="preserve">
-    <value>Role Manager</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Signatures" xml:space="preserve">
-    <value>Signatures</value>
-  </data>
-  <data name="StampGrades" xml:space="preserve">
-    <value>Stamp Grages</value>
-  </data>
-  <data name="Stamps" xml:space="preserve">
-    <value>Stamps</value>
-  </data>
-  <data name="StampsCollectionDescription" xml:space="preserve">
-    <value>Here is my stampscollection.</value>
-  </data>
-  <data name="StampTypes" xml:space="preserve">
-    <value>Stamp Types</value>
-  </data>
-  <data name="UserRoles" xml:space="preserve">
-    <value>User Roles</value>
-  </data>
-  <data name="WikiLink" xml:space="preserve">
-    <value>Wiki Link</value>
+  <data name="PageText" xml:space="preserve">
+    <value>It is a list of dimes. You can add your own one if it is not on this list.</value>
   </data>
 </root>

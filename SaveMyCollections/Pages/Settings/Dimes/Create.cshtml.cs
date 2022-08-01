@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Dimes
+namespace SaveMyCollections.Pages.Settings.Dimes
 {
     [Authorize(Roles = "Basic")]
     public class CreateModel : PageModel

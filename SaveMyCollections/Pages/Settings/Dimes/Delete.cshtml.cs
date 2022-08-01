@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Dimes
+namespace SaveMyCollections.Pages.Settings.Dimes
 {
     [Authorize(Roles = "Basic")]
     public class DeleteModel : PageModel

@@ -1,14 +1,18 @@
 ﻿@page
-@model SaveMyCollections.Pages.Dimes.IndexModel
+@model SaveMyCollections.Pages.Settings.Dimes.IndexModel
+
+@inject CommonLocalizationService commonLocalizer
+@inject IStringLocalizer<IndexModel> localizer
+@inject IHtmlLocalizer<IndexModel> htmlLocalizer
 
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<h1>@localizer["Dimes"]</h1>
+ <p>@htmlLocalizer["PageText"]</p>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">@commonLocalizer.Get("CreateNew")</a>
 </p>
 <table class="table">
     <thead>
@@ -50,12 +54,12 @@
                 <td>
                     @if (item.AllowEdit)
                     {
-                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">@commonLocalizer.Get("Edit")</a>
                     }
-                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">@commonLocalizer.Get("Details")</a>
                     @if (item.AllowEdit)
                     {
-                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">@commonLocalizer.Get("Delete")</a>
                     }
                 </td>
             </tr>
