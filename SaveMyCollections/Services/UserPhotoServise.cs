@@ -53,7 +53,7 @@ namespace SaveMyCollections.Services
             {
                 var directories = Directory.GetDirectories(UserParentDirectory).Count();
                 childDirectory = Path.Combine(UserParentDirectory, (directories - 1).ToString());
-                if (Directory.GetFiles(childDirectory).Count() > 5)
+                if (Directory.GetFiles(childDirectory).Count() > 500)
                 {
                     childDirectory = Path.Combine(UserParentDirectory, directories.ToString());
                     Directory.CreateDirectory(childDirectory);
