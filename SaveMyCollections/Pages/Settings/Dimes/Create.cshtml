@@ -1,13 +1,14 @@
 ﻿@page
 @model SaveMyCollections.Pages.Settings.Dimes.CreateModel
+@inject CommonLocalizationService commonLocalizer
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@commonLocalizer.Get("Create")</h1>
 
-<h4>Dime</h4>
+<h4>@commonLocalizer.Get("Dime")</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,8 +34,8 @@
                 <span asp-validation-for="Dime.WikiLink" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="btn btn-info" asp-page="Index">Back to List</a>
+                <input type="submit" value=@commonLocalizer.Get("Create") class="btn btn-primary" />
+                <a class="btn btn-info" asp-page="Index">@commonLocalizer.Get("BackToList")</a>
             </div>
         </form>
     </div>
