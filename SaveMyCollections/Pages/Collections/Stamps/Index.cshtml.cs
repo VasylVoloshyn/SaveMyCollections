@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Stamps
+namespace SaveMyCollections.Pages.Collections.Stamps
 {
     public class IndexModel : PageModel
     {

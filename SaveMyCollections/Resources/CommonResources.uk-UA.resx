@@ -455,6 +455,9 @@
     <value>Неприпустимий токен.</value>
     <comment>Identity: InvalidToken</comment>
   </data>
+  <data name="IsCancelated" xml:space="preserve">
+    <value>Гашена</value>
+  </data>
   <data name="IsValid(object value) has not been implemented by this class.  The preferred entry point is GetValidationResult() and classes should override IsValid(object value, ValidationContext context)." xml:space="preserve">
     <value>IsValid (значення об'єкта) не був реалізований цим класом. Пріоритетна точка входу GetValidationResult () і класи повинні перевизначити IsValid (значення об'єкта, ValidationContext контекст).</value>
     <comment>DataAnnotations: ValidationAttribute_IsValid_NotImplemented</comment>
@@ -581,6 +584,9 @@
   </data>
   <data name="Persons" xml:space="preserve">
     <value>Персони</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фотографія</value>
   </data>
   <data name="Please check your email to reset your password." xml:space="preserve">
     <value>Будь ласка, перевірте свою електронну пошту для скидання пароля.</value>

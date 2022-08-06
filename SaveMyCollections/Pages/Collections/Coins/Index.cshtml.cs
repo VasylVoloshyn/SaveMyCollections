@@ -6,7 +6,7 @@ using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 using SaveMyCollections.Services;
 
-namespace SaveMyCollections.Pages.Coins
+namespace SaveMyCollections.Pages.Collections.Coins
 {
     public class IndexModel : PageModel
     {
@@ -47,7 +47,7 @@ namespace SaveMyCollections.Pages.Coins
             }
 
             CurrentFilter = searchString;
-            ViewData["CurrencyId"] = new SelectList(_context.Dimes, "Id", "Code", CurrentFilter);
+            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Name", CurrentFilter);
 
             var user = await _userManager.GetUserAsync(User);
             var userId = user?.Id;

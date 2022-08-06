@@ -110,6 +110,12 @@
     <EmbeddedResource Update="Resources\Pages\Collections\Banknotes\IndexModel.en-US.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\Collections\Coins\IndexModel.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\Collections\Stamps\IndexModel.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Pages\IndexModel.en-US.resx">
       <Generator></Generator>
     </EmbeddedResource>
