@@ -217,6 +217,12 @@
     <value>Зв'яжіть ваш {0} обліковий запис.</value>
     <comment>Areas/Identity/Pages/Account/ExternalLogin.cshtml</comment>
   </data>
+  <data name="Avers" xml:space="preserve">
+    <value>Фотографія лицьової сторони</value>
+  </data>
+  <data name="BackToFullList" xml:space="preserve">
+    <value>Повернутись до повного спису</value>
+  </data>
   <data name="BackToList" xml:space="preserve">
     <value>Повернутися до списку</value>
   </data>
@@ -411,6 +417,9 @@
     <value>Google Authenticator для &lt;a href="{3}"&gt; Android &lt;/a&gt; и &lt;a href="{4}"&gt; iOS&lt;/a&gt;.</value>
     <comment>Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml</comment>
   </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Якість</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Привіт</value>
   </data>
@@ -513,6 +522,15 @@
     <value>Ім'я</value>
     <comment>DataAnnotations: Custom value</comment>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Наступна</value>
+  </data>
+  <data name="Nominal" xml:space="preserve">
+    <value>Номінал</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примітка</value>
+  </data>
   <data name="Once you have scanned the QR code or input the key above, your two factor authentication app will provide you with a unique code. Enter the code in the confirmation box below." xml:space="preserve">
     <value>Після того, як ви зісканували QR-код або ввели ключ вище, додаток двофакторної аутентифікації надасть вам унікальний код. Введіть код в поле підтвердження нижче.</value>
     <comment>Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml</comment>
@@ -579,6 +597,9 @@
   <data name="Please reset your password by &lt;a href='{0}'&gt;clicking here&lt;/a&gt;." xml:space="preserve">
     <value>Скиньте пароль, &lt;a href='{0}'&gt; натиснувши тут &lt;/a&gt;.</value>
     <comment>Custom back end message</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Попередня</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Ціна</value>
@@ -660,6 +681,9 @@
     <value>Скинути пароль.</value>
     <comment>Areas/Identity/Pages/Account/ResetPassword.cshtml</comment>
   </data>
+  <data name="Revers" xml:space="preserve">
+    <value>Фотографія зворотної сторони</value>
+  </data>
   <data name="Role name '{0}' is already taken." xml:space="preserve">
     <value>Ім'я ролі '{0}' вже зайнято.</value>
     <comment>Identity: DuplicateRoleName</comment>
@@ -679,6 +703,9 @@
     <value>Зберегти</value>
     <comment>Areas/Identity/Pages/Account/Manage/Index.cshtml</comment>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
   <data name="Send verification email" xml:space="preserve">
     <value>Надіслати лист із підтвердженням</value>
     <comment>Areas/Identity/Pages/Account/Manage/Index.cshtml</comment>
@@ -694,6 +721,9 @@
     <value>Налаштування програми автентифікатора</value>
     <comment>Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml</comment>
   </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Підпис</value>
+  </data>
   <data name="Signatures" xml:space="preserve">
     <value>Підписи</value>
   </data>
@@ -708,6 +738,9 @@
   </data>
   <data name="StampTypes" xml:space="preserve">
     <value>Типи Марок</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Надіслати</value>
@@ -1020,6 +1053,9 @@
   </data>
   <data name="WikiLink" xml:space="preserve">
     <value>Посилання Wiki</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Рік</value>
   </data>
   <data name="You do not have a local username/password for this site. Add a local account so you can log in without an external login." xml:space="preserve">
     <value>У вас немає локального імені користувача / пароля для цього сайту. Додайте 

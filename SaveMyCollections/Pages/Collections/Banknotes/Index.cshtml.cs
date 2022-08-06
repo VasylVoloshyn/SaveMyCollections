@@ -11,7 +11,7 @@ using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 using SaveMyCollections.Services;
 
-namespace SaveMyCollections.Pages.Bones
+namespace SaveMyCollections.Pages.Collections.Banknotes
 {
     public class IndexModel : PageModel
     {
@@ -51,7 +51,7 @@ namespace SaveMyCollections.Pages.Bones
             }
 
             CurrentFilter = searchString;
-            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code", CurrentFilter);
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Name", CurrentFilter);
 
             var user = await _userManager.GetUserAsync(User);
             var userId = user?.Id;

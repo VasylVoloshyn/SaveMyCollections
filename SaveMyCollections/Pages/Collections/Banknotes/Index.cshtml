@@ -1,27 +1,29 @@
 ﻿@page
-@model SaveMyCollections.Pages.Bones.IndexModel
+@model SaveMyCollections.Pages.Collections.Banknotes.IndexModel
+@inject CommonLocalizationService commonLocalizer
+@inject IStringLocalizer<IndexModel> localizer
+
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Bones Collection</h1>
+<h1>@localizer["BanknoteCollection"]</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">@commonLocalizer.Get("CreateNew")</a>
 </p>
 
 
 <form asp-page="./Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find by currency:
+            @localizer["FindByCurrency"]
             <select name="SearchString" class ="form-control" asp-items="ViewBag.CurrencyId">
-                <option value="">-- Select Currency --</option>
+                <option value="">@localizer["SelectCurrency"]</option>
             </select>
-            <input type="submit" value="Search" class="btn btn-primary" /> |
-           
-            <a asp-page="./Index">Back to full List</a>
+            <input type="submit" value=@commonLocalizer.Get("Search") class="btn btn-primary" />      
+            <a class="btn btn-info" asp-page="./Index">@commonLocalizer.Get("BackToFullList")</a>
         </p>
     </div>
 </form>
@@ -60,10 +62,10 @@
                 @Html.DisplayNameFor(model => model.Bone[0].Note)
             </th>
             <th>
-                @Html.DisplayName("Avers")
+                @Html.DisplayName(commonLocalizer.Get("Avers"))
             </th>
             <th>
-                @Html.DisplayName("Revers")
+                @Html.DisplayName(commonLocalizer.Get("Revers"))
             </th>
             <th></th>
         </tr>
@@ -110,12 +112,12 @@
                 <td>
                     @if (item.AllowEdit)
                     {
-                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">@commonLocalizer.Get("Edit")</a>
                     }
-                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">@commonLocalizer.Get("Details")</a>
                     @if (item.AllowEdit)
                     {
-                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">@commonLocalizer.Get("Delete")</a>
                     }
                 </td>
             </tr>
@@ -133,12 +135,12 @@
    asp-route-pageIndex="@(Model.Bone.PageIndex - 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
    class="btn btn-primary @prevDisabled">
-    Previous
+    @commonLocalizer.Get("Previous")
 </a>
 <a asp-page="./Index"
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.Bone.PageIndex + 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
    class="btn btn-primary @nextDisabled">
-    Next
+    @commonLocalizer.Get("Next")
 </a>
