@@ -246,6 +246,9 @@
   <data name="Select Grade" xml:space="preserve">
     <value>Select Grade</value>
   </data>
+  <data name="SelectDime" xml:space="preserve">
+    <value>Select Dime</value>
+  </data>
   <data name="SelectSignature" xml:space="preserve">
     <value>Select Signature</value>
   </data>

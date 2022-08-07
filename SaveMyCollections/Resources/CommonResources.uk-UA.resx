@@ -724,6 +724,9 @@
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
+  <data name="SelectDime" xml:space="preserve">
+    <value>Виберіть копійку</value>
+  </data>
   <data name="SelectGrade" xml:space="preserve">
     <value>Виберіть якість</value>
   </data>

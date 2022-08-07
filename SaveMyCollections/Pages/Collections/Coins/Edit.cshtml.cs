@@ -52,8 +52,8 @@ namespace SaveMyCollections.Pages.Coins
             Coin = coin;
             
 
-            ViewData["CoinGradeId"] = new SelectList(_context.CoinGrades, "Id", "Code");
-            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
+            ViewData["CoinGradeId"] = new SelectList(_context.CoinGrades, "Id", "Name");
+            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Name");
             return Page();
         }
 

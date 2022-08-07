@@ -16,7 +16,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Coin.DimeId" class="control-label"></label>
-                <select asp-for="Coin.DimeId" class ="form-control" asp-items="ViewBag.DimeId"></select>
+                <select asp-for="Coin.DimeId" class ="form-control" asp-items="ViewBag.DimeId">
+                    <option value="">@commonLocalizer.Get("SelectDime")</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Coin.Nominal" class="control-label"></label>
@@ -30,7 +32,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Coin.CoinGradeId" class="control-label"></label>
-                <select asp-for="Coin.CoinGradeId" class ="form-control" asp-items="ViewBag.CoinGradeId"></select>
+                <select asp-for="Coin.CoinGradeId" class ="form-control" asp-items="ViewBag.CoinGradeId">
+                    <option value="">@commonLocalizer.Get("SelectGrade")</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Coin.Price" class="control-label"></label>

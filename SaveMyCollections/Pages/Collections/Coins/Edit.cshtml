@@ -17,7 +17,9 @@
             <input type="hidden" asp-for="Coin.Id" />
             <div class="form-group">
                 <label asp-for="Coin.DimeId" class="control-label"></label>
-                <select asp-for="Coin.DimeId" class="form-control" asp-items="ViewBag.DimeId"></select>
+                <select asp-for="Coin.DimeId" class="form-control" asp-items="ViewBag.DimeId">
+                    <option value="">@commonLocalizer.Get("SelectDime")</option>
+                </select>
                 <span asp-validation-for="Coin.DimeId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,7 +34,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Coin.CoinGradeId" class="control-label"></label>
-                <select asp-for="Coin.CoinGradeId" class="form-control" asp-items="ViewBag.CoinGradeId"></select>
+                <select asp-for="Coin.CoinGradeId" class="form-control" asp-items="ViewBag.CoinGradeId">
+                    <option value="">@commonLocalizer.Get("SelectGrade")</option>
+                </select>
                 <span asp-validation-for="Coin.CoinGradeId" class="text-danger"></span>
             </div>
             <div class="form-group">
