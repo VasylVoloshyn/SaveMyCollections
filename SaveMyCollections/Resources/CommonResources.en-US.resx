@@ -153,6 +153,9 @@
   <data name="Code" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="Coin" xml:space="preserve">
+    <value>Coin</value>
+  </data>
   <data name="CoinGrades" xml:space="preserve">
     <value>Coin Grades</value>
   </data>

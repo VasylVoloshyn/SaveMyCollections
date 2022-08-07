@@ -1,13 +1,14 @@
 ﻿@page
 @model SaveMyCollections.Pages.Coins.CreateModel
+@inject CommonLocalizationService commonLocalizer
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@commonLocalizer.Get("Create")</h1>
 
-<h4>Coin</h4>
+<h4>@commonLocalizer.Get("Coin")</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,16 +43,16 @@
                 <span asp-validation-for="Coin.Note" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label"> Avers</label>
+                <label class="control-label">@commonLocalizer.Get("Avers")</label>
                 <input type="file" name="aversImage" class="form-control" />
             </div>
             <div class="form-group">
-                <label class="control-label"> Revers</label>
+                <label class="control-label">@commonLocalizer.Get("Revers")</label>
                 <input type="file" name="reversImage" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="btn btn-info" asp-page="Index">Back to List</a>
+                <input type="submit" value=@commonLocalizer.Get("Create") class="btn btn-primary" />
+                <a class="btn btn-info" asp-page="Index">@commonLocalizer.Get("BackToList")</a>
             </div>
         </form>
     </div>

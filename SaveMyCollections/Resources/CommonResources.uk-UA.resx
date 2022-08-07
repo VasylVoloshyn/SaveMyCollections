@@ -263,6 +263,9 @@
   <data name="Code" xml:space="preserve">
     <value>Код</value>
   </data>
+  <data name="Coin" xml:space="preserve">
+    <value>Монета</value>
+  </data>
   <data name="CoinGrades" xml:space="preserve">
     <value>Якість Копійок</value>
   </data>
