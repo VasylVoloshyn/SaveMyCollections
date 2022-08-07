@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaveMyCollections.Data;
 
@@ -11,9 +12,10 @@ using SaveMyCollections.Data;
 namespace SaveMyCollections.Migrations
 {
     [DbContext(typeof(SaveMyCollectionsContext))]
-    partial class SaveMyCollectionsContextModelSnapshot : ModelSnapshot
+    [Migration("20220807171804_addBanknoteIndex")]
+    partial class addBanknoteIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,8 +276,6 @@ namespace SaveMyCollections.Migrations
                     b.HasIndex("GradeID");
 
                     b.HasIndex("SignatureId");
-
-                    b.HasIndex("UserId", "CurrencyId");
 
                     b.HasIndex("UserId", "Id");
 

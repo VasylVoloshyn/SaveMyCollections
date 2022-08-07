@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SaveMyCollections.Models
 {    
     [Table("Banknote",Schema = "dbo")]
+    [Index("UserId",nameof(Id))]
+    [Index("UserId", nameof(CurrencyId))]
     public class Banknote
     {
         [Key]
