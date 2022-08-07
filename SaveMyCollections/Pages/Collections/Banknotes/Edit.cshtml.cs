@@ -50,10 +50,14 @@ namespace SaveMyCollections.Pages.Bones
                 return RedirectToPage("/General/AccessDenied");
             }
             Bone = bone;
+
+            var signatures = _context.Signatures.Include(s => s.Person)
+                .Select(c=> new { id = c.Id , personName = string.Format("{0} {1}",c.Person.Name, c.Person.FamilyName)});
             
-            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
-            ViewData["GradeID"] = new SelectList(_context.BanknoteGrades, "Id", "Code");
-            ViewData["SignatureId"] = new SelectList(_context.Signatures, "Id", "Id");
+            
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Name");
+            ViewData["GradeID"] = new SelectList(_context.BanknoteGrades, "Id", "Name");
+            ViewData["SignatureId"] = new SelectList(signatures, "id", "personName");
             return Page();
         }
 

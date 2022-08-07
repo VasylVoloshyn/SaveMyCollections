@@ -243,6 +243,12 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Select Grade" xml:space="preserve">
+    <value>Select Grade</value>
+  </data>
+  <data name="SelectSignature" xml:space="preserve">
+    <value>Select Signature</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>

@@ -31,13 +31,13 @@
             <div class="form-group">
                 <label asp-for="Bone.Signature" class="control-label"> </label>
                 <select asp-for="Bone.SignatureId" class ="form-control" asp-items="ViewBag.SignatureId">
-                    <option value="">-- Select Signature --</option>
+                    <option value="">@commonLocalizer.Get("SelectSignature")</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Bone.Grade" class="control-label"></label>
                 <select asp-for="Bone.GradeID" class ="form-control" asp-items="ViewBag.GradeID">
-                    <option value="">-- Select Grade --</option>
+                    <option value="">@commonLocalizer.Get("SelectGrade")</option>
                 </select>
             </div>
             <div class="form-group">

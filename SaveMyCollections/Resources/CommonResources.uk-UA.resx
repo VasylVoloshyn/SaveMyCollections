@@ -724,6 +724,12 @@
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
+  <data name="SelectGrade" xml:space="preserve">
+    <value>Виберіть якість</value>
+  </data>
+  <data name="SelectSignature" xml:space="preserve">
+    <value>Виберіть підпис</value>
+  </data>
   <data name="Send verification email" xml:space="preserve">
     <value>Надіслати лист із підтвердженням</value>
     <comment>Areas/Identity/Pages/Account/Manage/Index.cshtml</comment>

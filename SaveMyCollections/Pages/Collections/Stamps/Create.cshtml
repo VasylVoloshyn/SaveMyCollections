@@ -1,13 +1,14 @@
 ﻿@page
 @model SaveMyCollections.Pages.Stamps.CreateModel
+@inject CommonLocalizationService commonLocalizer
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@commonLocalizer.Get("Create")</h1>
 
-<h4>Stamp</h4>
+<h4>@commonLocalizer.Get("Stamp")</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -61,12 +62,12 @@
                 <span asp-validation-for="Stamp.Note" class="text-danger"></span>
             </div>
              <div class="form-group">
-                <label class="control-label"> Stamp Photo</label>
+                <label class="control-label">@commonLocalizer.Get("Photo")</label>
                 <input type="file" name="stampImage" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="btn btn-info" asp-page="Index">Back to List</a>
+                <input type="submit" value=@commonLocalizer.Get("Create") class="btn btn-primary" />
+                <a class="btn btn-info" asp-page="Index">@commonLocalizer.Get("BackToList")</a>
             </div>
         </form>
     </div>
