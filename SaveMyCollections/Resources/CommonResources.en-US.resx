@@ -132,6 +132,9 @@
   <data name="BackToList" xml:space="preserve">
     <value>Back to list</value>
   </data>
+  <data name="Banknote" xml:space="preserve">
+    <value>Banknote</value>
+  </data>
   <data name="BanknoteGrades" xml:space="preserve">
     <value>Banknote Grades</value>
   </data>
@@ -140,6 +143,12 @@
   </data>
   <data name="BanknotesCollectionDescription" xml:space="preserve">
     <value>Here is my banknotes collection.</value>
+  </data>
+  <data name="ChangeAvers" xml:space="preserve">
+    <value>Change photo of the front side</value>
+  </data>
+  <data name="ChangeRevers" xml:space="preserve">
+    <value>Change photo of the reverse side</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>

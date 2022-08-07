@@ -226,6 +226,9 @@
   <data name="BackToList" xml:space="preserve">
     <value>Повернутися до списку</value>
   </data>
+  <data name="Banknote" xml:space="preserve">
+    <value>Банкнота</value>
+  </data>
   <data name="BanknoteGrades" xml:space="preserve">
     <value>Якість Банкнот</value>
   </data>
@@ -250,6 +253,12 @@
   <data name="Change your account settings" xml:space="preserve">
     <value>Зміна параметрів облікового запису</value>
     <comment>Areas/Identity/Pages/Account/Manage/_Layout.cshtml</comment>
+  </data>
+  <data name="ChangeAvers" xml:space="preserve">
+    <value>Змінити фотографію лицьової сторони</value>
+  </data>
+  <data name="ChangeRevers" xml:space="preserve">
+    <value>Змінити фотографію зворотної сторони</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Код</value>
