@@ -147,6 +147,9 @@
   <data name="ChangeAvers" xml:space="preserve">
     <value>Change photo of the front side</value>
   </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Change Photo</value>
+  </data>
   <data name="ChangeRevers" xml:space="preserve">
     <value>Change photo of the reverse side</value>
   </data>
@@ -246,6 +249,12 @@
   <data name="Select Grade" xml:space="preserve">
     <value>Select Grade</value>
   </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Select Country</value>
+  </data>
+  <data name="SelectCurrency" xml:space="preserve">
+    <value>Select Currency</value>
+  </data>
   <data name="SelectDime" xml:space="preserve">
     <value>Select Dime</value>
   </data>
@@ -260,6 +269,9 @@
   </data>
   <data name="Signatures" xml:space="preserve">
     <value>Signatures</value>
+  </data>
+  <data name="Stamp" xml:space="preserve">
+    <value>Stamp</value>
   </data>
   <data name="StampGrades" xml:space="preserve">
     <value>Stamp Grages</value>

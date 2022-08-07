@@ -17,19 +17,19 @@
             <div class="form-group">
                 <label asp-for="Stamp.CountryId" class="control-label"></label>
                 <select asp-for="Stamp.CountryId" class ="form-control" asp-items="ViewBag.CountryId">
-                    <option value="">-- Select Country --</option>
+                    <option value="">@commonLocalizer.Get("SelectCountry")</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.CurrencyId" class="control-label"></label>
                 <select asp-for="Stamp.CurrencyId" class ="form-control" asp-items="ViewBag.CurrencyId">
-                    <option value="">-- Select Currency --</option>
+                    <option value="">@commonLocalizer.Get("SelectCurrency")</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.DimeId" class="control-label"></label>
                 <select asp-for="Stamp.DimeId" class ="form-control" asp-items="ViewBag.DimeId">
-                    <option value="">-- Select Dime --</option>
+                    <option value="">@commonLocalizer.Get("SelectDime")</option>
                 </select>
             </div>
             <div class="form-group">
@@ -49,7 +49,9 @@
             </div>            
             <div class="form-group">
                 <label asp-for="Stamp.StampGradeId" class="control-label"></label>
-                <select asp-for="Stamp.StampGradeId" class ="form-control" asp-items="ViewBag.StampGradeId"></select>
+                <select asp-for="Stamp.StampGradeId" class ="form-control" asp-items="ViewBag.StampGradeId">
+                    <option value="">@commonLocalizer.Get("SelectGrade")</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Stamp.Price" class="control-label"></label>

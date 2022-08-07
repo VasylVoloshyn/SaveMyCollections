@@ -56,9 +56,9 @@ namespace SaveMyCollections.Pages.Stamps
 
             Stamp = stamp;
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
-            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Code");
-            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Code");
-            ViewData["StampGradeId"] = new SelectList(_context.StampGrades, "Id", "Code");
+            ViewData["CurrencyId"] = new SelectList(_context.Currencies, "Id", "Name");
+            ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Name");
+            ViewData["StampGradeId"] = new SelectList(_context.StampGrades, "Id", "Name");
             return Page();
         }
 

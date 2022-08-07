@@ -257,6 +257,9 @@
   <data name="ChangeAvers" xml:space="preserve">
     <value>Змінити фотографію лицьової сторони</value>
   </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Змініть фотографію</value>
+  </data>
   <data name="ChangeRevers" xml:space="preserve">
     <value>Змінити фотографію зворотної сторони</value>
   </data>
@@ -724,6 +727,12 @@
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
+  <data name="SelectCountry" xml:space="preserve">
+    <value>Виберіть країну</value>
+  </data>
+  <data name="SelectCurrency" xml:space="preserve">
+    <value>Виберіть валюту</value>
+  </data>
   <data name="SelectDime" xml:space="preserve">
     <value>Виберіть копійку</value>
   </data>
@@ -753,6 +762,9 @@
   </data>
   <data name="Signatures" xml:space="preserve">
     <value>Підписи</value>
+  </data>
+  <data name="Stamp" xml:space="preserve">
+    <value>Марка</value>
   </data>
   <data name="StampGrades" xml:space="preserve">
     <value>Якість Марок</value>
