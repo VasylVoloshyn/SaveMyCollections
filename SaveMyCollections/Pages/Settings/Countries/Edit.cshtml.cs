@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SaveMyCollections.Data;
 using SaveMyCollections.Models;
 
-namespace SaveMyCollections.Pages.Countries
+namespace SaveMyCollections.Pages.Settings.Countries
 {
     [Authorize(Roles = "Basic")]
     public class EditModel : PageModel

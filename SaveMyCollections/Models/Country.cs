@@ -10,10 +10,13 @@ namespace SaveMyCollections.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Code")]
         public string Code { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name = "Name")]
         public string Name { get; set; } = string.Empty;
+        [Display(Name = "WikiLink")]
         public string? WikiLink { get; set; } = null;
         public ApplicationUser? User { get; set; } = null;
         [NotMapped]
