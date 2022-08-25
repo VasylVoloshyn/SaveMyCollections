@@ -18,7 +18,7 @@ namespace SaveMyCollections.Services
             var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             var newFilePath = Path.Combine(childDirectory, newFileName);
 
-            int quality = 100;
+            int quality = 80;
             var format = new JpegFormat(); 
 
             using (var memoryStream = new MemoryStream())
