@@ -79,8 +79,10 @@ namespace SaveMyCollections.Services
         public static Task DeletePhotoAsync(IWebHostEnvironment _hostingEnv, UserPhoto photo)
         {
             var filePath = Path.Combine(_hostingEnv.WebRootPath, photo.FileLocation.Substring(1), photo.FileName);
+            var prevFilePath = Path.Combine(_hostingEnv.WebRootPath, photo.FileLocation.Substring(1), photo.PrevFileName);
             return Task.Run(() =>
             {
+                File.Delete(prevFilePath);
                 File.Delete(filePath);
             });
         }
