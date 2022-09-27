@@ -12,6 +12,8 @@ namespace SaveMyCollections.Models
         [Required]
         public string FileName { get; set; } = string.Empty;
         [Required]
+        public string PrevFileName { get; set; } = string.Empty;
+        [Required]
         public string FileExtension { get; set; } = string.Empty;
         [Required]
         public string FileLocation { get; set; } = string.Empty;

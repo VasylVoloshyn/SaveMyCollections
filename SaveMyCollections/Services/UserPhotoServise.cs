@@ -16,7 +16,9 @@ namespace SaveMyCollections.Services
         {
             var childDirectory = GetPath(_hostingEnv, type, user);            
             var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var prevFileName = "prev_" + newFileName;
             var newFilePath = Path.Combine(childDirectory, newFileName);
+            var prevNewFilePath = Path.Combine(childDirectory, prevFileName);
 
             int quality = 80;
             var format = new JpegFormat(); 
@@ -32,11 +34,18 @@ namespace SaveMyCollections.Services
                         .Format(format)
                         .Quality(quality)
                         .Save(newFilePath);
+
+                    imageFactory.Load(memoryStream.ToArray()).
+                        Resize(new ResizeLayer(new Size(320, 180), resizeMode: ResizeMode.Max))
+                        .Format(format)
+                        .Quality(quality)
+                        .Save(prevNewFilePath);
                 }
             }
             
             var photo = new UserPhoto();
             photo.FileName = newFileName;
+            photo.PrevFileName = prevFileName;
             photo.FileExtension = Path.GetExtension(newFileName);
             photo.FileLocation = childDirectory.Substring(_hostingEnv.WebRootPath.Length);
             photo.Size = file.Length;
