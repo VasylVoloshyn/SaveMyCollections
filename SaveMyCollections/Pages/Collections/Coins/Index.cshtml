@@ -52,7 +52,7 @@
                 @Html.DisplayNameFor(model => model.Coin[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Coin[0].Note)
+                @Html.DisplayNameFor(model => model.Coin[0].Name)
             </th>
             <th>
                 @Html.DisplayName(commonLocalizer.Get("Avers"))
@@ -82,19 +82,19 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Note)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                     @if(item.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo != null)
                      {
-                        <img style="width:320px; object-fit:cover; border-radius:5px"
+                        <img style="object-fit:cover; border-radius:5px"
                             src="@item.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@item.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.PrevFileName">
                      }
                 </td>
                 <td>
                     @if(item.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo != null)
                      {
-                        <img style="width:320px; object-fit:cover; border-radius:5px"
+                        <img style="object-fit:cover; border-radius:5px"
                             src="@item.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@item.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.PrevFileName">
                      }
                     

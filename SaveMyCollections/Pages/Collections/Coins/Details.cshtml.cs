@@ -33,6 +33,7 @@ namespace SaveMyCollections.Pages.Coins
                 .Include(c => c.CoinPhotos)
                 .ThenInclude(c => c.Photo)
                 .Include(c => c.CoinGrade)
+                .Include(c => c.CoinMaterial)
                 .Include(c => c.Dime)
                 .ThenInclude(b => b.Country)
                 .FirstOrDefaultAsync(m => m.Id == id);

@@ -54,6 +54,7 @@ namespace SaveMyCollections.Pages.Coins
 
             ViewData["CoinGradeId"] = new SelectList(_context.CoinGrades, "Id", "Name");
             ViewData["DimeId"] = new SelectList(_context.Dimes, "Id", "Name");
+            ViewData["MaterialId"] = new SelectList(_context.Materials, "Id", "Name");
             return Page();
         }
 

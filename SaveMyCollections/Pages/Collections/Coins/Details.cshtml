@@ -31,6 +31,18 @@
             @Html.DisplayFor(model => model.Coin.Year)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.FirstDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.FirstDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.CoinMaterial)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.CoinMaterial.Name)
+        </dd>        
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Coin.CoinGrade)
         </dt>
         <dd class="col-sm-10">
@@ -41,6 +53,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Coin.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Description)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Coin.Note)

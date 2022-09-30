@@ -33,6 +33,18 @@
                 <span asp-validation-for="Coin.Year" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Coin.FirstDate" class="control-label"></label>
+                <input asp-for="Coin.FirstDate" class="form-control" />
+                <span asp-validation-for="Coin.FirstDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coin.CoinMaterialId" class="control-label"></label>
+                <select asp-for="Coin.CoinMaterialId" class="form-control" asp-items="ViewBag.MaterialId">
+                    <option value="">@commonLocalizer.Get("SelectMaterial")</option>
+                </select>
+                <span asp-validation-for="Coin.CoinMaterialId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Coin.CoinGradeId" class="control-label"></label>
                 <select asp-for="Coin.CoinGradeId" class="form-control" asp-items="ViewBag.CoinGradeId">
                     <option value="">@commonLocalizer.Get("SelectGrade")</option>
@@ -43,6 +55,16 @@
                 <label asp-for="Coin.Price" class="control-label"></label>
                 <input asp-for="Coin.Price" class="form-control" />
                 <span asp-validation-for="Coin.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coin.Name" class="control-label"></label>
+                <input asp-for="Coin.Name" class="form-control" />
+                <span asp-validation-for="Coin.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coin.Description" class="control-label"></label>
+                <input asp-for="Coin.Description" class="form-control" />
+                <span asp-validation-for="Coin.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Coin.Note" class="control-label"></label>
