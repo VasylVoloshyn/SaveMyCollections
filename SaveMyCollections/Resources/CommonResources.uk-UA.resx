@@ -521,6 +521,12 @@
     <value>Управління зовнішніми логінами</value>
     <comment>Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml</comment>
   </data>
+  <data name="Material" xml:space="preserve">
+    <value>Матеріал</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Матеріали</value>
+  </data>
   <data name="MaxLengthAttribute must have a Length value that is greater than zero. Use MaxLength() without parameters to indicate that the string or array can have the maximum allowable length." xml:space="preserve">
     <value>MaxLengthAttribute повинен мати значення довжини, яке більше нуля. Використовуйте MaxLength () без параметрів, щоб вказати, що рядок або масив може мати максимально допустиму довжину.</value>
     <comment>DataAnnotations: MaxLengthAttribute_InvalidMaxLength</comment>

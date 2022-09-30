@@ -1,0 +1,50 @@
+﻿@page
+@model SaveMyCollections.Pages.Settings.Materials.IndexModel
+@inject CommonLocalizationService commonLocalizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr  class="row">
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Materials[0].Code)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Materials[0].Name)
+            </th>
+            <th class="col-md-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Materials)
+        {
+            <tr class="row">
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="col-md-3">
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.Id">@commonLocalizer.Get("Edit")</a>
+                    }
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.Id">@commonLocalizer.Get("Details")</a>
+                    @if (item.AllowEdit)
+                    {
+                        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.Id">@commonLocalizer.Get("Delete")</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

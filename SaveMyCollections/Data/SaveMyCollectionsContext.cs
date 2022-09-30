@@ -28,6 +28,7 @@ namespace SaveMyCollections.Data
         public DbSet<CoinPhoto> CoinPhotos { get; set; } = null!;
         public DbSet<CoinGrade> CoinGrades { get; set; } = null!;
         public DbSet<Coin> Coins { get; set; } = null!;
+        public DbSet<Material> Materials { get;set; } = null!;
         #endregion Coins
 
         #region Stamps

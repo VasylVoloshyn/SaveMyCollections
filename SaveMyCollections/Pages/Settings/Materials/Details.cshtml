@@ -1,0 +1,35 @@
+﻿@page
+@model SaveMyCollections.Pages.Settings.Materials.DetailsModel
+@inject CommonLocalizationService commonLocalizer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@commonLocalizer.Get("Details")</h1>
+
+<div>
+    <h4>@commonLocalizer.Get("Material")</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Material.Code)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Material.Code)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Material.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Material.Name)
+        </dd>        
+    </dl>
+</div>
+<div>
+    @if (Model.Material.AllowEdit)
+    {
+        <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Material?.Id">@commonLocalizer.Get("Edit")</a>
+    }
+    <a class="btn btn-info" asp-page="./Index">@commonLocalizer.Get("BackToList")</a>
+</div>

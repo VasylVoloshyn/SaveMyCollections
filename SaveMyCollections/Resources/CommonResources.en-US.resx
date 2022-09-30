@@ -213,6 +213,12 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
   <data name="MyCollections" xml:space="preserve">
     <value>My Collections</value>
   </data>
