@@ -120,6 +120,9 @@
   <data name="CoinCollection" xml:space="preserve">
     <value>Колекція монет</value>
   </data>
+  <data name="Commemorative" xml:space="preserve">
+    <value>Пам'ятна</value>
+  </data>
   <data name="FindByDime" xml:space="preserve">
     <value>Знайти за копійкою</value>
   </data>

@@ -43,6 +43,12 @@
             @Html.DisplayFor(model => model.Coin.CoinMaterial.Name)
         </dd>        
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Coin.Commemorative)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Coin.Commemorative)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Coin.CoinGrade)
         </dt>
         <dd class="col-sm-10">
@@ -76,7 +82,7 @@
             @Html.DisplayName(commonLocalizer.Get("Avers"))
         </dt>
         <dd class="col-sm-10">
-            <img style="width:800px; object-fit:cover; border-radius:5px"
+            <img style="object-fit:cover; border-radius:5px"
                  src="@Model.Coin.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileLocation\@Model.Coin.CoinPhotos.Where(b=>b.IsAvers).FirstOrDefault()?.Photo?.FileName">
             
         </dd>
@@ -84,7 +90,7 @@
             @Html.DisplayName(commonLocalizer.Get("Revers"))
         </dt>
         <dd class="col-sm-10">
-            <img style="width:800px; object-fit:cover; border-radius:5px"
+            <img style="object-fit:cover; border-radius:5px"
                  src="@Model.Coin.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileLocation\@Model.Coin.CoinPhotos.Where(b=>b.IsRevers).FirstOrDefault()?.Photo?.FileName">
         </dd>
     </dl>

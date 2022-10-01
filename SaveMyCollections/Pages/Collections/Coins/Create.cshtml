@@ -47,6 +47,11 @@
                     <option value="">@commonLocalizer.Get("SelectGrade")</option>
                 </select>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Coin.Commemorative" /> @Html.DisplayNameFor(model => model.Coin.Commemorative)
+                </label>
+            </div>
             <div class="form-group">
                 <label asp-for="Coin.Price" class="control-label"></label>
                 <input asp-for="Coin.Price" class="form-control" />
