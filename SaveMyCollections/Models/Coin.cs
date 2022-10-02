@@ -31,6 +31,7 @@ namespace SaveMyCollections.Models
         public bool Commemorative { get; set; } = false;
 
         [Display(Name = "FirstDate")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? FirstDate { get; set; } = null!;
 
         [Display(Name = "Name")]
